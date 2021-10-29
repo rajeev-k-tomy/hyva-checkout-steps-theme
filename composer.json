@@ -1,0 +1,30 @@
+{
+  "name": "hyva-themes/magento2-hyva-checkout",
+  "description": "Highly customizable Magento 2 Checkout, Headless, built with React",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-catalog": ">=103.0.0",
+    "magento/module-checkout": ">=100.3.0",
+    "magento/module-customer": ">=102.0.0",
+    "hyva-themes/magento2-graphql-tokens": "^1.0"
+  },
+  "suggest": {
+    "hyva-themes/magento2-graphql-tokens": "*"
+  },
+  "authors": [{
+    "name": "Hyvä Themes BV",
+    "email": "info@hyva.io"
+  }],
+  "license": [
+      "BSD-3-Clause"
+  ],
+  "autoload": {
+    "files": [
+      "src/registration.php"
+    ],
+    "psr-4": {
+      "Hyva\\Checkout\\": "src/"
+    }
+  }
+}
