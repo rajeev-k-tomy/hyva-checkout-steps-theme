@@ -39,6 +39,10 @@ function prepareFormValidationSchema(sections, sectionId) {
  */
 function CheckoutFormProvider({ children }) {
   /**
+   * Update whether formik needs to be re-initialize or not
+   */
+  const [enableReinitialize, setEnableReInitialize] = useState(true);
+  /**
    * Represent which form section is active at the moment
    */
   const [activeForm, setActiveForm] = useState(false);
@@ -142,13 +146,15 @@ function CheckoutFormProvider({ children }) {
     <CheckoutFormContext.Provider
       value={{
         ...context,
-        checkoutFormValidationSchema: formValidationSchema,
-        submitHandler: formSubmit,
+        enableReinitialize,
         registerPaymentAction,
+        setEnableReInitialize,
+        submitHandler: formSubmit,
+        checkoutFormValidationSchema: formValidationSchema,
       }}
     >
       <Formik
-        enableReinitialize
+        enableReinitialize={enableReinitialize}
         initialValues={formInitialValues}
         validationSchema={formValidationSchema}
         onSubmit={formSubmit}

@@ -1,1 +1,1 @@
-export { default as PaymentMethodList } from './PaymentMethodList';
+export { default as PaymentMethod } from './PaymentMethod';

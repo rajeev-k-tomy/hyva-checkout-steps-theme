@@ -1,35 +1,19 @@
 import React from 'react';
-import { bool, func, shape } from 'prop-types';
-import { PlusSmIcon, UserRemoveIcon } from '@heroicons/react/solid';
+import { UserRemoveIcon } from '@heroicons/react/solid';
 
 import EmailField from './EmailField';
+import { TextInput } from '../../common/form';
 import Button from '../../../common/Button/Button';
-import TextInput from '../../common/form/TextInput';
-import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
-import useStepContext from '../../step/hooks/useStepContext';
-import { ROUTE_PATH_CREATE_ACCOUNT } from '../../step/utility';
+import { HorizontalLineSeparator } from '../../common';
+import { useLoginFormContext } from '../hooks';
+import { isNewCustomerSection } from '../utility';
 
-function CreateAccountForm({ isActive, actions }) {
-  const { setStepRoutePath } = useStepContext();
-  if (!isActive) {
-    return (
-      <div className="space-y-4">
-        <HorizontalLineSeparator word="OR" />
-        <div className="flex items-center justify-center">
-          <button
-            type="button"
-            className="flex items-center justify-center pt-4 pr-6 text-sm cursor-pointer hover:text-blue-800"
-            onClick={() => {
-              actions.setCreateAccount(true);
-              setStepRoutePath(ROUTE_PATH_CREATE_ACCOUNT);
-            }}
-          >
-            <PlusSmIcon className="w-6 h-6" />
-            <span className="hover:underline">Create you Site account</span>
-          </button>
-        </div>
-      </div>
-    );
+function CreateAccountForm() {
+  const { activeSection, createAccount, setCreateAccount } =
+    useLoginFormContext();
+
+  if (!isNewCustomerSection(activeSection) || !createAccount) {
+    return <></>;
   }
 
   return (
@@ -53,19 +37,10 @@ function CreateAccountForm({ isActive, actions }) {
       </div>
       <div className="w-full space-y-4">
         <HorizontalLineSeparator word="OR" />
-        {/* <div className="flex items-center justify-center">
-          <Button
-            variant="warning"
-            size="sm"
-            click={() => actions.setCreateAccount(false)}
-          >
-            Continue as guest
-          </Button>
-        </div> */}
         <button
           type="button"
           className="flex items-center justify-center w-full pt-4 pr-6 space-x-2 text-sm cursor-pointer hover:text-blue-800"
-          onClick={() => actions.setCreateAccount(false)}
+          onClick={() => setCreateAccount(false)}
         >
           <UserRemoveIcon className="w-6 h-6" />
           <span className="hover:underline">Continue as guest</span>
@@ -74,10 +49,5 @@ function CreateAccountForm({ isActive, actions }) {
     </div>
   );
 }
-
-CreateAccountForm.propTypes = {
-  isActive: bool.isRequired,
-  actions: shape({ setCreateAccount: func }).isRequired,
-};
 
 export default CreateAccountForm;

@@ -5,16 +5,16 @@ import { Step } from '../amazon/step';
 import StepProvider from '../amazon/step/StepProvider';
 import CheckoutFormWrapper from './CheckoutFormWrapper';
 import { ShippingAddress } from '../amazon/shippingAddress';
-import { PaymentMethodList } from '../amazon/paymentMethod';
-import AddressList from '../amazon/shippingAddress/AddressList';
-import ShippingMethodList from '../amazon/shippingMethod/ShippingMethodList';
+// import AddressList from '../amazon/shippingAddress/AddressList';
 import MainContentSection from '../amazon/common/sections/MainContentSection';
-import { BillingAddressList } from '../amazon/billingAddress';
+// import { BillingAddressList } from '../amazon/billingAddress';
 import { config } from '../../config';
 import { aggregatedQueryRequest } from '../../api';
 import useCheckoutFormAppContext from './hooks/useCheckoutFormAppContext';
 import useCheckoutFormCartContext from './hooks/useCheckoutFormCartContext';
-import Discount from '../amazon/discount/Discount';
+// import Discount from '../amazon/discount/Discount';
+import { ShippingMethods } from '../amazon/shippingMethods';
+import { PaymentMethod } from '../amazon/paymentMethod';
 
 function CheckoutForm() {
   const [initialData, setInitialData] = useState(false);
@@ -65,16 +65,18 @@ function CheckoutForm() {
         </Step>
         <Step id={2}>
           <MainContentSection>
-            <AddressList />
+            {/* <AddressList />
             <ShippingAddress />
-            <ShippingMethodList />
+            <ShippingMethodList /> */}
+            <ShippingAddress />
+            <ShippingMethods />
           </MainContentSection>
         </Step>
         <Step id={3}>
           <MainContentSection>
-            <PaymentMethodList />
-            <BillingAddressList />
-            <Discount />
+            <PaymentMethod />
+            {/* <BillingAddressList />
+            <Discount /> */}
           </MainContentSection>
         </Step>
       </StepProvider>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { bool, oneOf } from 'prop-types';
+import { bool, func, oneOf, shape } from 'prop-types';
 
 import Button from '../../common/Button/Button';
 import useStepContext from '../step/hooks/useStepContext';
 
-function ContinueButton({ size, variant, disable }) {
+function ContinueButton({ size, variant, disable, actions }) {
   const { goToNextStep } = useStepContext();
 
   return (
@@ -13,7 +13,15 @@ function ContinueButton({ size, variant, disable }) {
         size={size}
         variant={variant}
         disable={disable}
-        click={() => goToNextStep()}
+        click={async () => {
+          const canContinue = await actions.submit();
+          console.log({ canContinue });
+          goToNextStep();
+
+          // if (canContinue) {
+          //   goToNextStep();
+          // }
+        }}
       >
         Continue
       </Button>
@@ -25,12 +33,16 @@ ContinueButton.propTypes = {
   disable: bool,
   size: oneOf(['sm', 'md', 'lg']),
   variant: oneOf(['success', 'warning', 'primary', 'secondary']),
+  actions: shape({ submit: func }),
 };
 
 ContinueButton.defaultProps = {
   size: 'md',
   disable: false,
   variant: 'primary',
+  actions: {
+    submit: Boolean,
+  },
 };
 
 export default ContinueButton;

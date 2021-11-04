@@ -6,7 +6,13 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 
 import { classNames } from '../../../../utils';
 
-function VerticalTabSelector({ items, selected, actions, children }) {
+function VerticalTabSelector({
+  items,
+  selected,
+  actions,
+  children,
+  fieldName,
+}) {
   return (
     <div className="flex items-start">
       <div
@@ -31,7 +37,7 @@ function VerticalTabSelector({ items, selected, actions, children }) {
                 {item.id === selected ? (
                   <CheckCircleIcon className="w-6 h-6 text-green-800" />
                 ) : (
-                  <input type="radio" name="shipping_method" />
+                  <input type="radio" name={fieldName} />
                 )}
                 <span>{item.title}</span>
               </li>
@@ -39,7 +45,7 @@ function VerticalTabSelector({ items, selected, actions, children }) {
           </ul>
         </div>
       </div>
-      {selected && (
+      {selected && children && (
         <div className="flex-1">
           <div className="overflow-hidden bg-gray-200 rounded-lg">
             {children}
@@ -55,6 +61,7 @@ VerticalTabSelector.propTypes = {
   selected: string,
   items: arrayOf(shape({ id: string })),
   actions: shape({ setSelected: func }),
+  fieldName: string,
 };
 
 VerticalTabSelector.defaultProps = {
@@ -62,6 +69,7 @@ VerticalTabSelector.defaultProps = {
   selected: '',
   actions: {},
   children: '',
+  fieldName: 'VerticalTabSelector',
 };
 
 export default VerticalTabSelector;

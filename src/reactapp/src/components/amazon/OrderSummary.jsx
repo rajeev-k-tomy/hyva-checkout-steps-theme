@@ -1,9 +1,10 @@
 import React from 'react';
-import Button from '../common/Button/Button';
-import CartItemList from './CartItemList';
-import ContinueButton from './common/ContinueButton';
-import useStepContext from './step/hooks/useStepContext';
+
 import Totals from './Totals';
+import { CartItemList } from './cartItems';
+import ContinueButton from './common/ContinueButton';
+import PlaceOrder from '../placeOrder/components/PlaceOrder';
+import useStepContext from './step/hooks/useStepContext';
 
 function OrderSummary() {
   const { currentStep } = useStepContext();
@@ -19,11 +20,7 @@ function OrderSummary() {
         <Totals />
         <div className="py-8 border-t">
           {currentStep === 3 ? (
-            <div className="flex items-center justify-center">
-              <Button size="lg" click={() => {}}>
-                Place order
-              </Button>
-            </div>
+            <PlaceOrder />
           ) : (
             <ContinueButton variant="warning" size="lg" />
           )}
