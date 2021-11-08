@@ -61,7 +61,7 @@ export async function ajaxLoginAction(dispatch, userCredentials) {
       LocalStorage.saveCartId(cartId);
       LocalStorage.saveCustomerToken(signInToken);
 
-      if (config.isDevelopmentMode && cartId) {
+      if (config.isDevelopmentMode && cartId && cartId !== sourceCartId) {
         await mergeCartsRequest(dispatch, {
           sourceCartId,
           destinationCartId: cartId,

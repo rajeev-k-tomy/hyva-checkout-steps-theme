@@ -1,22 +1,20 @@
-import { useContext } from 'react';
 import _get from 'lodash.get';
 
-import CartContext from '../../../context/Cart/CartContext';
+import { useCartContext } from '../../../hook';
 
 export default function useLoginCartContext() {
-  const [cartData, cartActions] = useContext(CartContext);
-
   const {
+    cart,
     mergeCarts,
     createEmptyCart,
-    setEmailOnGuestCart,
-    getCartInfoAfterMerge,
-    getCustomerCartInfo,
     getCustomerCartId,
-  } = cartActions;
-  const cart = _get(cartData, 'cart');
-  const cartEmail = _get(cart, 'email', '');
+    setEmailOnGuestCart,
+    getCustomerCartInfo,
+    getCartInfoAfterMerge,
+  } = useCartContext();
+
   const cartId = _get(cart, 'id');
+  const cartEmail = _get(cart, 'email', '');
 
   return {
     cartId,
@@ -25,9 +23,9 @@ export default function useLoginCartContext() {
     // actions
     mergeCarts,
     createEmptyCart,
-    setEmailOnGuestCart,
     getCustomerCartId,
-    getCartInfoAfterMerge,
+    setEmailOnGuestCart,
     getCustomerCartInfo,
+    getCartInfoAfterMerge,
   };
 }

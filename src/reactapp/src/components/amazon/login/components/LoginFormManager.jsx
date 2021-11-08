@@ -5,12 +5,16 @@ import { Form } from 'formik';
 
 import { __ } from '../../../../i18n';
 import { LOGIN_FORM } from '../../../../config';
-import { useCheckoutFormContext } from '../../../../hook';
+import { useAppContext, useCheckoutFormContext } from '../../../../hook';
 import LoginFormContext from '../context/LoginFormContext';
 import { formikDataShape } from '../../../../utils/propTypes';
+import { formTypeFieldName } from '../utility/field';
+import { useStepContext } from '../../step/hooks';
 
 const initialValues = {
   email: '',
+  password: '',
+  formType: 'guest',
 };
 
 const validationSchema = {
@@ -18,12 +22,33 @@ const validationSchema = {
     .nullable()
     .required(__('Email is required'))
     .email(__('Email is invalid')),
+  password: YupString().test(
+    'requiredIfSignIn',
+    __('Password is required'),
+    (value, context) => {
+      const formType = context?.parent?.formType;
+
+      if (formType === 'sign_in') {
+        return !!value;
+      }
+
+      return true;
+    }
+  ),
 };
 
 function LoginFormManager({ children, formikData }) {
   const [activeSection, setActiveSection] = useState('guest');
   const [createAccount, setCreateAccount] = useState(false);
+  const { isLoggedIn } = useAppContext();
+  const { goToNextStep } = useStepContext();
   const { registerFormSection } = useCheckoutFormContext();
+  const { setFieldValue } = formikData;
+
+  const updateSection = (section) => {
+    setActiveSection(section);
+    setFieldValue(formTypeFieldName, section);
+  };
 
   useEffect(() => {
     registerFormSection({
@@ -33,13 +58,19 @@ function LoginFormManager({ children, formikData }) {
     });
   }, [initialValues, validationSchema, registerFormSection]);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      goToNextStep();
+    }
+  }, [isLoggedIn]);
+
   const context = {
     formikData,
     ...formikData,
     activeSection,
     createAccount,
-    setActiveSection,
     setCreateAccount,
+    setActiveSection: updateSection,
   };
 
   return (

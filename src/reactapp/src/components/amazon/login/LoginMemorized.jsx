@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Message from '../../common/Message';
 import SignInForm from './components/SignInForm';
 import LoginHeaderTabs from './components/LoginHeaderTabs';
 import LoginFormManager from './components/LoginFormManager';
@@ -14,9 +15,12 @@ const LoginMemorized = React.memo(({ formikData }) => (
         <div className="">
           <LoginHeaderTabs />
           <div className="flex items-center h-full px-4 py-8 bg-white border border-t-0 rounded-b-lg shadow-md justify-items-center">
-            <CreateAccountForm />
-            <GuestContinueForm />
-            <SignInForm />
+            <div className="w-full">
+              <Message />
+              <CreateAccountForm />
+              <GuestContinueForm />
+              <SignInForm />
+            </div>
           </div>
         </div>
       </div>

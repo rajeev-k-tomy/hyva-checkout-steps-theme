@@ -11,6 +11,7 @@ import {
   PAYMENT_METHOD_FORM,
 } from '../../config';
 import { _emptyFunc } from '../../utils';
+import { useFetchAddressRegions } from './hooks';
 
 function CheckoutFormWrapper({ initialData, children }) {
   const [initDataFilled, setInitDataFilled] = useState(false);
@@ -18,6 +19,8 @@ function CheckoutFormWrapper({ initialData, children }) {
   const loginFormValues = _get(values, LOGIN_FORM, {});
   const billingAddressValues = _get(values, BILLING_ADDR_FORM, {});
   const shippingAddressValues = _get(values, SHIPPING_ADDR_FORM, {});
+
+  useFetchAddressRegions();
 
   /**
    * This side effect fill out the checkout formik states from the initial GQL

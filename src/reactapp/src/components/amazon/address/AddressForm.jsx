@@ -16,54 +16,54 @@ function AddressForm({ formikData, fields, actions }) {
       <div className="flex items-start justify-between space-x-3">
         <TextInput
           required
+          actions={actions}
           label="First name"
           formikData={formikData}
           name={fields.firstname}
-          actions={actions}
         />
         <TextInput
           required
           label="Last name"
+          actions={actions}
           name={fields.lastname}
           formikData={formikData}
-          actions={actions}
         />
       </div>
       <TextInput
         label="Company"
+        actions={actions}
         name={fields.company}
         formikData={formikData}
-        actions={actions}
       />
       <div className="flex items-start justify-between space-x-3">
         <TextInput
           required
           label="Street 1"
-          formikData={formikData}
           actions={actions}
+          formikData={formikData}
           name={`${fields.street}[0]`}
         />
         <TextInput
           label="Street 2"
-          formikData={formikData}
           actions={actions}
+          formikData={formikData}
           name={`${fields.street}[1]`}
         />
       </div>
       <div className="flex items-start justify-between space-x-3">
         <TextInput
-          formikData={formikData}
-          name={fields.city}
-          label="Town / City"
           required
           actions={actions}
+          name={fields.city}
+          label="Town / City"
+          formikData={formikData}
         />
         <SelectInput
+          required
           label="Country"
           name={fields.country}
           formikData={formikData}
           options={countryOptions}
-          required
         />
       </div>
       <div className="flex items-start justify-between space-x-3">
@@ -77,17 +77,17 @@ function AddressForm({ formikData, fields, actions }) {
         <TextInput
           required
           label="PIN code"
+          actions={actions}
           name={fields.zipcode}
           formikData={formikData}
-          actions={actions}
         />
       </div>
       <TextInput
         required
         label="Phone"
+        actions={actions}
         name={fields.phone}
         formikData={formikData}
-        actions={actions}
       />
     </div>
   );

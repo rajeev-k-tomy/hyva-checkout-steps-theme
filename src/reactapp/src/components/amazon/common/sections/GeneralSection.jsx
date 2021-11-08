@@ -3,9 +3,18 @@ import { bool, node, string } from 'prop-types';
 
 import { classNames } from '../../../../utils';
 
-function GeneralSection({ children, title, titleRightContent, addTopPadding }) {
+function GeneralSection({
+  title,
+  children,
+  addTopPadding,
+  titleRightContent,
+  ...props
+}) {
   return (
-    <div className={classNames(addTopPadding ? 'pt-10' : '', 'space-y-10')}>
+    <div
+      {...props}
+      className={classNames(addTopPadding ? 'pt-10' : '', 'space-y-10')}
+    >
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">{title}</h2>
         {titleRightContent}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   array as YupArray,
   string as YupString,
@@ -51,8 +51,10 @@ const initValidationSchema = {
 function ShippingAddressFormikProvider({ children, formikData }) {
   const { setFieldValue, selectedRegion, selectedCountry, setFieldTouched } =
     formikData;
+  const [needNewAddress, setNeedNewAddress] = useState(false);
   // const [isNewAddress, setIsNewAddress] = useState(true);
-  // const [backupAddress, setBackupAddress] = useState(null);
+  const [backupAddress, setBackupAddress] = useState(null);
+  const [addressOnEdit, setAddressOnEdit] = useState(null);
   // const [forceFilledAddress, setForceFilledAddress] = useState(false);
   // const [selectedAddress, setSelectedAddress] = useState(initAddressId);
   // const [customerAddressSelected, setCustomerAddressSelected] = useState(
@@ -101,7 +103,13 @@ function ShippingAddressFormikProvider({ children, formikData }) {
 
   const context = {
     formikData,
+    backupAddress,
+    addressOnEdit,
+    needNewAddress,
     validationSchema,
+    setAddressOnEdit,
+    setBackupAddress,
+    setNeedNewAddress,
     setShippingAddressFormFields,
     resetShippingAddressFormFields,
     ...formikData,
