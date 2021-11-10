@@ -15,7 +15,7 @@ import { _emptyFunc, _makePromise } from '../../../../utils';
 import useShippingAddressFormContext from './useShippingAddressFormContext';
 import { billingAddressFormInitValues } from '../../../billingAddress/utility';
 
-const isBillingSame = true;
+const emptyCallback = _emptyFunc();
 
 export default function useSaveAddressAction() {
   const {
@@ -33,20 +33,24 @@ export default function useSaveAddressAction() {
     setCustomerAddressAsBillingAddress,
     setCustomerAddressAsShippingAddress,
   } = useShippingAddressCartContext();
-  const { setFieldValue, shippingValues, regionData } =
+  const { isBillingSame, setFieldValue, shippingValues, regionData } =
     useShippingAddressFormContext();
 
   const submitHandler = useCallback(
     async (customerAddressId) => {
-      let updateBillingAddress = _makePromise(setCartBillingAddress, {
-        ...shippingValues,
-        isSameAsShipping: true,
-      });
+      let updateBillingAddress = emptyCallback;
       let updateShippingAddress = _makePromise(
         addCartShippingAddress,
         shippingValues,
         isBillingSame
       );
+
+      if (isBillingSame) {
+        updateBillingAddress = _makePromise(setCartBillingAddress, {
+          ...shippingValues,
+          isSameAsShipping: true,
+        });
+      }
 
       if (customerAddressId) {
         updateShippingAddress = _makePromise(
@@ -54,11 +58,14 @@ export default function useSaveAddressAction() {
           Number(customerAddressId),
           isBillingSame
         );
-        updateBillingAddress = _makePromise(
-          setCustomerAddressAsBillingAddress,
-          Number(customerAddressId),
-          isBillingSame
-        );
+
+        if (isBillingSame) {
+          updateBillingAddress = _makePromise(
+            setCustomerAddressAsBillingAddress,
+            Number(customerAddressId),
+            isBillingSame
+          );
+        }
       }
 
       const shippingAddrResponse = await updateShippingAddress();
@@ -67,17 +74,21 @@ export default function useSaveAddressAction() {
         shippingAddrResponse?.shipping_address,
         customerAddressId
       );
-      setFieldValue(BILLING_ADDR_FORM, {
-        ...billingAddressFormInitValues,
-        ...addressToSet,
-        isSameAsShipping: true,
-      });
+
+      if (isBillingSame) {
+        setFieldValue(BILLING_ADDR_FORM, {
+          ...billingAddressFormInitValues,
+          ...addressToSet,
+          isSameAsShipping: true,
+        });
+      }
 
       setPageLoader(false);
 
       updateBillingAddress();
     },
     [
+      isBillingSame,
       setPageLoader,
       shippingValues,
       setCartBillingAddress,
@@ -92,7 +103,7 @@ export default function useSaveAddressAction() {
       setMessage(false);
 
       const isCustomerAddress = isValidCustomerAddressId(addressId);
-      let updateCustomerAddrPromise = _emptyFunc();
+      let updateCustomerAddrPromise = emptyCallback;
       const updateCartAddressPromise = _makePromise(
         submitHandler,
         isCustomerAddress && addressId
@@ -133,6 +144,7 @@ export default function useSaveAddressAction() {
       setMessage,
       isLoggedIn,
       regionData,
+      isBillingSame,
       submitHandler,
       setPageLoader,
       shippingValues,

@@ -1,14 +1,9 @@
 import React from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/solid';
 
-import useStepContext from './step/hooks/useStepContext';
 import { classNames, _range } from '../../utils';
-import {
-  TOTAL_STEPS,
-  ROUTE_PATH_PAYMENT,
-  ROUTE_PATH_SHIPPING,
-  ROUTE_PATH_NEW_CUSTOMER,
-} from './step/utility';
+import useStepContext from './step/hooks/useStepContext';
+import { TOTAL_STEPS, stepTitles } from './step/utility';
 
 const steps = _range(1, TOTAL_STEPS);
 
@@ -43,8 +38,27 @@ function StepNavigation() {
             })}
           </div>
           <div className="flex items-center justify-between w-full pt-3">
-            <div className="text-sm font-semibold text-blue-600">
+            {stepTitles(currentStep).map((step) => (
+              <div
+                key={step.title}
+                className={classNames(
+                  step.active ? 'text-blue-600' : 'text-gray-300',
+                  'text-sm font-semibold'
+                )}
+              >
+                <a href={step.path}>{step.title}</a>
+              </div>
+            ))}
+            {/* <div className="text-sm font-semibold text-blue-600">
               <a href={ROUTE_PATH_NEW_CUSTOMER}>LOGIN</a>
+            </div>
+            <div
+              className={classNames(
+                currentStep >= 2 ? 'text-blue-600' : 'text-gray-300',
+                'text-sm font-semibold'
+              )}
+            >
+              <a href={ROUTE_PATH_SHIPPING}>SHIPPING</a>
             </div>
             <div
               className={classNames(
@@ -65,7 +79,7 @@ function StepNavigation() {
               ) : (
                 <span>PAYMENT</span>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

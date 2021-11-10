@@ -3,7 +3,7 @@ import { arrayOf, shape, string } from 'prop-types';
 
 import { AddressChooseButton } from '../shippingAddress/components/button';
 import AddressEditButton from '../shippingAddress/components/button/AddressEditButton';
-import { prepareOtherAddressData } from '../shippingAddress/utility';
+import { prepareOtherAddressData } from './utility';
 
 function OtherAddressList({ list }) {
   const addressList = list.map((address) => prepareOtherAddressData(address));

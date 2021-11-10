@@ -5,6 +5,7 @@ import Button from '../../../common/Button';
 import { AddressFormCancelButton } from './button';
 import { GeneralSection } from '../../common/sections';
 import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
+import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 import {
   useSaveAddressAction,
   useShippingAddressAppContext,
@@ -12,12 +13,12 @@ import {
   useShippingAddressCartContext,
 } from '../hooks';
 import { getShippingUniqueId } from '../utility';
+import { useStepContext } from '../../step/hooks';
+import { ROUTE_PATH_SHIPPING } from '../../step/utility';
 import { useTextInputBlurAction } from '../../../../hook';
 import { _isObjEmpty, _emptyFunc } from '../../../../utils';
 import { isValidCustomerAddressId } from '../../../../utils/address';
 import useEnterActionInForm from '../../../../hook/useEnterActionInForm';
-import { ROUTE_PATH_SHIPPING } from '../../step/utility';
-import { useStepContext } from '../../step/hooks';
 
 const emptyCallback = _emptyFunc();
 
@@ -29,8 +30,8 @@ function ShippingAddressForm() {
     shippingValues,
     needNewAddress,
     validationSchema,
-    setNeedNewAddress,
     setAddressOnEdit,
+    setNeedNewAddress,
   } = useShippingAddressFormContext();
   const submitHandler = useSaveAddressAction();
   const { setStepRoutePath } = useStepContext();
@@ -62,7 +63,7 @@ function ShippingAddressForm() {
     handleBlur = emptyCallback;
   }
 
-  const handleSaveButtonClick = async () => {
+  const handleAddressUpdate = async () => {
     try {
       if (needNewAddress || !isValidCustomerAddressId(addressOnEdit)) {
         await submitHandler();
@@ -84,9 +85,13 @@ function ShippingAddressForm() {
 
   return (
     <GeneralSection
-      id={needNewAddress ? 'add-new-delivery-address' : 'edit-delivery-address'}
+      id={
+        !(isLoggedIn && needNewAddress)
+          ? 'add-new-delivery-address'
+          : 'edit-delivery-address'
+      }
       title={
-        needNewAddress
+        !(isLoggedIn && needNewAddress)
           ? 'Add a new delivery address'
           : 'Edit your delivery address'
       }
@@ -96,10 +101,13 @@ function ShippingAddressForm() {
         formikData={formikData}
         actions={{ handleKeyDown, handleBlur }}
       />
+      <BillingSameAsShippingCheckbox
+        actions={{ updateAddress: handleAddressUpdate }}
+      />
       {(needNewAddress || addressOnEdit) && (
         <div className="flex items-center justify-center space-x-8">
           <AddressFormCancelButton />
-          <Button click={handleSaveButtonClick}>Save</Button>
+          <Button click={handleAddressUpdate}>Save</Button>
         </div>
       )}
       <HorizontalLineSeparator />

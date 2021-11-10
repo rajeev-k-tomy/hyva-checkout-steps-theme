@@ -2,25 +2,24 @@ import React, { useEffect, useState } from 'react';
 
 import Login from '../amazon/login';
 import { Step } from '../amazon/step';
+// import Discount from '../amazon/discount/Discount';
 import StepProvider from '../amazon/step/StepProvider';
 import CheckoutFormWrapper from './CheckoutFormWrapper';
+import { PaymentMethod } from '../amazon/paymentMethod';
+import { BillingAddress } from '../amazon/billingAddress';
 import { ShippingAddress } from '../amazon/shippingAddress';
-// import AddressList from '../amazon/shippingAddress/AddressList';
-import MainContentSection from '../amazon/common/sections/MainContentSection';
-// import { BillingAddressList } from '../amazon/billingAddress';
+// import { ShippingMethods } from '../amazon/shippingMethods';
+import { MainContentSection } from '../amazon/common/sections';
 import { config } from '../../config';
 import { aggregatedQueryRequest } from '../../api';
 import useCheckoutFormAppContext from './hooks/useCheckoutFormAppContext';
 import useCheckoutFormCartContext from './hooks/useCheckoutFormCartContext';
-// import Discount from '../amazon/discount/Discount';
-import { ShippingMethods } from '../amazon/shippingMethods';
-import { PaymentMethod } from '../amazon/paymentMethod';
 
 function CheckoutForm() {
   const [initialData, setInitialData] = useState(false);
+  const { orderId, storeAggregatedCartStates } = useCheckoutFormCartContext();
   const { appDispatch, setPageLoader, storeAggregatedAppStates } =
     useCheckoutFormAppContext();
-  const { orderId, storeAggregatedCartStates } = useCheckoutFormCartContext();
 
   /**
    * Collect App, Cart data when the page loads.
@@ -65,18 +64,16 @@ function CheckoutForm() {
         </Step>
         <Step id={2}>
           <MainContentSection>
-            {/* <AddressList />
             <ShippingAddress />
-            <ShippingMethodList /> */}
-            <ShippingAddress />
-            <ShippingMethods />
+            {/* <ShippingMethods /> */}
+            <BillingAddress />
           </MainContentSection>
         </Step>
         <Step id={3}>
           <MainContentSection>
             <PaymentMethod />
-            {/* <BillingAddressList />
-            <Discount /> */}
+            {/* <BillingAddress /> */}
+            {/* <Discount /> */}
           </MainContentSection>
         </Step>
       </StepProvider>

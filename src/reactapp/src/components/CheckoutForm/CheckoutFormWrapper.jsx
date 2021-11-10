@@ -11,14 +11,15 @@ import {
   PAYMENT_METHOD_FORM,
 } from '../../config';
 import { _emptyFunc } from '../../utils';
+import { isCartAddressValid } from '../../utils/address';
 import { useFetchAddressRegions } from './hooks';
 
 function CheckoutFormWrapper({ initialData, children }) {
   const [initDataFilled, setInitDataFilled] = useState(false);
-  const { values, setFieldValue } = useFormikContext();
+  const { values, setFieldValue, setFieldTouched } = useFormikContext();
   const loginFormValues = _get(values, LOGIN_FORM, {});
-  const billingAddressValues = _get(values, BILLING_ADDR_FORM, {});
-  const shippingAddressValues = _get(values, SHIPPING_ADDR_FORM, {});
+  const billingAddressValues = _get(values, BILLING_ADDR_FORM) || {};
+  const shippingAddressValues = _get(values, SHIPPING_ADDR_FORM) || {};
 
   useFetchAddressRegions();
 
@@ -66,6 +67,11 @@ function CheckoutFormWrapper({ initialData, children }) {
         ...billingAddress,
       });
       await setFieldValue(`${PAYMENT_METHOD_FORM}.code`, paymentMethod.code);
+
+      // if shipping address available, then make form valid by touching a field.
+      if (isCartAddressValid(shippingAddress)) {
+        await setFieldTouched(`${SHIPPING_ADDR_FORM}.firstname`);
+      }
       setInitDataFilled(true);
     }, 100);
 

@@ -52,14 +52,8 @@ function ShippingAddressFormikProvider({ children, formikData }) {
   const { setFieldValue, selectedRegion, selectedCountry, setFieldTouched } =
     formikData;
   const [needNewAddress, setNeedNewAddress] = useState(false);
-  // const [isNewAddress, setIsNewAddress] = useState(true);
   const [backupAddress, setBackupAddress] = useState(null);
   const [addressOnEdit, setAddressOnEdit] = useState(null);
-  // const [forceFilledAddress, setForceFilledAddress] = useState(false);
-  // const [selectedAddress, setSelectedAddress] = useState(initAddressId);
-  // const [customerAddressSelected, setCustomerAddressSelected] = useState(
-  //   isValidCustomerAddressId(addressIdInCache)
-  // );
   const validationSchema = useRegionValidation(
     selectedCountry,
     initValidationSchema

@@ -5,7 +5,7 @@ import { bool, func, shape } from 'prop-types';
 function BillingSameAsShippingCheckbox({ isBillingSame, actions }) {
   return (
     <fieldset className="">
-      <legend className="sr-only">Notifications</legend>
+      <legend className="sr-only">Is billing same as shipping</legend>
       <div className="relative flex items-center">
         <div className="flex items-center h-5">
           <input

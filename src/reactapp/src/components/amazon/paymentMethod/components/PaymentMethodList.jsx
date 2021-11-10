@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { VerticalTabSelector } from '../../common/form';
 import { GeneralSection, WellSection } from '../../common/sections';
 import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
-import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 import {
   usePaymentMethodCartContext,
   usePaymentMethodFormContext,
@@ -13,7 +12,6 @@ import { PAYMENT_METHOD_FORM } from '../../../../config';
 
 function PaymentMethodList() {
   const [selected, setSelected] = useState('');
-  const [isBillingSame, setIsBillingSame] = useState(true);
   const { methodList } = usePaymentMethodCartContext();
   const { setFieldValue, submitHandler, paymentValues } =
     usePaymentMethodFormContext();
@@ -34,10 +32,6 @@ function PaymentMethodList() {
 
   return (
     <GeneralSection title="Select a payment method">
-      <BillingSameAsShippingCheckbox
-        isBillingSame={isBillingSame}
-        actions={{ setIsBillingSame }}
-      />
       <WellSection>
         <VerticalTabSelector
           items={_objToArray(methodList).map((method) => ({
