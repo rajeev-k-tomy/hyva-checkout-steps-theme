@@ -18,9 +18,9 @@ import {
   SET_CUSTOMER_ADDRESS_INFO,
   UPDATE_CUSTOMER_LOGGEDIN_STATUS,
 } from './types';
+import { config } from '../../../config';
 import { _cleanObjByKeys } from '../../../utils';
 import LocalStorage from '../../../utils/localStorage';
-import { config } from '../../../config';
 
 export function setLoggedInStatusAction(dispatch, status) {
   dispatch({
@@ -118,8 +118,9 @@ export async function updateCustomerAddressAction(
   stateInfo
 ) {
   try {
-    const address = { ...customerAddress };
-    const { country, phone, region, zipcode } = customerAddress;
+    const { country, phone, region, zipcode, ...otherAddressParts } =
+      customerAddress;
+    const address = { ...otherAddressParts };
 
     if (country) {
       address.country_code = country;

@@ -6,22 +6,29 @@ import {
 import {
   isValidCustomerAddressId,
   billingSameAsShippingField,
+  prepareFormAddressFromCartAddress,
 } from '../../../../utils/address';
 import { __ } from '../../../../i18n';
 import { _makePromise } from '../../../../utils';
+import { BILLING_ADDR_FORM } from '../../../../config';
 import LocalStorage from '../../../../utils/localStorage';
 
 const isBillingSame = false;
 
 export default function useSaveAddressAction() {
+  const {
+    setMessage,
+    setPageLoader,
+    setErrorMessage,
+    setSuccessMessage,
+    customerAddressList,
+  } = useBillingAddressAppContext();
   const { setCartBillingAddress, setCustomerAddressAsBillingAddress } =
     useBillingAddressCartContext();
-  const { setMessage, setPageLoader, setErrorMessage, setSuccessMessage } =
-    useBillingAddressAppContext();
-  const { setFieldValue, isFormSectionValid, billingValues, addressOnEdit } =
+  const { setFieldValue, isFormSectionValid, billingValues, setAddressOnEdit } =
     useBillingAddressFormikContext();
 
-  return async () => {
+  return async (addressId) => {
     setMessage(false);
 
     if (!isFormSectionValid) {
@@ -34,16 +41,24 @@ export default function useSaveAddressAction() {
         isSameAsShipping: isBillingSame,
       });
 
-      if (isValidCustomerAddressId(addressOnEdit)) {
+      if (isValidCustomerAddressId(addressId)) {
         updateBillingAddress = _makePromise(
           setCustomerAddressAsBillingAddress,
-          Number(addressOnEdit),
+          Number(addressId),
           isBillingSame
         );
       }
       setPageLoader(true);
       await updateBillingAddress();
-      LocalStorage.saveCustomerAddressInfo(addressOnEdit, isBillingSame, false);
+      setAddressOnEdit(addressId);
+      LocalStorage.saveCustomerAddressInfo(addressId, isBillingSame, false);
+
+      if (isValidCustomerAddressId(addressId)) {
+        setFieldValue(BILLING_ADDR_FORM, {
+          ...billingValues,
+          ...prepareFormAddressFromCartAddress(customerAddressList[addressId]),
+        });
+      }
 
       // When we switch address from billing address section, there is chance to
       // set same customer address which is been used as the current shipping address.

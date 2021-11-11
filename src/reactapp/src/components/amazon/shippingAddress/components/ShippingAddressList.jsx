@@ -13,6 +13,7 @@ import {
 } from '../hooks';
 import { prepareAddressCardListData } from '../utility';
 import { classNames, _isObjEmpty } from '../../../../utils';
+import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 
 function ShippingAddressList() {
   const { needNewAddress, addressOnEdit } = useShippingAddressFormContext();
@@ -78,6 +79,19 @@ function ShippingAddressList() {
                     </li>
                   </ul>
                 </div>
+                {index === 0 && (
+                  <div
+                    style={{ minHeight: 40 }}
+                    className="flex items-center px-2 bg-gray-300 rounded-t-sm shadow-sm"
+                  >
+                    {index === 0 && (
+                      <BillingSameAsShippingCheckbox
+                        useInCard
+                        label="My billing address is same as above"
+                      />
+                    )}
+                  </div>
+                )}
                 <div className="flex w-full text-sm divide-x bg-gray-50">
                   <AddressChooseButton
                     disabled={index === 0}

@@ -14,12 +14,13 @@ import {
 } from '../hooks';
 import { getShippingUniqueId } from '../utility';
 import { useStepContext } from '../../step/hooks';
-import { ROUTE_PATH_SHIPPING } from '../../step/utility';
+import { ROUTE_PATH_ADDRESS } from '../../step/utility';
 import { useTextInputBlurAction } from '../../../../hook';
 import { _isObjEmpty, _emptyFunc } from '../../../../utils';
 import { isValidCustomerAddressId } from '../../../../utils/address';
 import useEnterActionInForm from '../../../../hook/useEnterActionInForm';
 
+const isEditForm = true;
 const emptyCallback = _emptyFunc();
 
 function ShippingAddressForm() {
@@ -68,12 +69,12 @@ function ShippingAddressForm() {
       if (needNewAddress || !isValidCustomerAddressId(addressOnEdit)) {
         await submitHandler();
       } else {
-        await submitHandler(addressOnEdit);
+        await submitHandler(addressOnEdit, isEditForm);
       }
 
       setNeedNewAddress(false);
       setAddressOnEdit(false);
-      setStepRoutePath(ROUTE_PATH_SHIPPING);
+      setStepRoutePath(ROUTE_PATH_ADDRESS);
     } catch (error) {
       console.error(error);
     }

@@ -13,6 +13,7 @@ import { _emptyFunc } from '../../../../utils';
 import { useTextInputBlurAction } from '../../../../hook';
 import { getAddressUniqueId } from '../../address/utility';
 import useEnterActionInForm from '../../../../hook/useEnterActionInForm';
+import AddressBookSelector from './AddressBookSelector';
 
 const emptyCallback = _emptyFunc();
 
@@ -66,6 +67,7 @@ function BillingAddressForm() {
       id="add-new-billing-address"
       title="Add a new billing address"
     >
+      <AddressBookSelector />
       <AddressForm
         fields={fields}
         formikData={formikData}

@@ -11,8 +11,8 @@ import {
   PAYMENT_METHOD_FORM,
 } from '../../config';
 import { _emptyFunc } from '../../utils';
-import { isCartAddressValid } from '../../utils/address';
 import { useFetchAddressRegions } from './hooks';
+import { isCartAddressValid } from '../../utils/address';
 
 function CheckoutFormWrapper({ initialData, children }) {
   const [initDataFilled, setInitDataFilled] = useState(false);
@@ -71,6 +71,9 @@ function CheckoutFormWrapper({ initialData, children }) {
       // if shipping address available, then make form valid by touching a field.
       if (isCartAddressValid(shippingAddress)) {
         await setFieldTouched(`${SHIPPING_ADDR_FORM}.firstname`);
+      }
+      if (isCartAddressValid(billingAddress)) {
+        await setFieldTouched(`${BILLING_ADDR_FORM}.firstname`);
       }
       setInitDataFilled(true);
     }, 100);

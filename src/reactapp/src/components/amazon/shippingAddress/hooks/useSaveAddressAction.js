@@ -9,9 +9,10 @@ import {
   useShippingAddressCartContext,
 } from '../../../shippingAddress/hooks';
 import { __ } from '../../../../i18n';
-import { BILLING_ADDR_FORM } from '../../../../config';
 import LocalStorage from '../../../../utils/localStorage';
 import { _emptyFunc, _makePromise } from '../../../../utils';
+import { initialAddressValues } from '../../address/utility';
+import { BILLING_ADDR_FORM, SHIPPING_ADDR_FORM } from '../../../../config';
 import useShippingAddressFormContext from './useShippingAddressFormContext';
 import { billingAddressFormInitValues } from '../../../billingAddress/utility';
 
@@ -37,7 +38,7 @@ export default function useSaveAddressAction() {
     useShippingAddressFormContext();
 
   const submitHandler = useCallback(
-    async (customerAddressId) => {
+    async (customerAddressId, isEditForm = false) => {
       let updateBillingAddress = emptyCallback;
       let updateShippingAddress = _makePromise(
         addCartShippingAddress,
@@ -52,7 +53,7 @@ export default function useSaveAddressAction() {
         });
       }
 
-      if (customerAddressId) {
+      if (customerAddressId && !isEditForm) {
         updateShippingAddress = _makePromise(
           setCustomerAddressAsShippingAddress,
           Number(customerAddressId),
@@ -74,6 +75,14 @@ export default function useSaveAddressAction() {
         shippingAddrResponse?.shipping_address,
         customerAddressId
       );
+      setFieldValue(SHIPPING_ADDR_FORM, {
+        ...initialAddressValues,
+        ...addressToSet,
+      });
+
+      setPageLoader(false);
+
+      await updateBillingAddress();
 
       if (isBillingSame) {
         setFieldValue(BILLING_ADDR_FORM, {
@@ -82,10 +91,6 @@ export default function useSaveAddressAction() {
           isSameAsShipping: true,
         });
       }
-
-      setPageLoader(false);
-
-      updateBillingAddress();
     },
     [
       isBillingSame,
@@ -99,17 +104,18 @@ export default function useSaveAddressAction() {
   );
 
   return useCallback(
-    async (addressId) => {
+    async (addressId, isEditForm = false) => {
       setMessage(false);
 
       const isCustomerAddress = isValidCustomerAddressId(addressId);
       let updateCustomerAddrPromise = emptyCallback;
       const updateCartAddressPromise = _makePromise(
         submitHandler,
-        isCustomerAddress && addressId
+        isCustomerAddress && addressId,
+        isEditForm
       );
 
-      if (isLoggedIn && isCustomerAddress) {
+      if (isLoggedIn && isCustomerAddress && isEditForm) {
         updateCustomerAddrPromise = _makePromise(
           updateCustomerAddress,
           addressId,

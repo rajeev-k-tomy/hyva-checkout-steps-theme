@@ -59,7 +59,7 @@ function VerticalTabSelector({
 VerticalTabSelector.propTypes = {
   children: node,
   selected: string,
-  items: arrayOf(shape({ id: string })),
+  items: arrayOf(shape({ title: string })),
   actions: shape({ setSelected: func }),
   fieldName: string,
 };

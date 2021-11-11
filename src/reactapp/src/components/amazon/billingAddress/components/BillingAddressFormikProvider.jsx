@@ -34,8 +34,6 @@ const initValidationSchema = {
 };
 
 function BillingAddressFormikProvider({ children, formikData }) {
-  const [needNewAddress, setNeedNewAddress] = useState(false);
-  const [backupAddress, setBackupAddress] = useState(null);
   const [addressOnEdit, setAddressOnEdit] = useState(null);
   const { setFieldValue, selectedRegion, selectedCountry } = formikData;
   const validationSchema = useRegionValidation(
@@ -73,12 +71,8 @@ function BillingAddressFormikProvider({ children, formikData }) {
   const context = {
     formikData,
     addressOnEdit,
-    backupAddress,
-    needNewAddress,
     setAddressOnEdit,
     validationSchema,
-    setBackupAddress,
-    setNeedNewAddress,
     setBillingAddressFormFields,
     resetBillingAddressFormFields,
     ...regionData,

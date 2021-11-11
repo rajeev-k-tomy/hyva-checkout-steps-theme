@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../../../common/Button';
 import { useStepContext } from '../../../step/hooks';
-import { ROUTE_PATH_SHIPPING } from '../../../step/utility';
+import { ROUTE_PATH_ADDRESS } from '../../../step/utility';
 import { useShippingAddressFormContext } from '../../hooks';
 
 function AddressFormCancelButton() {
@@ -18,7 +18,7 @@ function AddressFormCancelButton() {
     setShippingAddressFormFields(backupAddress);
     setNeedNewAddress(false);
     setAddressOnEdit(false);
-    setStepRoutePath(ROUTE_PATH_SHIPPING);
+    setStepRoutePath(ROUTE_PATH_ADDRESS);
   };
 
   return (

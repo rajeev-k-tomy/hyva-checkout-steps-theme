@@ -2,7 +2,7 @@
 import React from 'react';
 import _get from 'lodash.get';
 import { ErrorMessage, Field } from 'formik';
-import { arrayOf, bool, shape, string } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 
 import { __ } from '../../../../i18n';
 import { classNames, _replace } from '../../../../utils';
@@ -13,6 +13,7 @@ function SelectInput({
   name,
   label,
   options,
+  actions,
   required,
   formikData,
   placeholder,
@@ -55,6 +56,9 @@ function SelectInput({
           const newValue = event.target.value;
           setFieldTouched(name, newValue);
           setFieldValue(name, newValue);
+          if (actions?.change) {
+            actions.change(event);
+          }
         }}
       >
         <option value="">{placeholder || __('Choose your option')}</option>
@@ -77,9 +81,8 @@ function SelectInput({
 
 SelectInput.propTypes = {
   id: string,
+  actions: shape({ change: func }),
   required: bool,
-  // isHidden: bool,
-  // helpText: string,
   placeholder: string,
   name: string.isRequired,
   label: string.isRequired,
@@ -95,10 +98,9 @@ SelectInput.propTypes = {
 SelectInput.defaultProps = {
   id: '',
   options: [],
-  // helpText: '',
   required: false,
+  actions: {},
   placeholder: '',
-  // isHidden: false,
 };
 
 export default SelectInput;

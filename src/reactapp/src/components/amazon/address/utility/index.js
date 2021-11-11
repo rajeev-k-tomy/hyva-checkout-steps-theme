@@ -1,4 +1,5 @@
 import _get from 'lodash.get';
+import { initialCountry } from '../../../../utils/address';
 import { prepareFullName } from '../../../../utils/customer';
 
 export function prepareOtherAddressData(address) {
@@ -44,4 +45,20 @@ export function getAddressUniqueId(addressValues) {
   )}__${_get(street, 1)}__${city}__${zipcode}__${country}__${region}__${phone}`;
 
   return addressId;
+}
+
+export function initialAddressValues() {
+  const initialValues = {
+    company: '',
+    firstname: '',
+    lastname: '',
+    street: ['', ''],
+    phone: '',
+    zipcode: '',
+    city: '',
+    region: '',
+    country: initialCountry,
+  };
+
+  return initialValues;
 }
