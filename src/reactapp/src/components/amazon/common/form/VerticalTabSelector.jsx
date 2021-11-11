@@ -8,8 +8,8 @@ import { classNames } from '../../../../utils';
 
 function VerticalTabSelector({
   items,
-  selected,
   actions,
+  selected,
   children,
   fieldName,
 }) {
@@ -39,7 +39,7 @@ function VerticalTabSelector({
                 ) : (
                   <input type="radio" name={fieldName} />
                 )}
-                <span>{item.title}</span>
+                <div className="w-full">{item.title}</div>
               </li>
             ))}
           </ul>
@@ -59,7 +59,7 @@ function VerticalTabSelector({
 VerticalTabSelector.propTypes = {
   children: node,
   selected: string,
-  items: arrayOf(shape({ title: string })),
+  items: arrayOf(shape({ title: node })),
   actions: shape({ setSelected: func }),
   fieldName: string,
 };
