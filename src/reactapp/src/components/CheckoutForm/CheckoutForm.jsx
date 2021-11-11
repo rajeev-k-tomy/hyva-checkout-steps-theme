@@ -8,7 +8,7 @@ import CheckoutFormWrapper from './CheckoutFormWrapper';
 import { PaymentMethod } from '../amazon/paymentMethod';
 import { BillingAddress } from '../amazon/billingAddress';
 import { ShippingAddress } from '../amazon/shippingAddress';
-// import { ShippingMethods } from '../amazon/shippingMethods';
+import { ShippingMethods } from '../amazon/shippingMethods';
 import { MainContentSection } from '../amazon/common/sections';
 import { config } from '../../config';
 import { aggregatedQueryRequest } from '../../api';
@@ -65,14 +65,17 @@ function CheckoutForm() {
         <Step id={2}>
           <MainContentSection>
             <ShippingAddress />
-            {/* <ShippingMethods /> */}
             <BillingAddress />
           </MainContentSection>
         </Step>
         <Step id={3}>
           <MainContentSection>
+            <ShippingMethods />
+          </MainContentSection>
+        </Step>
+        <Step id={4}>
+          <MainContentSection>
             <PaymentMethod />
-            {/* <BillingAddress /> */}
             {/* <Discount /> */}
           </MainContentSection>
         </Step>

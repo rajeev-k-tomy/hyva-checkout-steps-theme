@@ -16,7 +16,7 @@ const initialValues = {
   carrierCode: '',
 };
 
-const requiredMessage = __('Required');
+const requiredMessage = __('Shipping method is required');
 
 const validationSchema = {
   methodCode: YupString().required(requiredMessage),

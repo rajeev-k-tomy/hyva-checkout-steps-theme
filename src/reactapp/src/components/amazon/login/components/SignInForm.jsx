@@ -1,8 +1,8 @@
 import React from 'react';
 
 import EmailField from './EmailField';
-import Button from '../../../common/Button';
 import { TextInput } from '../../common/form';
+import { ContinueButton } from '../../common';
 import {
   useLoginAppContext,
   useLoginFormContext,
@@ -57,14 +57,16 @@ function SignInForm() {
       <TextInput
         type="password"
         label="Password"
-        name={passwordFieldName}
         formikData={formikData}
+        name={passwordFieldName}
       />
 
       <div className="flex items-center justify-center">
-        <Button click={handleLogin} variant="primary">
-          Login
-        </Button>
+        <ContinueButton
+          label="Login"
+          variant="primary"
+          actions={{ submit: handleLogin }}
+        />
       </div>
     </div>
   );

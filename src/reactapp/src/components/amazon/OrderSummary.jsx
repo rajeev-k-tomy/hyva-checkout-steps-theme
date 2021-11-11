@@ -19,7 +19,7 @@ function OrderSummary() {
         <CartItemList />
         <Totals />
         <div className="py-8 border-t">
-          {currentStep === 3 ? (
+          {currentStep === 4 ? (
             <PlaceOrder />
           ) : (
             <ContinueButton variant="warning" size="lg" />

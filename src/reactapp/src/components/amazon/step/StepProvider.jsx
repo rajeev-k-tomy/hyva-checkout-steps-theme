@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { node } from 'prop-types';
 
-import StepContext from './context/StepContext';
 import {
   initialStepId,
   pathStepRelation,
   defaultStepRoutePath,
 } from './utility';
+import StepContext from './context/StepContext';
 import { useCheckoutFormContext } from '../../../hook';
 
 function StepProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(initialStepId);
   const { setEnableReInitialize } = useCheckoutFormContext();
 
-  const setStepRoutePath = (path) => {
+  const setStepRoutePath = useCallback((path) => {
     window.location.hash = path.replace('#', '');
-  };
+  }, []);
 
-  const goToNextStep = (routePath) => {
-    setStepRoutePath(routePath || defaultStepRoutePath[currentStep + 1]);
-    setCurrentStep(currentStep + 1);
-  };
+  const goToNextStep = useCallback(
+    (routePath) => {
+      setStepRoutePath(routePath || defaultStepRoutePath[currentStep + 1]);
+      setCurrentStep(currentStep + 1);
+    },
+    [setStepRoutePath, currentStep]
+  );
 
   /**
    * Need to turn off re-initialize feature of formik which is ON by default.
@@ -46,12 +49,15 @@ function StepProvider({ children }) {
     };
   }, []);
 
+  const context = {
+    currentStep,
+    goToNextStep,
+    setCurrentStep,
+    setStepRoutePath,
+  };
+
   return (
-    <StepContext.Provider
-      value={{ currentStep, setCurrentStep, goToNextStep, setStepRoutePath }}
-    >
-      {children}
-    </StepContext.Provider>
+    <StepContext.Provider value={context}>{children}</StepContext.Provider>
   );
 }
 

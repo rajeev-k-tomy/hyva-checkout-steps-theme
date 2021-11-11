@@ -1,22 +1,29 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import { SHIPPING_METHOD } from '../../../../config';
-import { _objToArray } from '../../../../utils';
+
+import { VerticalTabSelector } from '../../common/form';
+import { GeneralSection, WellSection } from '../../common/sections';
 import {
   useShippingMethodCartContext,
   useShippingMethodFormContext,
 } from '../../../shippingMethod/hooks';
-
-import { VerticalTabSelector } from '../../common/form';
-import { GeneralSection, WellSection } from '../../common/sections';
+import { _objToArray } from '../../../../utils';
+import { SHIPPING_METHOD } from '../../../../config';
 
 function ShippingMethodList() {
   const [selected, setSelected] = useState();
   const { methodList } = useShippingMethodCartContext();
   const { selectedMethod, setFieldValue, submitHandler } =
     useShippingMethodFormContext();
-  const selectedItem = methodList[selected];
+
+  const methodItems = _objToArray(methodList).map((method) => ({
+    id: method.id,
+    title: (
+      <div className="flex items-center justify-between text-secondary">
+        <h2>{method.carrierTitle}</h2>
+        <strong>{method.price}</strong>
+      </div>
+    ),
+  }));
 
   const updateShippingMethod = async (methodId) => {
     const [carrierCode, methodCode] = methodId.split('__');
@@ -38,25 +45,10 @@ function ShippingMethodList() {
       <WellSection>
         <VerticalTabSelector
           selected={selected}
-          actions={{ setSelected: updateShippingMethod }}
-          items={_objToArray(methodList).map((method) => ({
-            id: method.id,
-            title: method.carrierTitle,
-          }))}
+          items={methodItems}
           fieldName="shippingMethod"
-        >
-          <div className="px-4 py-5 sm:p-6">
-            <h4 className="pb-4 text-base font-semibold underline">
-              {selectedItem?.carrierTitle}
-            </h4>
-            <p>
-              Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-              Praesent mauris. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Integer nec odio. Praesent libero.
-            </p>
-            <strong className="inline-block pt-6">{selectedItem?.price}</strong>
-          </div>
-        </VerticalTabSelector>
+          actions={{ setSelected: updateShippingMethod }}
+        />
       </WellSection>
     </GeneralSection>
   );
