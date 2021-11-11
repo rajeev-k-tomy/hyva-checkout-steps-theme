@@ -65,7 +65,6 @@ function CheckoutForm() {
         <Step id={2}>
           <MainContentSection>
             <ShippingAddress />
-            {/* <ShippingMethods /> */}
             <BillingAddress />
           </MainContentSection>
         </Step>
@@ -77,7 +76,6 @@ function CheckoutForm() {
         <Step id={4}>
           <MainContentSection>
             <PaymentMethod />
-            {/* <BillingAddress /> */}
             {/* <Discount /> */}
           </MainContentSection>
         </Step>

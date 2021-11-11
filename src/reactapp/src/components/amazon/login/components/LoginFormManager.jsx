@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Form } from 'formik';
 import { node } from 'prop-types';
 import { string as YupString } from 'yup';
-import { Form } from 'formik';
 
 import { __ } from '../../../../i18n';
 import { LOGIN_FORM } from '../../../../config';
-import { useAppContext, useCheckoutFormContext } from '../../../../hook';
+import { useStepContext } from '../../step/hooks';
+import { formTypeFieldName } from '../utility/field';
 import LoginFormContext from '../context/LoginFormContext';
 import { formikDataShape } from '../../../../utils/propTypes';
-import { formTypeFieldName } from '../utility/field';
-import { useStepContext } from '../../step/hooks';
+import { useAppContext, useCheckoutFormContext } from '../../../../hook';
 
 const initialValues = {
   email: '',
@@ -38,11 +38,11 @@ const validationSchema = {
 };
 
 function LoginFormManager({ children, formikData }) {
-  const [activeSection, setActiveSection] = useState('guest');
   const [createAccount, setCreateAccount] = useState(false);
+  const [activeSection, setActiveSection] = useState('guest');
   const { isLoggedIn } = useAppContext();
-  const { goToNextStep } = useStepContext();
   const { registerFormSection } = useCheckoutFormContext();
+  const { goToNextStep } = useStepContext();
   const { setFieldValue } = formikData;
 
   const updateSection = (section) => {

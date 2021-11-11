@@ -1,11 +1,76 @@
 import React from 'react';
-import { bool, func, oneOf, shape } from 'prop-types';
+import { object as YupObject } from 'yup';
+import { useFormikContext } from 'formik';
+import { bool, func, oneOf, shape, string } from 'prop-types';
 
 import Button from '../../common/Button/Button';
-import useStepContext from '../step/hooks/useStepContext';
+import {
+  LOGIN_FORM,
+  CART_ITEMS_FORM,
+  SHIPPING_METHOD,
+  BILLING_ADDR_FORM,
+  SHIPPING_ADDR_FORM,
+  PAYMENT_METHOD_FORM,
+} from '../../../config';
+import { useStepContext } from '../step/hooks';
+import { useAppContext, useCheckoutFormContext } from '../../../hook';
 
-function ContinueButton({ size, variant, disable, actions }) {
-  const { goToNextStep } = useStepContext();
+const stepsValidations = {
+  1: [LOGIN_FORM],
+  2: [LOGIN_FORM, SHIPPING_ADDR_FORM, BILLING_ADDR_FORM, CART_ITEMS_FORM],
+  3: [
+    LOGIN_FORM,
+    SHIPPING_ADDR_FORM,
+    BILLING_ADDR_FORM,
+    CART_ITEMS_FORM,
+    SHIPPING_METHOD,
+  ],
+  4: [
+    LOGIN_FORM,
+    SHIPPING_ADDR_FORM,
+    BILLING_ADDR_FORM,
+    CART_ITEMS_FORM,
+    SHIPPING_METHOD,
+    PAYMENT_METHOD_FORM,
+  ],
+};
+
+function ContinueButton({ size, variant, disable, actions, label }) {
+  const { values } = useFormikContext();
+  const { setErrorMessage } = useAppContext();
+  const { formSections } = useCheckoutFormContext();
+  const { currentStep, goToNextStep } = useStepContext();
+
+  const handleContinue = async () => {
+    const formSectionsToBeValidated = formSections.filter((section) =>
+      stepsValidations[currentStep].includes(section.id)
+    );
+
+    if (!formSectionsToBeValidated.length) {
+      return;
+    }
+
+    const validationRules = YupObject().shape(
+      formSectionsToBeValidated.reduce((accumulator, section) => {
+        accumulator[section.id] = YupObject().shape(section.validationSchema);
+        return accumulator;
+      }, {})
+    );
+
+    try {
+      await validationRules.validate(values, { abortEarly: true });
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.message);
+      return;
+    }
+
+    if (actions?.submit) {
+      await actions.submit();
+    }
+
+    goToNextStep();
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -13,17 +78,9 @@ function ContinueButton({ size, variant, disable, actions }) {
         size={size}
         variant={variant}
         disable={disable}
-        click={async () => {
-          const canContinue = await actions.submit();
-          console.log({ canContinue });
-          goToNextStep();
-
-          // if (canContinue) {
-          //   goToNextStep();
-          // }
-        }}
+        click={handleContinue}
       >
-        Continue
+        {label}
       </Button>
     </div>
   );
@@ -31,14 +88,16 @@ function ContinueButton({ size, variant, disable, actions }) {
 
 ContinueButton.propTypes = {
   disable: bool,
+  label: string,
   size: oneOf(['sm', 'md', 'lg']),
-  variant: oneOf(['success', 'warning', 'primary', 'secondary']),
   actions: shape({ submit: func }),
+  variant: oneOf(['success', 'warning', 'primary', 'secondary']),
 };
 
 ContinueButton.defaultProps = {
   size: 'md',
   disable: false,
+  label: 'Continue',
   variant: 'primary',
   actions: {
     submit: Boolean,

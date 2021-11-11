@@ -80,7 +80,12 @@ function CheckoutFormProvider({ children }) {
    * This will register individual form sections to the checkout-form-formik
    */
   const registerFormSection = useCallback((section) => {
-    updateSections((prevSections) => [...prevSections, section]);
+    updateSections((prevSections) => {
+      const newSections = prevSections.filter(
+        (prevSection) => prevSection.id !== section.id
+      );
+      return [...newSections, section];
+    });
   }, []);
 
   const formSubmit = async (values) => {
@@ -149,6 +154,7 @@ function CheckoutFormProvider({ children }) {
         enableReinitialize,
         registerPaymentAction,
         setEnableReInitialize,
+        formSections: sections,
         submitHandler: formSubmit,
         checkoutFormValidationSchema: formValidationSchema,
       }}
