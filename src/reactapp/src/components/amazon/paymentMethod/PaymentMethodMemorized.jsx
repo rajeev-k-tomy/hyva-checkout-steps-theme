@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+
 import PaymentMethodList from './components/PaymentMethodList';
 import { PaymentMethodFormManager } from '../../paymentMethod';
-import getCustomRenderers from '../../../paymentMethods/customRenderers';
 import { formikDataShape } from '../../../utils/propTypes';
+import getCustomRenderers from '../../../paymentMethods/customRenderers';
 
 const PaymentMethodMemorized = React.memo(({ formikData }) => {
   const [renderers, setRenderers] = useState({});
