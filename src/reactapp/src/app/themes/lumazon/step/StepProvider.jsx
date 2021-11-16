@@ -7,7 +7,7 @@ import {
   defaultStepRoutePath,
 } from './utility';
 import StepContext from './context/StepContext';
-import { useCheckoutFormContext } from '../../../hook';
+import { useCheckoutFormContext } from '../../../../hooks';
 
 function StepProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(initialStepId);

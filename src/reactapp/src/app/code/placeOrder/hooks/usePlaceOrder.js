@@ -1,5 +1,5 @@
-import { __ } from '../../../../../i18n';
-import { useCheckoutFormContext } from '../../../../../hooks';
+import { __ } from '../../../../i18n';
+import { useCheckoutFormContext } from '../../../../hooks';
 import usePlaceOrderAppContext from './usePlaceOrderAppContext';
 
 export default function usePlaceOrder() {

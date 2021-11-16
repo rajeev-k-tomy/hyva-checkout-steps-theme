@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useTotalsCartContext } from '../totals/hooks';
+import { useTotalsCartContext } from '../../code/totals/hooks';
 
 function Totals() {
   const {

@@ -10,17 +10,17 @@ import {
 import {
   isValidCustomerAddressId,
   billingSameAsShippingField,
-} from '../../../../utils/address';
+} from '../../../../../utils/address';
 
 import {
   useShippingAddressAppContext,
   useShippingAddressCartContext,
-  useShippingAddressFormContext,
+  useShippingAddressFormikContext,
 } from '../hooks';
 import { useStepContext } from '../../step/hooks';
-import { BILLING_ADDR_FORM } from '../../../../config';
-import LocalStorage from '../../../../utils/localStorage';
-import { classNames, _makePromise } from '../../../../utils';
+import { BILLING_ADDR_FORM } from '../../../../../config';
+import LocalStorage from '../../../../../utils/localStorage';
+import { classNames, _makePromise } from '../../../../../utils';
 
 function BillingSameAsShippingCheckbox({ label, useInCard }) {
   const { setStepRoutePath } = useStepContext();
@@ -28,7 +28,7 @@ function BillingSameAsShippingCheckbox({ label, useInCard }) {
   const { setCartBillingAddress, setCustomerAddressAsBillingAddress } =
     useShippingAddressCartContext();
   const { setFieldValue, isFormSectionValid, shippingValues, addressOnEdit } =
-    useShippingAddressFormContext();
+    useShippingAddressFormikContext();
 
   const handleCheckboxClick = async (event) => {
     const isChecked = event.target.checked;

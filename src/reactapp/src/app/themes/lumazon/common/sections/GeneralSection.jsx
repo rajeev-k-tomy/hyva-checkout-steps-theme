@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, node, string } from 'prop-types';
 
-import { classNames } from '../../../../utils';
+import { classNames } from '../../../../../utils';
 
 function GeneralSection({
   title,

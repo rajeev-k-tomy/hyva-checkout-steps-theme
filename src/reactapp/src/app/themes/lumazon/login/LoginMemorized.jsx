@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Message from '../../common/Message';
 import SignInForm from './components/SignInForm';
+import Message from '../../../code/common/Message';
 import LoginHeaderTabs from './components/LoginHeaderTabs';
 import LoginFormManager from './components/LoginFormManager';
 import CreateAccountForm from './components/CreateAccountForm';
 import GuestContinueForm from './components/GuestContinueForm';
-import { formikDataShape } from '../../../utils/propTypes';
+import { formikDataShape } from '../../../../utils/propTypes';
 
 const LoginMemorized = React.memo(({ formikData }) => (
   <LoginFormManager formikData={formikData}>

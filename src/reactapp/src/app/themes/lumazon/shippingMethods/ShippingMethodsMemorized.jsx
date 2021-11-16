@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { formikDataShape } from '../../../utils/propTypes';
 import ShippingMethodList from './components/ShippingMethodList';
-import ShippingMethodFormManager from '../../shippingMethod/components/ShippingMethodFormManager';
+import { ShippingMethodFormManager } from '../../../code/shippingMethod/components';
+import { formikDataShape } from '../../../../utils/propTypes';
 
 const ShippingMethodsMemorized = React.memo(({ formikData }) => (
   <ShippingMethodFormManager formikData={formikData}>

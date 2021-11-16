@@ -1,7 +1,7 @@
 import _get from 'lodash.get';
 
-import { __ } from '../../../../../i18n';
-import { LOGIN_FORM } from '../../../../../config';
+import { __ } from '../../../../i18n';
+import { LOGIN_FORM } from '../../../../config';
 import usePlaceOrderAppContext from './usePlaceOrderAppContext';
 import usePlaceOrderCartContext from './usePlaceOrderCartContext';
 

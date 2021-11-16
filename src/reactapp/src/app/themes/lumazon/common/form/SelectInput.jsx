@@ -4,9 +4,9 @@ import _get from 'lodash.get';
 import { ErrorMessage, Field } from 'formik';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 
-import { __ } from '../../../../i18n';
-import { classNames, _replace } from '../../../../utils';
-import { formikDataShape } from '../../../../utils/propTypes';
+import { __ } from '../../../../../i18n';
+import { classNames, _replace } from '../../../../../utils';
+import { formikDataShape } from '../../../../../utils/propTypes';
 
 function SelectInput({
   id,

@@ -1,20 +1,20 @@
 import { useCallback } from 'react';
 
 import {
+  addressInitValues,
   isValidCustomerAddressId,
   prepareFormAddressFromCartAddress,
-} from '../../../../utils/address';
+} from '../../../../../utils/address';
 import {
   useShippingAddressAppContext,
   useShippingAddressCartContext,
-} from '../../../shippingAddress/hooks';
-import { __ } from '../../../../i18n';
-import LocalStorage from '../../../../utils/localStorage';
-import { _emptyFunc, _makePromise } from '../../../../utils';
+  useShippingAddressFormikContext,
+} from '../../../../code/shippingAddress/hooks';
+import { __ } from '../../../../../i18n';
+import LocalStorage from '../../../../../utils/localStorage';
 import { initialAddressValues } from '../../address/utility';
-import { BILLING_ADDR_FORM, SHIPPING_ADDR_FORM } from '../../../../config';
-import useShippingAddressFormContext from './useShippingAddressFormContext';
-import { billingAddressFormInitValues } from '../../../billingAddress/utility';
+import { _emptyFunc, _makePromise } from '../../../../../utils';
+import { BILLING_ADDR_FORM, SHIPPING_ADDR_FORM } from '../../../../../config';
 
 const emptyCallback = _emptyFunc();
 
@@ -35,7 +35,7 @@ export default function useSaveAddressAction() {
     setCustomerAddressAsShippingAddress,
   } = useShippingAddressCartContext();
   const { isBillingSame, setFieldValue, shippingValues, regionData } =
-    useShippingAddressFormContext();
+    useShippingAddressFormikContext();
 
   const submitHandler = useCallback(
     async (customerAddressId, isEditForm = false) => {
@@ -86,7 +86,7 @@ export default function useSaveAddressAction() {
 
       if (isBillingSame) {
         setFieldValue(BILLING_ADDR_FORM, {
-          ...billingAddressFormInitValues,
+          ...addressInitValues,
           ...addressToSet,
           isSameAsShipping: true,
         });

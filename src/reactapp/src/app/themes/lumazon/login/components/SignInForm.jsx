@@ -8,7 +8,7 @@ import {
   useLoginFormContext,
   useLoginCartContext,
 } from '../hooks';
-import { __ } from '../../../../i18n';
+import { __ } from '../../../../../i18n';
 import { isSignInSection } from '../utility';
 import { passwordFieldName } from '../utility/field';
 

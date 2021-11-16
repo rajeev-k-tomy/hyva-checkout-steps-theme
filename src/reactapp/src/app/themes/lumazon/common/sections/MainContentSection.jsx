@@ -2,10 +2,10 @@ import React from 'react';
 import { node } from 'prop-types';
 
 import OrderSummary from '../../OrderSummary';
-import Message from '../../../common/Message';
-import PageLoader from '../../../common/Loader';
+import Message from '../../../../code/common/Message';
+import PageLoader from '../../../../code/common/Loader';
 import StepNavigation from '../../StepNavigation';
-import { useAppContext, useCartContext } from '../../../../hook';
+import { useAppContext, useCartContext } from '../../../../../hooks';
 
 function MainContentSection({ children }) {
   const { orderId } = useCartContext();

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { CART_ITEMS_FORM } from '../../../config';
-import useFormikMemorizer from '../../../hook/useFormikMemorizer';
+import { CART_ITEMS_FORM } from '../../../../config';
+import { useFormikMemorizer } from '../../../../hooks';
 import CartItemListMemorized from './CartItemListMemorized';
 
 /**

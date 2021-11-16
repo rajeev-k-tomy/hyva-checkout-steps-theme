@@ -1,18 +1,18 @@
 import React from 'react';
 
-import Button from '../../../../common/Button';
+import Button from '../../../../../code/common/Button';
 import { useStepContext } from '../../../step/hooks';
 import { ROUTE_PATH_ADDRESS } from '../../../step/utility';
-import { useShippingAddressFormContext } from '../../hooks';
+import { useShippingAddressFormikContext } from '../../hooks';
 
 function AddressFormCancelButton() {
-  const { setStepRoutePath } = useStepContext();
   const {
     backupAddress,
     setAddressOnEdit,
     setNeedNewAddress,
     setShippingAddressFormFields,
-  } = useShippingAddressFormContext();
+  } = useShippingAddressFormikContext();
+  const { setStepRoutePath } = useStepContext();
 
   const handleFormCancel = () => {
     setShippingAddressFormFields(backupAddress);

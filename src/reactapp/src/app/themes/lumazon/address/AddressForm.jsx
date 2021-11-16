@@ -2,8 +2,8 @@ import React from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { SelectInput, TextInput } from '../common/form';
-import { formikDataShape } from '../../../utils/propTypes';
-import useCountryState from '../../address/hooks/useCountryState';
+import { formikDataShape } from '../../../../utils/propTypes';
+import { useCountryState } from '../../../code/address/hooks';
 
 function AddressForm({ formikData, fields, actions }) {
   const { countryOptions, stateOptions } = useCountryState({

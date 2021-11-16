@@ -1,9 +1,8 @@
 import React from 'react';
 
-// import BillingAddressList from './components/BillingAddressList';
-import BillingAddressFormikProvider from './components/BillingAddressFormikProvider';
-import { formikDataShape } from '../../../utils/propTypes';
 import BillingAddressForm from './components/BillingAddressForm';
+import BillingAddressFormikProvider from './components/BillingAddressFormikProvider';
+import { formikDataShape } from '../../../../utils/propTypes';
 
 const BillingAddressMemorized = React.memo(({ formikData }) => (
   <BillingAddressFormikProvider formikData={formikData}>

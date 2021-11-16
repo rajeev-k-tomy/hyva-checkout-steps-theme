@@ -1,6 +1,7 @@
 import _get from 'lodash.get';
-import { initialCountry } from '../../../../utils/address';
-import { prepareFullName } from '../../../../utils/customer';
+
+import { initialCountry } from '../../../../../utils/address';
+import { prepareFullName } from '../../../../../utils/customer';
 
 export function prepareOtherAddressData(address) {
   const { id, street, city, country, countryCode, region, zipcode, phone } =

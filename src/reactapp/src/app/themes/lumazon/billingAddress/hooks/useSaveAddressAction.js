@@ -2,16 +2,16 @@ import {
   useBillingAddressAppContext,
   useBillingAddressCartContext,
   useBillingAddressFormikContext,
-} from '../../../billingAddress/hooks';
+} from '../../../../code/billingAddress/hooks';
 import {
   isValidCustomerAddressId,
   billingSameAsShippingField,
   prepareFormAddressFromCartAddress,
-} from '../../../../utils/address';
-import { __ } from '../../../../i18n';
-import { _makePromise } from '../../../../utils';
-import { BILLING_ADDR_FORM } from '../../../../config';
-import LocalStorage from '../../../../utils/localStorage';
+} from '../../../../../utils/address';
+import { __ } from '../../../../../i18n';
+import { _makePromise } from '../../../../../utils';
+import { BILLING_ADDR_FORM } from '../../../../../config';
+import LocalStorage from '../../../../../utils/localStorage';
 
 const isBillingSame = false;
 

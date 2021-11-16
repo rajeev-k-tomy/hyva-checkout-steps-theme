@@ -4,10 +4,10 @@ import _set from 'lodash.set';
 import { useFormikContext } from 'formik';
 
 import BillingAddressMemorized from './BillingAddressMemorized';
-import { __ } from '../../../i18n';
-import { BILLING_ADDR_FORM } from '../../../config';
-import useFormikMemorizer from '../../../hook/useFormikMemorizer';
-import { billingSameAsShippingField } from '../../../utils/address';
+import { __ } from '../../../../i18n';
+import { BILLING_ADDR_FORM } from '../../../../config';
+import { useFormikMemorizer } from '../../../../hooks';
+import { billingSameAsShippingField } from '../../../../utils/address';
 
 const regionField = `${BILLING_ADDR_FORM}.region`;
 const countryField = `${BILLING_ADDR_FORM}.country`;

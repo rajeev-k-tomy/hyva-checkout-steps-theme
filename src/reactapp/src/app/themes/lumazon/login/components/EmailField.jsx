@@ -3,7 +3,7 @@ import { MailIcon } from '@heroicons/react/solid';
 
 import { TextInput } from '../../common/form';
 import { useLoginFormContext } from '../hooks';
-import { classNames } from '../../../../utils';
+import { classNames } from '../../../../../utils';
 import { emailFieldName } from '../utility/field';
 
 function EmailField() {

@@ -3,7 +3,7 @@ import { UserRemoveIcon } from '@heroicons/react/solid';
 
 import EmailField from './EmailField';
 import { TextInput } from '../../common/form';
-import Button from '../../../common/Button/Button';
+import Button from '../../../../code/common/Button';
 import { HorizontalLineSeparator } from '../../common';
 import { useLoginFormContext } from '../hooks';
 import { isNewCustomerSection } from '../utility';

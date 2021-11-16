@@ -1,24 +1,26 @@
 import React from 'react';
 
 import { AddressForm } from '../../address';
-import Button from '../../../common/Button';
 import { AddressFormCancelButton } from './button';
+import Button from '../../../../code/common/Button';
 import { GeneralSection } from '../../common/sections';
 import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
 import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 import {
+  useEnterActionInForm,
+  useTextInputBlurAction,
+} from '../../../../../hooks';
+import {
   useSaveAddressAction,
   useShippingAddressAppContext,
-  useShippingAddressFormContext,
   useShippingAddressCartContext,
+  useShippingAddressFormikContext,
 } from '../hooks';
 import { getShippingUniqueId } from '../utility';
 import { useStepContext } from '../../step/hooks';
 import { ROUTE_PATH_ADDRESS } from '../../step/utility';
-import { useTextInputBlurAction } from '../../../../hook';
-import { _isObjEmpty, _emptyFunc } from '../../../../utils';
-import { isValidCustomerAddressId } from '../../../../utils/address';
-import useEnterActionInForm from '../../../../hook/useEnterActionInForm';
+import { _isObjEmpty, _emptyFunc } from '../../../../../utils';
+import { isValidCustomerAddressId } from '../../../../../utils/address';
 
 const isEditForm = true;
 const emptyCallback = _emptyFunc();
@@ -33,7 +35,7 @@ function ShippingAddressForm() {
     validationSchema,
     setAddressOnEdit,
     setNeedNewAddress,
-  } = useShippingAddressFormContext();
+  } = useShippingAddressFormikContext();
   const submitHandler = useSaveAddressAction();
   const { setStepRoutePath } = useStepContext();
   const { cartShippingAddress } = useShippingAddressCartContext();

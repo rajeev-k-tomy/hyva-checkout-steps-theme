@@ -1,7 +1,7 @@
 import _get from 'lodash.get';
 
-import { useCartContext } from '../../../../../hooks';
-import { isCartAddressValid } from '../../../../../utils/address';
+import { useCartContext } from '../../../../hooks';
+import { isCartAddressValid } from '../../../../utils/address';
 
 export default function usePlaceOrderCartContext() {
   const {

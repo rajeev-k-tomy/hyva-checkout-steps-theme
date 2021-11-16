@@ -1,10 +1,10 @@
 import React from 'react';
 import { TrashIcon } from '@heroicons/react/solid';
 
-import { formikDataShape } from '../../../utils/propTypes';
-import CartItemsFormManager from '../../items/components/CartItemsFormManager';
-import useItemsCartContext from '../../items/hooks/useItemsCartContext';
-import { _objToArray, _range } from '../../../utils';
+import { formikDataShape } from '../../../../utils/propTypes';
+import { CartItemsFormManager } from '../../../code/items/components';
+import { _objToArray, _range } from '../../../../utils';
+import { useItemsCartContext } from '../../../code/items/hooks';
 
 const CartItemListMemorized = React.memo(({ formikData }) => {
   const { cartItems } = useItemsCartContext();

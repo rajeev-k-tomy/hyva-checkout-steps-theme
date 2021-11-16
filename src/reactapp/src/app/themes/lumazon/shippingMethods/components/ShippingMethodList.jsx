@@ -5,9 +5,9 @@ import { GeneralSection, WellSection } from '../../common/sections';
 import {
   useShippingMethodCartContext,
   useShippingMethodFormContext,
-} from '../../../shippingMethod/hooks';
-import { _objToArray } from '../../../../utils';
-import { SHIPPING_METHOD } from '../../../../config';
+} from '../../../../code/shippingMethod/hooks';
+import { _objToArray } from '../../../../../utils';
+import { SHIPPING_METHOD } from '../../../../../config';
 
 function ShippingMethodList() {
   const [selected, setSelected] = useState();

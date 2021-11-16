@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { classNames } from '../../../../utils';
-import { useLoginFormContext } from '../hooks';
 import { loginSections } from '../utility';
+import { useLoginFormContext } from '../hooks';
+import { classNames } from '../../../../../utils';
 
 function LoginHeaderTabs() {
   const { createAccount, activeSection, setActiveSection } =

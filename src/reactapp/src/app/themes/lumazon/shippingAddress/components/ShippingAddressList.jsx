@@ -9,14 +9,14 @@ import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
 import {
   useShippingAddressAppContext,
   useShippingAddressCartContext,
-  useShippingAddressFormContext,
+  useShippingAddressFormikContext,
 } from '../hooks';
 import { prepareAddressCardListData } from '../utility';
-import { classNames, _isObjEmpty } from '../../../../utils';
+import { classNames, _isObjEmpty } from '../../../../../utils';
 import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 
 function ShippingAddressList() {
-  const { needNewAddress, addressOnEdit } = useShippingAddressFormContext();
+  const { needNewAddress, addressOnEdit } = useShippingAddressFormikContext();
   const { customerAddressList, defaultShippingAddress } =
     useShippingAddressAppContext();
   const { cartShippingAddress, selectedAddressId } =

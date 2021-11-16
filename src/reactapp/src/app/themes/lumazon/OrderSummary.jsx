@@ -3,7 +3,7 @@ import React from 'react';
 import Totals from './Totals';
 import { CartItemList } from './cartItems';
 import ContinueButton from './common/ContinueButton';
-import PlaceOrder from '../placeOrder/components/PlaceOrder';
+import { PlaceOrder } from '../../code/placeOrder/components';
 import useStepContext from './step/hooks/useStepContext';
 
 function OrderSummary() {

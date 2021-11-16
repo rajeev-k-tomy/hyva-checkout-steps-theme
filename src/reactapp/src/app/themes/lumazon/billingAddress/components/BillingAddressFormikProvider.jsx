@@ -4,15 +4,23 @@ import { Form } from 'formik';
 import { node } from 'prop-types';
 import { string as YupString, bool as YupBool, array as YupArray } from 'yup';
 
-import { __ } from '../../../../i18n';
-import { BILLING_ADDR_FORM } from '../../../../config';
-import LocalStorage from '../../../../utils/localStorage';
-import { formikDataShape } from '../../../../utils/propTypes';
-import { useRegionData, useRegionValidation } from '../../../address/hooks';
-import { BillingAddressFormikContext } from '../../../billingAddress/context';
-import { billingAddressFormInitValues } from '../../../billingAddress/utility';
-import { useFormSection } from '../../../../hook';
-import { _emptyFunc } from '../../../../utils';
+import {
+  useRegionData,
+  useRegionValidation,
+} from '../../../../code/address/hooks';
+import { __ } from '../../../../../i18n';
+import { _emptyFunc } from '../../../../../utils';
+import { useFormSection } from '../../../../../hooks';
+import { BILLING_ADDR_FORM } from '../../../../../config';
+import LocalStorage from '../../../../../utils/localStorage';
+import { formikDataShape } from '../../../../../utils/propTypes';
+import { addressInitValues } from '../../../../../utils/address';
+import { BillingAddressFormikContext } from '../../../../code/billingAddress/context';
+
+const billingAddressFormInitValues = {
+  ...addressInitValues,
+  isSameAsShipping: LocalStorage.getBillingSameAsShippingInfo(),
+};
 
 const requiredMessage = __('%1 is required');
 

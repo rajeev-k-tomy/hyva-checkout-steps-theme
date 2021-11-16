@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { LOGIN_FORM } from '../../../config';
-import useFormikMemorizer from '../../../hook/useFormikMemorizer';
+
 import LoginMemorized from './LoginMemorized';
+import { LOGIN_FORM } from '../../../../config';
+import { useFormikMemorizer } from '../../../../hooks';
 
 function Login() {
   const formikSectionData = useFormikMemorizer(LOGIN_FORM);

@@ -7,8 +7,8 @@ import {
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
   CHECKOUT_AGREEMENTS_FORM,
-} from '../../../../../config';
-import { _isObjEmpty } from '../../../../../utils';
+} from '../../../../config';
+import { _isObjEmpty } from '../../../../utils';
 
 export function hasLoginErrors(errors) {
   const loginErrors = _get(errors, LOGIN_FORM);

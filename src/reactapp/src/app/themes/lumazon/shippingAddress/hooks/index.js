@@ -1,9 +1,13 @@
 import {
   useShippingAddressAppContext,
   useShippingAddressCartContext,
-} from '../../../shippingAddress/hooks';
+  useShippingAddressFormikContext,
+} from '../../../../code/shippingAddress/hooks';
 
 export { default as useSaveAddressAction } from './useSaveAddressAction';
-export { default as useShippingAddressFormContext } from './useShippingAddressFormContext';
 
-export { useShippingAddressAppContext, useShippingAddressCartContext };
+export {
+  useShippingAddressAppContext,
+  useShippingAddressCartContext,
+  useShippingAddressFormikContext,
+};

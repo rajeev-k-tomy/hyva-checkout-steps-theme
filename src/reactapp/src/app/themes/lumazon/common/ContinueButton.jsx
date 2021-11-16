@@ -3,7 +3,7 @@ import { object as YupObject } from 'yup';
 import { useFormikContext } from 'formik';
 import { bool, func, oneOf, shape, string } from 'prop-types';
 
-import Button from '../../common/Button/Button';
+import Button from '../../../code/common/Button';
 import {
   LOGIN_FORM,
   CART_ITEMS_FORM,
@@ -11,9 +11,9 @@ import {
   BILLING_ADDR_FORM,
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
-} from '../../../config';
+} from '../../../../config';
 import { useStepContext } from '../step/hooks';
-import { useAppContext, useCheckoutFormContext } from '../../../hook';
+import { useAppContext, useCheckoutFormContext } from '../../../../hooks';
 
 const stepsValidations = {
   1: [LOGIN_FORM],

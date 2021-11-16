@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/solid';
 
-import { classNames, _range } from '../../utils';
+import { classNames, _range } from '../../../utils';
 import useStepContext from './step/hooks/useStepContext';
 import { TOTAL_STEPS, stepTitles } from './step/utility';
 
@@ -49,37 +49,6 @@ function StepNavigation() {
                 <a href={step.path}>{step.title}</a>
               </div>
             ))}
-            {/* <div className="text-sm font-semibold text-blue-600">
-              <a href={ROUTE_PATH_NEW_CUSTOMER}>LOGIN</a>
-            </div>
-            <div
-              className={classNames(
-                currentStep >= 2 ? 'text-blue-600' : 'text-gray-300',
-                'text-sm font-semibold'
-              )}
-            >
-              <a href={ROUTE_PATH_SHIPPING}>SHIPPING</a>
-            </div>
-            <div
-              className={classNames(
-                currentStep >= 2 ? 'text-blue-600' : 'text-gray-300',
-                'text-sm font-semibold'
-              )}
-            >
-              <a href={ROUTE_PATH_SHIPPING}>SHIPPING</a>
-            </div>
-            <div
-              className={classNames(
-                currentStep === 3 ? 'text-blue-600' : 'text-gray-300',
-                'text-sm font-semibold'
-              )}
-            >
-              {currentStep === 3 ? (
-                <a href={ROUTE_PATH_PAYMENT}>PAYMENT</a>
-              ) : (
-                <span>PAYMENT</span>
-              )}
-            </div> */}
           </div>
         </div>
       </div>

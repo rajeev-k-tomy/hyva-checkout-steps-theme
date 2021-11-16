@@ -8,9 +8,9 @@ import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
 import {
   usePaymentMethodCartContext,
   usePaymentMethodFormContext,
-} from '../../../paymentMethod/hooks';
-import { _objToArray } from '../../../../utils';
-import { PAYMENT_METHOD_FORM } from '../../../../config';
+} from '../../../../code/paymentMethod/hooks';
+import { _objToArray } from '../../../../../utils';
+import { PAYMENT_METHOD_FORM } from '../../../../../config';
 
 function PaymentMethodList({ methodRenderers }) {
   const [selected, setSelected] = useState('');

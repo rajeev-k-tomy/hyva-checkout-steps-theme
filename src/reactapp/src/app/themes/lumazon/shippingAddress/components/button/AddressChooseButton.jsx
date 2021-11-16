@@ -1,8 +1,8 @@
 import React from 'react';
 import { bool, number, oneOfType, string } from 'prop-types';
 
-import { classNames } from '../../../../../utils';
 import { useSaveAddressAction } from '../../hooks';
+import { classNames } from '../../../../../../utils';
 
 function AddressChooseButton({ disabled, addressId }) {
   const submitHandler = useSaveAddressAction();

@@ -3,13 +3,13 @@ import { number, oneOfType, string } from 'prop-types';
 
 import {
   useShippingAddressAppContext,
-  useShippingAddressFormContext,
+  useShippingAddressFormikContext,
 } from '../../hooks';
-import { useStepContext } from '../../../step/hooks';
 import {
   isValidCustomerAddressId,
   prepareFormAddressFromCartAddress,
-} from '../../../../../utils/address';
+} from '../../../../../../utils/address';
+import { useStepContext } from '../../../step/hooks';
 
 function AddressEditButton({ addressId }) {
   const {
@@ -17,7 +17,7 @@ function AddressEditButton({ addressId }) {
     setBackupAddress,
     setAddressOnEdit,
     setShippingAddressFormFields,
-  } = useShippingAddressFormContext();
+  } = useShippingAddressFormikContext();
   const { setStepRoutePath } = useStepContext();
   const { customerAddressList } = useShippingAddressAppContext();
   let addressToBackup = shippingValues;

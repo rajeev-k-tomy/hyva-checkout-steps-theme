@@ -3,7 +3,6 @@ import React from 'react';
 import Login from './login';
 import Totals from './totals';
 import CartItemsForm from './items';
-import PlaceOrder from './placeOrder';
 import { AddressWrapper } from './address';
 import { Message } from '../../code/common';
 import PaymentMethod from './paymentMethod';
@@ -13,6 +12,7 @@ import PageLoader from '../../code/common/Loader';
 import ShippingMethodsForm from './shippingMethod';
 import StickyRightSidebar from './StickyRightSidebar';
 import CheckoutAgreements from './checkoutAgreements';
+import { PlaceOrder } from '../../code/placeOrder/components';
 import {
   useCheckoutFormAppContext,
   useCheckoutFormCartContext,

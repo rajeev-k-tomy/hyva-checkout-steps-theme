@@ -2,9 +2,12 @@ import React, { useMemo } from 'react';
 import _get from 'lodash.get';
 import { useFormikContext } from 'formik';
 
+import {
+  PAYMENT_METHOD_FORM,
+  CHECKOUT_AGREEMENTS_FORM,
+} from '../../../../config';
+import { useFormikMemorizer } from '../../../../hooks';
 import PaymentMethodMemorized from './PaymentMethodMemorized';
-import useFormikMemorizer from '../../../hook/useFormikMemorizer';
-import { CHECKOUT_AGREEMENTS_FORM, PAYMENT_METHOD_FORM } from '../../../config';
 
 function PaymentMethod() {
   const { values } = useFormikContext();

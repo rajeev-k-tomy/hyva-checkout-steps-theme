@@ -3,13 +3,13 @@ import { Form } from 'formik';
 import { node } from 'prop-types';
 import { string as YupString } from 'yup';
 
-import { __ } from '../../../../i18n';
-import { LOGIN_FORM } from '../../../../config';
+import { __ } from '../../../../../i18n';
 import { useStepContext } from '../../step/hooks';
+import { LOGIN_FORM } from '../../../../../config';
 import { formTypeFieldName } from '../utility/field';
 import LoginFormContext from '../context/LoginFormContext';
-import { formikDataShape } from '../../../../utils/propTypes';
-import { useAppContext, useCheckoutFormContext } from '../../../../hook';
+import { formikDataShape } from '../../../../../utils/propTypes';
+import { useAppContext, useCheckoutFormContext } from '../../../../../hooks';
 
 const initialValues = {
   email: '',

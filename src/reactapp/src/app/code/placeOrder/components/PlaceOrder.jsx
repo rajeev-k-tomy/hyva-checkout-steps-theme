@@ -2,11 +2,11 @@ import React from 'react';
 import _get from 'lodash.get';
 import { useFormikContext } from 'formik';
 
-import Button from '../../../../code/common/Button';
+import Button from '../../common/Button';
 import {
   scrollToElement,
   focusOnFormErrorElement,
-} from '../../../../../utils/form';
+} from '../../../../utils/form';
 import {
   LOGIN_FORM,
   SHIPPING_METHOD,
@@ -14,7 +14,7 @@ import {
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
   CHECKOUT_AGREEMENTS_FORM,
-} from '../../../../../config';
+} from '../../../../config';
 import {
   hasLoginErrors,
   hasPaymentMethodErrors,
@@ -23,7 +23,7 @@ import {
   hasShippingAddressErrors,
   hasTermsAndConditionsAgreed,
 } from '../utility';
-import { __ } from '../../../../../i18n';
+import { __ } from '../../../../i18n';
 import usePlaceOrder from '../hooks/usePlaceOrder';
 import useAddressSave from '../hooks/useAddressSave';
 import useEmailInfoSave from '../hooks/useEmailInfoSave';

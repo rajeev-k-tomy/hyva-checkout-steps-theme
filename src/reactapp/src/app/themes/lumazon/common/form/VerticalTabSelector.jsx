@@ -4,7 +4,7 @@ import React from 'react';
 import { arrayOf, func, node, shape, string } from 'prop-types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 
-import { classNames } from '../../../../utils';
+import { classNames } from '../../../../../utils';
 
 function VerticalTabSelector({
   items,

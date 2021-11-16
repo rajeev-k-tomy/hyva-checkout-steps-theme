@@ -4,8 +4,8 @@ import _get from 'lodash.get';
 import { bool, func, node, shape, string } from 'prop-types';
 import { ErrorMessage, Field } from 'formik';
 
-import { classNames, _emptyFunc, _replace } from '../../../../utils';
-import { formikDataShape } from '../../../../utils/propTypes';
+import { formikDataShape } from '../../../../../utils/propTypes';
+import { classNames, _emptyFunc, _replace } from '../../../../../utils';
 
 const emptyCallback = _emptyFunc();
 

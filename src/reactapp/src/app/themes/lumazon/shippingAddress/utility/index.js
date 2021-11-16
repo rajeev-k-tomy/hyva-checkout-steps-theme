@@ -1,9 +1,9 @@
 import _get from 'lodash.get';
 
 import { getAddressUniqueId } from '../../address/utility';
-import { _isObjEmpty, _objToArray } from '../../../../utils';
-import { prepareFullName } from '../../../../utils/customer';
-import { isCartAddressValid } from '../../../../utils/address';
+import { _isObjEmpty, _objToArray } from '../../../../../utils';
+import { prepareFullName } from '../../../../../utils/customer';
+import { isCartAddressValid } from '../../../../../utils/address';
 
 export function getShippingUniqueId(shippingValues) {
   return getAddressUniqueId(shippingValues);

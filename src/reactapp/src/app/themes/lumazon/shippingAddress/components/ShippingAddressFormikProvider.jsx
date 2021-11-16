@@ -8,14 +8,16 @@ import _get from 'lodash.get';
 import { Form } from 'formik';
 import { node } from 'prop-types';
 
-import { __ } from '../../../../i18n';
-import { SHIPPING_ADDR_FORM } from '../../../../config';
-import { initialCountry } from '../../../../utils/address';
-import useFormSection from '../../../../hook/useFormSection';
-import { formikDataShape } from '../../../../utils/propTypes';
-import useRegionData from '../../../address/hooks/useRegionData';
-import useRegionValidation from '../../../address/hooks/useRegionValidation';
-import ShippingAddressFormikContext from '../context/ShippingAddressFormikContext';
+import {
+  useRegionData,
+  useRegionValidation,
+} from '../../../../code/address/hooks';
+import { __ } from '../../../../../i18n';
+import { useFormSection } from '../../../../../hooks';
+import { SHIPPING_ADDR_FORM } from '../../../../../config';
+import { initialCountry } from '../../../../../utils/address';
+import { formikDataShape } from '../../../../../utils/propTypes';
+import { ShippingAddressFormikContext } from '../../../../code/shippingAddress/context';
 
 const initialValues = {
   company: '',
@@ -75,19 +77,6 @@ function ShippingAddressFormikProvider({ children, formikData }) {
     [setFieldValue]
   );
 
-  // let context = {
-  //   ...regionData,
-  //   ...formikData,
-  //   formikData,
-  //   setShippingAddressFormFields,
-  //   resetShippingAddressFormFields,
-  // };
-
-  // const handleKeyDown = useEnterActionInForm({
-  //   formikData,
-  //   validationSchema,
-  //   submitHandler: formSubmit,
-  // });
   const formSectionContext = useFormSection({
     formikData,
     initialValues,
