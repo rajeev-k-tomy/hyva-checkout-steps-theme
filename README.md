@@ -1,54 +1,53 @@
 
-# Hyvä Themes - Hyvä Checkout
+# Hyvä Checkout - Lumazon theme
 
 [![Hyvä Themes](https://repository-images.githubusercontent.com/303806175/a3973c80-479c-11eb-8716-03e369d87143)](https://hyva.io/)
 
-## hyva-themes/magento2-hyva-checkout
+This is an alternative theme for Hyvä checkout. It contains a 4 steps based checkout.
 
-![Supported Magento Versions][ico-compatibility]
+## Why this theme is called Lumazon theme?
 
-This module contains a ReactApp that can be used to build a Headless Magento checkout.
+The theme is inspired from the checkout process of both Luma checkout as well as
+the Amazon.com checkout. It is basically an Amalgam of both these checkout.
+## Requirements
 
-Compatible with Magento 2.3.4 and higher.
-
-## What does it do?
-It loads a React Checkout at [store-url]/hyva/checkout. When enabled in `hyva_checkout/general/enable` it replaces the default checkout.
-
-It depends on these two variables in localstorage:
- - `signin_token` to the `customer` section
- - `cartId` to the `cart` section
-
-For Hyvä Themes or default Magento frontend, `hyva-themes/magento2-graphql-tokens` is needed to add these tokens to the `customerSections`.
+It is supposed to be used with the `2.x.x` version of Hyvä checkout. Currently,
+Hyvä checkout has `2.0-develop` branch. You can use this theme with that version.
 
 ## Installation
 
-1. Install via composer
+1. Go to `src/reactapp/package.json` and update the `config` part as shown below.
     ```
-    composer config repositories.hyva-themes/magento2-hyva-checkout git git@github.com:hyva-themes/magento2-hyva-checkout.git
-    composer require hyva-themes/magento2-hyva-checkout
+    "config": {
+        "themeRepositories": {
+            "lumazon": "git@github.com:rajeev-k-tomy/hyva-checkout-steps-theme.git"
+        }
+    },
     ```
-2. Enable module
+2. Run `npm install`. It will include this theme as part of the React App.
+3. Go to `src/reactapp/src/app/code/checkoutForm/CheckoutForm.jsx` and do following modification.
     ```
-    bin/magento setup:upgrade
+    ...
+    import LumazonTheme from '../../themes/lumazon/Index';
+    ...
+    ...
+    return (
+        <CheckoutFormWrapper initialData={initialData}>
+        <LumazonTheme />
+        </CheckoutFormWrapper>
+    );
     ```
+
+You are now able to see the Hyvä Checkout in this theme.
 ## Configuration
 
-In the Magento Backend Configuration:
+## Translations
 
-`HYVA THEMES->Checkout->General Settings->Enable`
-
-The configuration path is `hyva_checkout/general/enable`
-
-## Documentation
-
-You can find the documentation here: https://hyva-themes.github.io/magento2-hyva-checkout/
-
+Documentation coming soon
 ## Credits
 
 - [Rajeev K Tomy][link-author]
-- [Willem Wigman][link-author2]
 - [integer_net GmbH][link-company1]
-- [All Contributors][link-contributors]
 
 ## License
 
@@ -56,7 +55,5 @@ The MIT License (MIT). Please see [License File](LICENSE.txt) for more informati
 
 [ico-compatibility]: https://img.shields.io/badge/magento-%202.3%20|%202.4-brightgreen.svg?logo=magento&longCache=true&style=flat-square
 
-[link-author]: https://github.com/progammer-rkt
-[link-author2]: https://github.com/wigman
+[link-author]: https://github.com/rajeev-k-tomy
 [link-company1]: https://integer-net.com
-[link-contributors]: ../../contributors
