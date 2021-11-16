@@ -4,11 +4,10 @@ import { node } from 'prop-types';
 import { Formik } from 'formik';
 import { object as YupObject } from 'yup';
 
-import CheckoutFormContext from './CheckoutFormContext';
-import useCartContext from '../../hook/useCartContext';
-import useAppContext from '../../hook/useAppContext';
 import { config } from '../../config';
 import LocalStorage from '../../utils/localStorage';
+import CheckoutFormContext from './CheckoutFormContext';
+import { useAppContext, useCartContext } from '../../hooks';
 
 function prepareFormInitValues(sections) {
   const initValues = {};
