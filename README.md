@@ -39,8 +39,6 @@ Hyvä checkout has `2.0-develop` branch. You can use this theme with that versio
     ```
 
 You are now able to see the Hyvä Checkout in this theme.
-## Configuration
-
 ## Translations
 
 Documentation coming soon
