@@ -18,6 +18,7 @@ function TextInput({
   required,
   leftIcon,
   helpText,
+  disabled,
   formikData,
   placeholder,
 }) {
@@ -62,6 +63,7 @@ function TextInput({
           name={name}
           id={inputId}
           value={value}
+          disabled={disabled}
           placeholder={placeholder}
           className={classNames(
             leftIcon ? 'pl-10' : '',
@@ -106,17 +108,19 @@ TextInput.propTypes = {
   actions: shape({ handleBlur: func }),
   name: string.isRequired,
   formikData: formikDataShape.isRequired,
+  disabled: bool,
 };
 
 TextInput.defaultProps = {
   id: '',
   label: '',
+  actions: {},
   type: 'text',
   helpText: '',
   leftIcon: '',
   placeholder: '',
   required: false,
-  actions: {},
+  disabled: false,
 };
 
 export default TextInput;

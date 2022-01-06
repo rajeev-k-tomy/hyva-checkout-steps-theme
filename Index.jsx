@@ -2,7 +2,7 @@ import React from 'react';
 
 import Login from './login';
 import { Step } from './step';
-// import Discount from './discount/Discount';
+import CouponCode from './couponCode';
 import StepProvider from './step/StepProvider';
 import { PaymentMethod } from './paymentMethod';
 import { BillingAddress } from './billingAddress';
@@ -30,7 +30,7 @@ function CheckoutForm() {
       <Step id={4}>
         <MainContentSection>
           <PaymentMethod />
-          {/* <Discount /> */}
+          <CouponCode />
         </MainContentSection>
       </Step>
     </StepProvider>

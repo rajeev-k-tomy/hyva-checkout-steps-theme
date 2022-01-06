@@ -16,7 +16,12 @@ function Totals() {
   const totalItems = [
     ...(hasSubTotal ? [{ title: 'Subtotal', price: subTotal }] : []),
     ...(hasShippingRate ? [{ title: 'Shipping', price: shippingRate }] : []),
-    ...(hasDiscounts ? [{ title: 'Discount', price: discounts }] : []),
+    ...(hasDiscounts
+      ? (discounts || []).map((discount) => ({
+          title: discount.label,
+          price: discount.price,
+        }))
+      : []),
   ];
 
   return (
