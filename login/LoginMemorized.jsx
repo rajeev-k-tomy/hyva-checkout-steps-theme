@@ -10,7 +10,7 @@ import { formikDataShape } from '../../../../utils/propTypes';
 
 const LoginMemorized = React.memo(({ formikData }) => (
   <LoginFormManager formikData={formikData}>
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center">
       <div className="" style={{ width: 350 }}>
         <div className="">
           <LoginHeaderTabs />

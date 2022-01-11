@@ -9,12 +9,16 @@ import { BillingAddress } from './billingAddress';
 import { ShippingAddress } from './shippingAddress';
 import { ShippingMethods } from './shippingMethods';
 import { MainContentSection } from './common/sections';
+import CheckoutAgreements from './checkoutAgreements';
 
 function CheckoutForm() {
   return (
     <StepProvider>
       <Step id={1}>
-        <Login />
+        <div className="flex flex-col items-center justify-center h-screen">
+          <Login />
+          <CheckoutAgreements />
+        </div>
       </Step>
       <Step id={2}>
         <MainContentSection>

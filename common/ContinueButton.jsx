@@ -11,19 +11,27 @@ import {
   BILLING_ADDR_FORM,
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
+  CHECKOUT_AGREEMENTS_FORM,
 } from '../../../../config';
 import { useStepContext } from '../step/hooks';
 import { useAppContext, useCheckoutFormContext } from '../../../../hooks';
 
 const stepsValidations = {
-  1: [LOGIN_FORM],
-  2: [LOGIN_FORM, SHIPPING_ADDR_FORM, BILLING_ADDR_FORM, CART_ITEMS_FORM],
+  1: [LOGIN_FORM, CHECKOUT_AGREEMENTS_FORM],
+  2: [
+    LOGIN_FORM,
+    SHIPPING_ADDR_FORM,
+    BILLING_ADDR_FORM,
+    CART_ITEMS_FORM,
+    CHECKOUT_AGREEMENTS_FORM,
+  ],
   3: [
     LOGIN_FORM,
     SHIPPING_ADDR_FORM,
     BILLING_ADDR_FORM,
     CART_ITEMS_FORM,
     SHIPPING_METHOD,
+    CHECKOUT_AGREEMENTS_FORM,
   ],
   4: [
     LOGIN_FORM,
@@ -32,6 +40,7 @@ const stepsValidations = {
     CART_ITEMS_FORM,
     SHIPPING_METHOD,
     PAYMENT_METHOD_FORM,
+    CHECKOUT_AGREEMENTS_FORM,
   ],
 };
 

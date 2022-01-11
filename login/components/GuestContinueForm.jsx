@@ -16,10 +16,6 @@ function GuestContinueForm() {
   const { loginFormValues, isFormSectionValid, activeSection, createAccount } =
     useLoginFormContext();
 
-  if (!isNewCustomerSection(activeSection) || createAccount) {
-    return <></>;
-  }
-
   const saveGuestEmailAddress = async () => {
     try {
       if (!isFormSectionValid) {
@@ -30,14 +26,14 @@ function GuestContinueForm() {
       setPageLoader(false);
       return true;
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
       setPageLoader(false);
       return false;
     }
   };
 
-  if (!isNewCustomerSection(activeSection)) {
-    return <></>;
+  if (!isNewCustomerSection(activeSection) || createAccount) {
+    return null;
   }
 
   return (
