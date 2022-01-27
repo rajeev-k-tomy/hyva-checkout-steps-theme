@@ -48,7 +48,7 @@ function SignInForm() {
   };
 
   if (!isSignInSection(activeSection)) {
-    return <></>;
+    return null;
   }
 
   return (

@@ -80,9 +80,11 @@ export const stepsValidations = {
 };
 
 export async function validateStep(formSections, currentStep, values) {
-  const formSectionsToBeValidated = formSections.filter((section) =>
-    stepsValidations[currentStep].includes(section.id)
-  );
+  const formSectionsToBeValidated = formSections
+    .filter((section) => stepsValidations[currentStep].includes(section.id))
+    // need to reverse it because the validationRules appears to be validate from
+    // least priority => high priority
+    .reverse();
 
   if (!formSectionsToBeValidated.length) {
     return { errors: false };
@@ -94,6 +96,8 @@ export async function validateStep(formSections, currentStep, values) {
       return accumulator;
     }, {})
   );
+
+  console.log({ validationRules, formSectionsToBeValidated });
 
   try {
     await validationRules.validate(values, { abortEarly: true });
