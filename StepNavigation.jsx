@@ -1,14 +1,41 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { useFormikContext } from 'formik';
 import { ShoppingCartIcon } from '@heroicons/react/solid';
 
 import { classNames, _range } from '../../../utils';
 import useStepContext from './step/hooks/useStepContext';
-import { TOTAL_STEPS, stepTitles } from './step/utility';
+import { TOTAL_STEPS, stepTitles, validateStep } from './step/utility';
+import { useAppContext, useCheckoutFormContext } from '../../../hooks';
 
 const steps = _range(1, TOTAL_STEPS);
 
 function StepNavigation() {
-  const { currentStep } = useStepContext();
+  const { values } = useFormikContext();
+  const { setErrorMessage } = useAppContext();
+  const { formSections } = useCheckoutFormContext();
+  const { currentStep, setStepRoutePath } = useStepContext();
+
+  /**
+   * Handle step navigation
+   * Make sure you cannot be navigated to future steps if the data is not valid.
+   */
+  const handleStepNavigation = async (step, stepId) => {
+    const { errors: hasErrors, message: errorMessage } = await validateStep(
+      formSections,
+      stepId,
+      values
+    );
+
+    if (hasErrors) {
+      setErrorMessage(errorMessage);
+      return;
+    }
+
+    setStepRoutePath(step.path);
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -38,15 +65,17 @@ function StepNavigation() {
             })}
           </div>
           <div className="flex items-center justify-between w-full pt-3">
-            {stepTitles(currentStep).map((step) => (
+            {stepTitles(currentStep).map((step, index) => (
               <div
                 key={step.title}
                 className={classNames(
                   step.active ? 'text-blue-600' : 'text-gray-300',
-                  'text-sm font-semibold'
+                  'text-sm font-semibold cursor-pointer'
                 )}
               >
-                <a href={step.path}>{step.title}</a>
+                <a onClick={() => handleStepNavigation(step, index + 1)}>
+                  {step.title}
+                </a>
               </div>
             ))}
           </div>

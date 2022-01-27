@@ -1,48 +1,11 @@
 import React from 'react';
-import { object as YupObject } from 'yup';
 import { useFormikContext } from 'formik';
 import { bool, func, oneOf, shape, string } from 'prop-types';
 
 import Button from '../../../code/common/Button';
-import {
-  LOGIN_FORM,
-  CART_ITEMS_FORM,
-  SHIPPING_METHOD,
-  BILLING_ADDR_FORM,
-  SHIPPING_ADDR_FORM,
-  PAYMENT_METHOD_FORM,
-  CHECKOUT_AGREEMENTS_FORM,
-} from '../../../../config';
 import { useStepContext } from '../step/hooks';
+import { validateStep } from '../step/utility';
 import { useAppContext, useCheckoutFormContext } from '../../../../hooks';
-
-const stepsValidations = {
-  1: [LOGIN_FORM, CHECKOUT_AGREEMENTS_FORM],
-  2: [
-    LOGIN_FORM,
-    SHIPPING_ADDR_FORM,
-    BILLING_ADDR_FORM,
-    CART_ITEMS_FORM,
-    CHECKOUT_AGREEMENTS_FORM,
-  ],
-  3: [
-    LOGIN_FORM,
-    SHIPPING_ADDR_FORM,
-    BILLING_ADDR_FORM,
-    CART_ITEMS_FORM,
-    SHIPPING_METHOD,
-    CHECKOUT_AGREEMENTS_FORM,
-  ],
-  4: [
-    LOGIN_FORM,
-    SHIPPING_ADDR_FORM,
-    BILLING_ADDR_FORM,
-    CART_ITEMS_FORM,
-    SHIPPING_METHOD,
-    PAYMENT_METHOD_FORM,
-    CHECKOUT_AGREEMENTS_FORM,
-  ],
-};
 
 function ContinueButton({ size, variant, disable, actions, label }) {
   const { values } = useFormikContext();
@@ -51,26 +14,14 @@ function ContinueButton({ size, variant, disable, actions, label }) {
   const { currentStep, goToNextStep } = useStepContext();
 
   const handleContinue = async () => {
-    const formSectionsToBeValidated = formSections.filter((section) =>
-      stepsValidations[currentStep].includes(section.id)
+    const { errors: hasErrors, message: errorMessage } = await validateStep(
+      formSections,
+      currentStep,
+      values
     );
 
-    if (!formSectionsToBeValidated.length) {
-      return;
-    }
-
-    const validationRules = YupObject().shape(
-      formSectionsToBeValidated.reduce((accumulator, section) => {
-        accumulator[section.id] = YupObject().shape(section.validationSchema);
-        return accumulator;
-      }, {})
-    );
-
-    try {
-      await validationRules.validate(values, { abortEarly: true });
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error.message);
+    if (hasErrors) {
+      setErrorMessage(errorMessage);
       return;
     }
 

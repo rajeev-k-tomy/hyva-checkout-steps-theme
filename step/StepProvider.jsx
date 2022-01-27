@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { node } from 'prop-types';
 
 import {
@@ -49,12 +49,15 @@ function StepProvider({ children }) {
     };
   }, []);
 
-  const context = {
-    currentStep,
-    goToNextStep,
-    setCurrentStep,
-    setStepRoutePath,
-  };
+  const context = useMemo(
+    () => ({
+      currentStep,
+      goToNextStep,
+      setCurrentStep,
+      setStepRoutePath,
+    }),
+    [currentStep, goToNextStep, setStepRoutePath]
+  );
 
   return (
     <StepContext.Provider value={context}>{children}</StepContext.Provider>
