@@ -97,8 +97,6 @@ export async function validateStep(formSections, currentStep, values) {
     }, {})
   );
 
-  console.log({ validationRules, formSectionsToBeValidated });
-
   try {
     await validationRules.validate(values, { abortEarly: true });
     return { errors: false };

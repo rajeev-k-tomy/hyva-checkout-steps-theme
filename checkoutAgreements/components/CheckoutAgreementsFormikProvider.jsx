@@ -23,21 +23,37 @@ function CheckoutAgreementFormikProvider({ children, formikData }) {
   const [validationSchema, setValidationSchema] = useState({});
   const { checkoutAgreements } = useAgreementAppContext();
   const { setFieldValue } = formikData;
-  const isFormPopulated = formikData?.agreementsValues?.isFormPopulated;
+  const agreementValues = formikData?.agreementsValues;
+  const isFormPopulated = agreementValues?.isFormPopulated;
 
   // updating formik values and validation after fetching checkout agreements.
   // this needs to be happened only once.
   useEffect(() => {
     if (!isFormPopulated && !_isObjEmpty(checkoutAgreements)) {
-      const agreementsFormData = prepareAgreementsFormData(checkoutAgreements);
-      initialValues = agreementsFormData;
-      setFieldValue(CHECKOUT_AGREEMENTS_FORM, agreementsFormData);
+      const agreementsFormData = prepareAgreementsFormData(
+        checkoutAgreements,
+        agreementValues
+      );
+
+      if (!_isObjEmpty(agreementsFormData)) {
+        initialValues = agreementsFormData;
+        setFieldValue(CHECKOUT_AGREEMENTS_FORM, agreementsFormData);
+      }
       setValidationSchema(
-        updateAgreementValidationSchema(agreementsFormData, validationSchema)
+        updateAgreementValidationSchema(
+          { ...agreementValues, ...agreementsFormData },
+          validationSchema
+        )
       );
       setFieldValue(isFormPopulatedField, true);
     }
-  }, [checkoutAgreements, setFieldValue, isFormPopulated, validationSchema]);
+  }, [
+    setFieldValue,
+    isFormPopulated,
+    agreementValues,
+    validationSchema,
+    checkoutAgreements,
+  ]);
 
   // registering checkout agreements into the global formik state
   const formContext = useFormSection({

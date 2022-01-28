@@ -1,3 +1,4 @@
+import _get from 'lodash.get';
 import _set from 'lodash.set';
 import { bool as YupBool } from 'yup';
 
@@ -8,13 +9,23 @@ export function getFormikFieldNameById(agreementId) {
   return `isAgreement${agreementId}Agreed`;
 }
 
-export function prepareAgreementsFormData(checkoutAgreements) {
-  return _objToArray(checkoutAgreements).reduce((accumulator, agreement) => {
-    const { isAutomatic, id } = agreement;
-    accumulator[getFormikFieldNameById(id)] = isAutomatic;
+export function prepareAgreementsFormData(
+  checkoutCartAgreements,
+  checkoutFormikAgreements
+) {
+  return _objToArray(checkoutCartAgreements).reduce(
+    (accumulator, agreement) => {
+      const { isAutomatic, id } = agreement;
+      const agreementId = getFormikFieldNameById(id);
 
-    return accumulator;
-  }, {});
+      if (!_get(checkoutFormikAgreements, agreementId)) {
+        accumulator[getFormikFieldNameById(id)] = isAutomatic;
+      }
+
+      return accumulator;
+    },
+    {}
+  );
 }
 
 export function updateAgreementValidationSchema(
