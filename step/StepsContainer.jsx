@@ -2,13 +2,11 @@ import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 
 import { useStepContext } from './hooks';
-import { CHECKOUT_AGREEMENTS_FORM } from '../../../../config';
-
-const isFormPopulatedField = `${CHECKOUT_AGREEMENTS_FORM}.isFormPopulated`;
+import { isFormPopulatedField } from '../checkoutAgreements/utility';
 
 function StepsContainer({ children }) {
-  const { setFieldValue } = useFormikContext();
   const { currentStep } = useStepContext();
+  const { setFieldValue } = useFormikContext();
 
   /**
    * Checkout agreement validation and values needs to be populated again

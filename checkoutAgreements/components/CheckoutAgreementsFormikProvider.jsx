@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Form } from 'formik';
 import { node } from 'prop-types';
+import { boolean as YupBoolean } from 'yup';
 
 import {
+  isFormPopulatedField,
   prepareAgreementsFormData,
   updateAgreementValidationSchema,
 } from '../utility';
@@ -17,10 +19,13 @@ let initialValues = {
   isFormPopulated: false,
 };
 
-const isFormPopulatedField = `${CHECKOUT_AGREEMENTS_FORM}.isFormPopulated`;
+const initValidationSchema = {
+  isFormPopulated: YupBoolean(),
+};
 
 function CheckoutAgreementFormikProvider({ children, formikData }) {
-  const [validationSchema, setValidationSchema] = useState({});
+  const [validationSchema, setValidationSchema] =
+    useState(initValidationSchema);
   const { checkoutAgreements } = useAgreementAppContext();
   const { setFieldValue } = formikData;
   const agreementValues = formikData?.agreementsValues;
@@ -34,14 +39,18 @@ function CheckoutAgreementFormikProvider({ children, formikData }) {
         checkoutAgreements,
         agreementValues
       );
+      const fullAgreementsFormData = {
+        ...agreementValues,
+        ...agreementsFormData,
+      };
 
       if (!_isObjEmpty(agreementsFormData)) {
-        initialValues = agreementsFormData;
-        setFieldValue(CHECKOUT_AGREEMENTS_FORM, agreementsFormData);
+        initialValues = fullAgreementsFormData;
+        setFieldValue(CHECKOUT_AGREEMENTS_FORM, fullAgreementsFormData);
       }
       setValidationSchema(
         updateAgreementValidationSchema(
-          { ...agreementValues, ...agreementsFormData },
+          fullAgreementsFormData,
           validationSchema
         )
       );

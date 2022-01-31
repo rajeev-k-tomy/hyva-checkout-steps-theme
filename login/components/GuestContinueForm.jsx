@@ -3,26 +3,28 @@ import React from 'react';
 import EmailField from './EmailField';
 import CreateAccountButton from './CreateAccountButton';
 import ContinueButton from '../../common/ContinueButton';
-import { isNewCustomerSection } from '../utility';
 import {
   useLoginAppContext,
   useLoginCartContext,
   useLoginFormContext,
 } from '../hooks';
+import { isNewCustomerSection } from '../utility';
 
 function GuestContinueForm() {
-  const { setEmailOnGuestCart } = useLoginCartContext();
   const { setPageLoader } = useLoginAppContext();
-  const { loginFormValues, isFormSectionValid, activeSection, createAccount } =
+  const { cartEmail, setEmailOnGuestCart } = useLoginCartContext();
+  const { formSectionErrors, loginFormValues, activeSection, createAccount } =
     useLoginFormContext();
 
   const saveGuestEmailAddress = async () => {
     try {
-      if (!isFormSectionValid) {
+      const emailToSave = loginFormValues.email;
+
+      if (formSectionErrors || cartEmail === emailToSave) {
         return false;
       }
       setPageLoader(true);
-      await setEmailOnGuestCart(loginFormValues.email);
+      await setEmailOnGuestCart(emailToSave);
       setPageLoader(false);
       return true;
     } catch (error) {

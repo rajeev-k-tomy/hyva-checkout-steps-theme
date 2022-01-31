@@ -4,6 +4,9 @@ import { bool as YupBool } from 'yup';
 
 import { __ } from '../../../../../i18n';
 import { _keys, _objToArray } from '../../../../../utils';
+import { CHECKOUT_AGREEMENTS_FORM } from '../../../../../config';
+
+export const isFormPopulatedField = `${CHECKOUT_AGREEMENTS_FORM}.isFormPopulated`;
 
 export function getFormikFieldNameById(agreementId) {
   return `isAgreement${agreementId}Agreed`;
@@ -34,7 +37,11 @@ export function updateAgreementValidationSchema(
 ) {
   const requiredMessage = __('Please agree with the terms & conditions');
 
-  _keys(agreementsFormData).forEach((agreementFormikId) => {
+  const agreementFields = _keys(agreementsFormData).filter(
+    (formField) => !['isFormPopulated'].includes(formField)
+  );
+
+  agreementFields.forEach((agreementFormikId) => {
     _set(
       validationSchema,
       agreementFormikId,
