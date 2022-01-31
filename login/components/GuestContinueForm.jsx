@@ -11,18 +11,20 @@ import {
 import { isNewCustomerSection } from '../utility';
 
 function GuestContinueForm() {
-  const { setPageLoader } = useLoginAppContext();
+  const { setPageLoader, setMessage } = useLoginAppContext();
   const { cartEmail, setEmailOnGuestCart } = useLoginCartContext();
   const { formSectionErrors, loginFormValues, activeSection, createAccount } =
     useLoginFormContext();
 
   const saveGuestEmailAddress = async () => {
-    try {
-      const emailToSave = loginFormValues.email;
+    setMessage(false);
+    const emailToSave = loginFormValues.email;
 
-      if (formSectionErrors || cartEmail === emailToSave) {
-        return false;
-      }
+    if (formSectionErrors || cartEmail === emailToSave) {
+      return false;
+    }
+
+    try {
       setPageLoader(true);
       await setEmailOnGuestCart(emailToSave);
       setPageLoader(false);
