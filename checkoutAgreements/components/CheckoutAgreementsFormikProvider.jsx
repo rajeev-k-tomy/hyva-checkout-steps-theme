@@ -7,6 +7,7 @@ import {
   isFormPopulatedField,
   prepareAgreementsFormData,
   updateAgreementValidationSchema,
+  getAgreementsDataFromLocalStorage,
 } from '../utility';
 import { useFormSection } from '../../../../../hooks';
 import { _emptyFunc, _isObjEmpty } from '../../../../../utils';
@@ -17,6 +18,7 @@ import { CheckoutAgreementsFormikContext } from '../../../../code/checkoutAgreem
 
 let initialValues = {
   isFormPopulated: false,
+  ...getAgreementsDataFromLocalStorage(),
 };
 
 const initValidationSchema = {
@@ -42,6 +44,7 @@ function CheckoutAgreementFormikProvider({ children, formikData }) {
       const fullAgreementsFormData = {
         ...agreementValues,
         ...agreementsFormData,
+        ...getAgreementsDataFromLocalStorage(),
       };
 
       if (!_isObjEmpty(agreementsFormData)) {

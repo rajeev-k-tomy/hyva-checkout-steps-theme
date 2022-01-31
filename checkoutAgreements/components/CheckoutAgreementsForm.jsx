@@ -4,17 +4,32 @@ import { InformationCircleIcon } from '@heroicons/react/outline';
 
 import { Checkbox } from '../../../../code/common/Form';
 import {
+  getFormikFieldNameById,
+  updateAgreementIntoLocalStorage,
+} from '../utility';
+import {
   useAgreementAppContext,
   useAgreementModalContext,
   useAgreementFormikContext,
 } from '../../../../code/checkoutAgreements/hooks';
 import { _objToArray } from '../../../../../utils';
-import { getFormikFieldNameById } from '../utility';
+import { CHECKOUT_AGREEMENTS_FORM } from '../../../../../config';
 
 function CheckoutAgreementsForm() {
   const { checkoutAgreements } = useAgreementAppContext();
   const { setActiveModalId } = useAgreementModalContext();
-  const { fields, agreementsValues } = useAgreementFormikContext();
+  const { fields, agreementsValues, setFieldValue } =
+    useAgreementFormikContext();
+
+  const handleAgreementChange = (event, fieldName) => {
+    const isChecked = event.target.checked;
+    const localStorageField = fieldName.replace(
+      `${CHECKOUT_AGREEMENTS_FORM}.`,
+      ''
+    );
+    setFieldValue(fieldName, isChecked);
+    updateAgreementIntoLocalStorage({ [localStorageField]: isChecked });
+  };
 
   return _objToArray(checkoutAgreements).map((agreement, index) => {
     const { id: agreementId, isAutomatic, label } = agreement;
@@ -31,6 +46,9 @@ function CheckoutAgreementsForm() {
                 label={label}
                 isChecked={isAgreed}
                 name={fields[fieldName]}
+                onChange={(event) =>
+                  handleAgreementChange(event, fields[fieldName])
+                }
               />
             )}
           </div>

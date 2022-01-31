@@ -4,7 +4,8 @@ import { bool as YupBool } from 'yup';
 
 import { __ } from '../../../../../i18n';
 import { _keys, _objToArray } from '../../../../../utils';
-import { CHECKOUT_AGREEMENTS_FORM } from '../../../../../config';
+import LocalStorage from '../../../../../utils/localStorage';
+import { CHECKOUT_AGREEMENTS_FORM, config } from '../../../../../config';
 
 export const isFormPopulatedField = `${CHECKOUT_AGREEMENTS_FORM}.isFormPopulated`;
 
@@ -50,4 +51,25 @@ export function updateAgreementValidationSchema(
   });
 
   return validationSchema;
+}
+
+const hyvaStorageKey = config.hyvaStorageSource.storageKey;
+const agreementStorageKey = `${hyvaStorageKey}.cart.checkoutAgreements`;
+
+export function getAgreementsDataFromLocalStorage() {
+  return _get(LocalStorage.getHyvaCheckoutStorage(), agreementStorageKey) || {};
+}
+
+export function updateAgreementIntoLocalStorage(agreementDataToUpdate) {
+  const existingAgreementStorageData = getAgreementsDataFromLocalStorage();
+  const storageData = _set(
+    LocalStorage.getHyvaCheckoutStorage(),
+    agreementStorageKey,
+    {
+      ...existingAgreementStorageData,
+      ...agreementDataToUpdate,
+    }
+  );
+
+  window.localStorage.setItem(hyvaStorageKey, JSON.stringify(storageData));
 }
