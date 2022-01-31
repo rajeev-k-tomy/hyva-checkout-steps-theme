@@ -1,9 +1,10 @@
 import React from 'react';
 import { TrashIcon } from '@heroicons/react/solid';
 
-import { formikDataShape } from '../../../../utils/propTypes';
+import ItemQtySelector from './components/ItemQtySelector';
 import { CartItemsFormManager } from '../../../code/items/components';
-import { _objToArray, _range } from '../../../../utils';
+import { _objToArray } from '../../../../utils';
+import { formikDataShape } from '../../../../utils/propTypes';
 import { useItemsCartContext } from '../../../code/items/hooks';
 
 const CartItemListMemorized = React.memo(({ formikData }) => {
@@ -53,13 +54,7 @@ const CartItemListMemorized = React.memo(({ formikData }) => {
                   <strong className="text-base text-secondary">
                     {cartItem.price}
                   </strong>
-                  <select className="text-sm border-gray-300 rounded-md">
-                    {_range(1, cartItem.quantity + 9).map((qty) => (
-                      <option key={qty} value={qty}>
-                        {qty}
-                      </option>
-                    ))}
-                  </select>
+                  <ItemQtySelector item={cartItem} />
                 </div>
               </div>
             </div>
