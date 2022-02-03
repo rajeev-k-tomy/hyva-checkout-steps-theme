@@ -7,11 +7,13 @@ import {
   defaultStepRoutePath,
 } from './utility';
 import StepContext from './context/StepContext';
-import { useCheckoutFormContext } from '../../../../hooks';
+import { useCartContext, useCheckoutFormContext } from '../../../../hooks';
 
 function StepProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(initialStepId);
   const { setEnableReInitialize } = useCheckoutFormContext();
+  const { cart } = useCartContext();
+  const cartId = cart?.id;
 
   const setStepRoutePath = useCallback((path) => {
     window.location.hash = path.replace('#', '');
@@ -31,8 +33,11 @@ function StepProvider({ children }) {
    * the formik sections into initial state, which we dont need.
    */
   useEffect(() => {
-    setEnableReInitialize(false);
-  }, [setEnableReInitialize]);
+    // disable form initialize only after data fetched from magento backend.
+    if (cartId) {
+      setEnableReInitialize(false);
+    }
+  }, [setEnableReInitialize, cartId]);
 
   /**
    * When we click on the back/forward button of the browser or basically whenever
