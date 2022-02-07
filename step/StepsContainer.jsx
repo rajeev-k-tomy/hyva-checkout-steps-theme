@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 
 import { useStepContext } from './hooks';
-import { isFormPopulatedField } from '../checkoutAgreements/utility';
-import { useCheckoutFormContext } from '../../../../hooks';
 import { _keys } from '../../../../utils';
 import initialValues from './utility/initialValues';
+import { useCheckoutFormContext } from '../../../../hooks';
+import { isFormPopulatedField } from '../checkoutAgreements/utility';
 
 function StepsContainer({ children }) {
   const { currentStep } = useStepContext();

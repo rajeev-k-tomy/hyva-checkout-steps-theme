@@ -15,7 +15,7 @@ import { PAYMENT_METHOD_FORM } from '../../../../../config';
 function PaymentMethodList({ methodRenderers }) {
   const [selected, setSelected] = useState('');
   const { methodList } = usePaymentMethodCartContext();
-  const { setFieldValue, submitHandler, paymentValues } =
+  const { setFieldValue, submitHandler, paymentValues, fields} =
     usePaymentMethodFormContext();
   const paymentMethodSelected = paymentValues?.code;
 
@@ -58,15 +58,10 @@ function PaymentMethodList({ methodRenderers }) {
         return (
           <WellSection key={method.code}>
             <VerticalTabSelector
-              items={[
-                {
-                  ...method,
-                  id: method.code,
-                },
-              ]}
               selected={selected}
+              fieldName={fields.code}
+              items={[{ ...method, id: method.code }]}
               actions={{ setSelected: updatePaymentMethod }}
-              fieldName="paymentMethod"
             />
           </WellSection>
         );
