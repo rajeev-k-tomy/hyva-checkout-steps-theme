@@ -65,7 +65,8 @@ export default function useSaveAddressAction() {
       // In this case, we will force set billing === shipping
       const billingIdInStorage = LocalStorage.getCustomerBillingAddressId();
       const shippingIdInStorage = LocalStorage.getCustomerShippingAddressId();
-      if (billingIdInStorage === shippingIdInStorage) {
+
+      if (billingIdInStorage && billingIdInStorage === shippingIdInStorage) {
         setFieldValue(billingSameAsShippingField, true);
       }
 
