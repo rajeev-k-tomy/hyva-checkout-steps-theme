@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './login';
 import { Step } from './step';
 import CouponCode from './couponCode';
+import { AddressWrapper } from './address';
 import StepProvider from './step/StepProvider';
 import { PaymentMethod } from './paymentMethod';
 import { BillingAddress } from './billingAddress';
@@ -24,8 +25,10 @@ function CheckoutForm() {
         </Step>
         <Step id={2}>
           <MainContentSection>
-            <ShippingAddress />
-            <BillingAddress />
+            <AddressWrapper>
+              <ShippingAddress />
+              <BillingAddress />
+            </AddressWrapper>
           </MainContentSection>
         </Step>
         <Step id={3}>

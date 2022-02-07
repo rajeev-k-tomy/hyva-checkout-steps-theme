@@ -6,7 +6,7 @@ import { formikDataShape } from '../../../../utils/propTypes';
 import { useCountryState } from '../../../code/address/hooks';
 
 function AddressForm({ formikData, fields, actions }) {
-  const { countryOptions, stateOptions } = useCountryState({
+  const { countryOptions, stateOptions, hasStateOptions } = useCountryState({
     formikData,
     fields,
   });
@@ -77,28 +77,50 @@ function AddressForm({ formikData, fields, actions }) {
         />
       </div>
       <div className="flex items-start justify-between space-x-3">
-        <SelectInput
-          required
-          name={fields.region}
-          options={stateOptions}
-          formikData={formikData}
-          label="State / Province"
-        />
+        {hasStateOptions ? (
+          <SelectInput
+            required
+            name={fields.region}
+            options={stateOptions}
+            formikData={formikData}
+            label="State / Province"
+          />
+        ) : (
+          <TextInput
+            required
+            label="PIN code"
+            actions={actions}
+            name={fields.zipcode}
+            formikData={formikData}
+          />
+        )}
+        {hasStateOptions ? (
+          <TextInput
+            required
+            label="Phone"
+            actions={actions}
+            name={fields.phone}
+            formikData={formikData}
+          />
+        ) : (
+          <TextInput
+            required
+            label="Phone"
+            actions={actions}
+            name={fields.phone}
+            formikData={formikData}
+          />
+        )}
+      </div>
+      {hasStateOptions && (
         <TextInput
           required
-          label="PIN code"
+          label="Phone"
           actions={actions}
-          name={fields.zipcode}
+          name={fields.phone}
           formikData={formikData}
         />
-      </div>
-      <TextInput
-        required
-        label="Phone"
-        actions={actions}
-        name={fields.phone}
-        formikData={formikData}
-      />
+      )}
     </div>
   );
 }

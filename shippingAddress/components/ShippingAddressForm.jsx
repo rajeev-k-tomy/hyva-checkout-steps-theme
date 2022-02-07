@@ -83,7 +83,7 @@ function ShippingAddressForm() {
   };
 
   if (!_isObjEmpty(customerAddressList) && !needNewAddress && !addressOnEdit) {
-    return <></>;
+    return null;
   }
 
   return (
