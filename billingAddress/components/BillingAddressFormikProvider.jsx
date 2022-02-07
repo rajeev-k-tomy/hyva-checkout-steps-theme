@@ -14,13 +14,8 @@ import { useFormSection } from '../../../../../hooks';
 import { BILLING_ADDR_FORM } from '../../../../../config';
 import LocalStorage from '../../../../../utils/localStorage';
 import { formikDataShape } from '../../../../../utils/propTypes';
-import { addressInitValues } from '../../../../../utils/address';
+import { billingAddressInitialValues } from '../../step/utility/initialValues';
 import { BillingAddressFormikContext } from '../../../../code/billingAddress/context';
-
-const billingAddressFormInitValues = {
-  ...addressInitValues,
-  isSameAsShipping: LocalStorage.getBillingSameAsShippingInfo(),
-};
 
 const requiredMessage = __('%1 is required');
 
@@ -52,7 +47,7 @@ function BillingAddressFormikProvider({ children, formikData }) {
 
   const resetBillingAddressFormFields = useCallback(() => {
     setFieldValue(BILLING_ADDR_FORM, {
-      ...billingAddressFormInitValues,
+      ...billingAddressInitialValues,
       isSameAsShipping: LocalStorage.getBillingSameAsShippingInfo(),
     });
   }, [setFieldValue]);
@@ -60,7 +55,7 @@ function BillingAddressFormikProvider({ children, formikData }) {
   const setBillingAddressFormFields = useCallback(
     (addressToSet) => {
       setFieldValue(BILLING_ADDR_FORM, {
-        ...billingAddressFormInitValues,
+        ...billingAddressInitialValues,
         ...addressToSet,
         isSameAsShipping: LocalStorage.getBillingSameAsShippingInfo(),
       });
@@ -73,7 +68,7 @@ function BillingAddressFormikProvider({ children, formikData }) {
     validationSchema,
     id: BILLING_ADDR_FORM,
     submitHandler: _emptyFunc(),
-    initialValues: billingAddressFormInitValues,
+    initialValues: billingAddressInitialValues,
   });
 
   const context = {

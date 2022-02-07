@@ -14,12 +14,10 @@ import { _emptyFunc, _isObjEmpty } from '../../../../../utils';
 import { CHECKOUT_AGREEMENTS_FORM } from '../../../../../config';
 import { formikDataShape } from '../../../../../utils/propTypes';
 import { useAgreementAppContext } from '../../../../code/checkoutAgreements/hooks';
+import { checkoutAgreementsInitialValues } from '../../step/utility/initialValues';
 import { CheckoutAgreementsFormikContext } from '../../../../code/checkoutAgreements/context';
 
-let initialValues = {
-  isFormPopulated: false,
-  ...getAgreementsDataFromLocalStorage(),
-};
+let initialValues = checkoutAgreementsInitialValues;
 
 const initValidationSchema = {
   isFormPopulated: YupBoolean(),

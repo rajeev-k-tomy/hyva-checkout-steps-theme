@@ -15,21 +15,9 @@ import {
 import { __ } from '../../../../../i18n';
 import { useFormSection } from '../../../../../hooks';
 import { SHIPPING_ADDR_FORM } from '../../../../../config';
-import { initialCountry } from '../../../../../utils/address';
 import { formikDataShape } from '../../../../../utils/propTypes';
+import { shippingAddressInitialValues } from '../../step/utility/initialValues';
 import { ShippingAddressFormikContext } from '../../../../code/shippingAddress/context';
-
-const initialValues = {
-  company: '',
-  firstname: '',
-  lastname: '',
-  street: ['', ''],
-  phone: '',
-  zipcode: '',
-  city: '',
-  region: '',
-  country: initialCountry,
-};
 
 const requiredMessage = __('%1 is required');
 
@@ -64,14 +52,14 @@ function ShippingAddressFormikProvider({ children, formikData }) {
   const regionData = useRegionData(selectedCountry, selectedRegion);
 
   const resetShippingAddressFormFields = useCallback(() => {
-    setFieldValue(SHIPPING_ADDR_FORM, { ...initialValues });
+    setFieldValue(SHIPPING_ADDR_FORM, { ...shippingAddressInitialValues });
     setFieldTouched(SHIPPING_ADDR_FORM, {});
   }, [setFieldValue, setFieldTouched]);
 
   const setShippingAddressFormFields = useCallback(
     (addressToSet) =>
       setFieldValue(SHIPPING_ADDR_FORM, {
-        ...initialValues,
+        ...shippingAddressInitialValues,
         ...addressToSet,
       }),
     [setFieldValue]
@@ -79,7 +67,7 @@ function ShippingAddressFormikProvider({ children, formikData }) {
 
   const formSectionContext = useFormSection({
     formikData,
-    initialValues,
+    initialValues: shippingAddressInitialValues,
     validationSchema,
     id: SHIPPING_ADDR_FORM,
   });

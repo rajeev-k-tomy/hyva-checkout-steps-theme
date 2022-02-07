@@ -9,13 +9,10 @@ import { LOGIN_FORM } from '../../../../../config';
 import { formTypeFieldName } from '../utility/field';
 import LoginFormContext from '../context/LoginFormContext';
 import { formikDataShape } from '../../../../../utils/propTypes';
+import { loginInitialValues } from '../../step/utility/initialValues';
 import { useAppContext, useCheckoutFormContext } from '../../../../../hooks';
 
-const initialValues = {
-  email: '',
-  password: '',
-  formType: 'guest',
-};
+const initialValues = loginInitialValues;
 
 const validationSchema = {
   email: YupString()

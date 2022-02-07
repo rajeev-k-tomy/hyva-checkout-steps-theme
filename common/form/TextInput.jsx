@@ -5,7 +5,7 @@ import { bool, func, node, shape, string } from 'prop-types';
 import { ErrorMessage, Field } from 'formik';
 
 import { formikDataShape } from '../../../../../utils/propTypes';
-import { classNames, _emptyFunc, _replace } from '../../../../../utils';
+import { classNames, _emptyFunc, _keys, _replace } from '../../../../../utils';
 
 const emptyCallback = _emptyFunc();
 
@@ -34,7 +34,8 @@ function TextInput({
   const relativeFieldName = _replace(name, formSectionId).replace('.', '');
   const hasFieldError = !!_get(formSectionErrors, relativeFieldName);
   const value = _get(formSectionValues, relativeFieldName, '') || '';
-  const hasFieldTouched = !!_get(formSectionTouched, relativeFieldName);
+  const hasFieldTouched =
+    _get(formSectionTouched, relativeFieldName) !== undefined;
   const hasError = hasFieldError && hasFieldTouched;
   const handleKeyDown = actions.handleKeyDown || emptyCallback;
   const handleBlur = actions.handleBlur || emptyCallback;

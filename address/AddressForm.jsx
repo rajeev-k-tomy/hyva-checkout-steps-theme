@@ -10,6 +10,15 @@ function AddressForm({ formikData, fields, actions }) {
     formikData,
     fields,
   });
+  const { setFieldTouched, setFieldValue } = formikData;
+
+  const handleCountryChange = (event) => {
+    const newValue = event.target.value;
+    setFieldTouched(fields.country, newValue);
+    setFieldValue(fields.country, newValue);
+    // when country is changed, then always reset region field.
+    setFieldValue(fields.region, '');
+  };
 
   return (
     <div className="space-y-4">
@@ -64,6 +73,7 @@ function AddressForm({ formikData, fields, actions }) {
           name={fields.country}
           formikData={formikData}
           options={countryOptions}
+          onChange={handleCountryChange}
         />
       </div>
       <div className="flex items-start justify-between space-x-3">

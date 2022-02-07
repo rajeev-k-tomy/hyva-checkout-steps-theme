@@ -2,14 +2,12 @@ import React, { useMemo } from 'react';
 import { Form } from 'formik';
 import { node } from 'prop-types';
 import { string as YupString } from 'yup';
+
+import { CouponCodeFormikContext } from '../context';
 import { useFormSection } from '../../../../../hooks';
 import { COUPON_CODE_FORM } from '../../../../../config';
-import { CouponCodeFormikContext } from '../context';
 import { formikDataShape } from '../../../../../utils/propTypes';
-
-const initialValues = {
-  couponCode: '',
-};
+import { couponCodeInitialValues } from '../../step/utility/initialValues';
 
 const validationSchema = {
   code: YupString().nullable(),
@@ -20,7 +18,7 @@ function CouponCodeFormikManager({ children, formikData }) {
 
   const formContext = useFormSection({
     formikData,
-    initialValues,
+    initialValues: couponCodeInitialValues,
     validationSchema,
     id: COUPON_CODE_FORM,
     submitHandler: formSubmit,
