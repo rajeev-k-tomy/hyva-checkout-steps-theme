@@ -8,7 +8,9 @@ import {
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
   CHECKOUT_AGREEMENTS_FORM,
+  COUPON_CODE_FORM,
 } from '../../../../../config';
+import { __ } from '../../../../../i18n';
 
 export const TOTAL_STEPS = 4;
 export const ROUTE_PATH_SIGN_IN = '#sign-in';
@@ -79,6 +81,17 @@ export const stepsValidations = {
   ],
 };
 
+const formSectionErrorLabels = {
+  [LOGIN_FORM]: __('Login form is invalid.'),
+  [CART_ITEMS_FORM]: __('Cart items are invalid.'),
+  [SHIPPING_ADDR_FORM]: __('Shipping address is invalid.'),
+  [BILLING_ADDR_FORM]: __('Billing address is invalid'),
+  [SHIPPING_METHOD]: __('No shipping method selected.'),
+  [PAYMENT_METHOD_FORM]: __('Payment method selected is invalid.'),
+  [CHECKOUT_AGREEMENTS_FORM]: __('Please agree with all terms and conditions'),
+  [COUPON_CODE_FORM]: __('Coupon code is required.'),
+};
+
 export async function validateStep(formSections, currentStep, values) {
   const formSectionsToBeValidated = formSections
     .filter((section) => stepsValidations[currentStep].includes(section.id))
@@ -101,6 +114,9 @@ export async function validateStep(formSections, currentStep, values) {
     await validationRules.validate(values, { abortEarly: true });
     return { errors: false };
   } catch (error) {
-    return { errors: true, message: error?.message };
+    const formField = error?.params?.path || '';
+    const fieldName = formField.split('.')[0];
+
+    return { errors: true, message: formSectionErrorLabels[fieldName] };
   }
 }

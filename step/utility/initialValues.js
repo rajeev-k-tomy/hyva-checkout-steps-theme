@@ -66,5 +66,4 @@ const initialValues = {
   [COUPON_CODE_FORM]: couponCodeInitialValues,
 };
 
-
 export default initialValues;
