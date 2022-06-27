@@ -11,40 +11,58 @@ import {
 import { __ } from '../../../../../i18n';
 import { isSignInSection } from '../utility';
 import { passwordFieldName } from '../utility/field';
+import { useFormikStateFiller } from '../../checkoutForm/hooks';
+import { aggregatedQueryRequest } from '../../../../../api';
 
 function SignInForm() {
-  const { getCustomerCartInfo } = useLoginCartContext();
+  const { storeAggregatedCartStates } = useLoginCartContext();
+  const { fillFormikStates } = useFormikStateFiller();
   const { formikData, loginFormValues, activeSection, isFormSectionValid } =
     useLoginFormContext();
-  const { setMessage, setPageLoader, ajaxLogin, setErrorMessage } =
-    useLoginAppContext();
+  const {
+    ajaxLogin,
+    setMessage,
+    appDispatch,
+    setPageLoader,
+    setErrorMessage,
+    storeAggregatedAppStates,
+  } = useLoginAppContext();
 
   const handleLogin = async () => {
     setMessage(false);
 
     if (!isFormSectionValid) {
-      return;
+      return false;
     }
 
     const { email, password } = loginFormValues;
 
     try {
       setPageLoader(true);
-
-      const loginData = await ajaxLogin({ username: email, password });
+      const noReload = true;
+      const loginData = await ajaxLogin(
+        { username: email, password },
+        noReload
+      );
 
       if (loginData.errors) {
         setErrorMessage(__(loginData.message || 'Login failed.'));
         setPageLoader(false);
-        return;
+        return false;
       }
 
-      await getCustomerCartInfo();
-      setPageLoader(false);
+      const data = await aggregatedQueryRequest(appDispatch);
+
+      await storeAggregatedCartStates(data);
+      await storeAggregatedAppStates(data);
+      fillFormikStates(data);
+      return true;
     } catch (error) {
-      setPageLoader(false);
       console.error(error);
+    } finally {
+      setPageLoader(false);
     }
+    return false;
   };
 
   if (!isSignInSection(activeSection)) {

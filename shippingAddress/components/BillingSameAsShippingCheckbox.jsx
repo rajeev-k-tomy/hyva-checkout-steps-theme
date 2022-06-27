@@ -81,7 +81,9 @@ function BillingSameAsShippingCheckbox({ label, useInCard }) {
           />
         </div>
         <div
-          className={classNames(useInCard ? 'text-sm ml-2' : 'text-base ml-3')}
+          className={classNames(
+            useInCard ? 'text-sm ml-2' : 'text-sm md:text-base ml-3'
+          )}
         >
           <label
             htmlFor={billingSameAsShippingField}

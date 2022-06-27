@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
-import _get from 'lodash.get';
-import _set from 'lodash.set';
+import { get as _get } from 'lodash-es';
+import { set as _set } from 'lodash-es';
 import { useFormikContext } from 'formik';
 
 import BillingAddressMemorized from './BillingAddressMemorized';
 import { __ } from '../../../../i18n';
 import { BILLING_ADDR_FORM } from '../../../../config';
 import { useFormikMemorizer } from '../../../../hooks';
+import { billingAddressSelectorField } from './utility';
 import { billingSameAsShippingField } from '../../../../utils/address';
 
 const regionField = `${BILLING_ADDR_FORM}.region`;
@@ -18,6 +19,7 @@ function BillingAddress() {
   const selectedRegion = _get(values, regionField);
   const selectedCountry = _get(values, countryField);
   const isBillingSame = _get(values, billingSameAsShippingField);
+  const billingAddressSelected = _get(values, billingAddressSelectorField);
   const { formSectionValues, formSectionErrors, isFormSectionTouched } =
     formSectionData;
   const streetError = _get(formSectionErrors, 'street');
@@ -37,6 +39,7 @@ function BillingAddress() {
       selectedRegion,
       selectedCountry,
       formSectionErrors,
+      billingAddressSelected,
       billingValues: formSectionValues,
       isBillingAddressTouched: isFormSectionTouched,
     }),
@@ -48,6 +51,7 @@ function BillingAddress() {
       formSectionErrors,
       formSectionValues,
       isFormSectionTouched,
+      billingAddressSelected,
     ]
   );
 

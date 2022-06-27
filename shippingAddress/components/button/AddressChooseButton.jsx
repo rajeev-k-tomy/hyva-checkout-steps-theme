@@ -13,10 +13,10 @@ function AddressChooseButton({ disabled, addressId }) {
       onClick={() => submitHandler(addressId)}
       className={classNames(
         disabled ? 'opacity-40 cursor-not-allowed' : '',
-        'flex-1 py-3 shadow-inner hover:text-blue-800'
+        'flex-1 py-3 hover:text-blue-800 shadow-inner'
       )}
     >
-      Choose
+      <b>Choose</b>
     </button>
   );
 }

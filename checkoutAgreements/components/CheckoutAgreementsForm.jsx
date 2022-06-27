@@ -1,5 +1,5 @@
 import React from 'react';
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 import { InformationCircleIcon } from '@heroicons/react/outline';
 
 import { Checkbox } from '../../../../code/common/Form';
@@ -38,7 +38,7 @@ function CheckoutAgreementsForm() {
 
     if (!isAutomatic) {
       return (
-        <div key={agreementId} className="flex flex-wrap mt-3">
+        <div key={agreementId} className="flex justify-between mt-3">
           <div>
             {fields[fieldName] && (
               <Checkbox
@@ -63,21 +63,19 @@ function CheckoutAgreementsForm() {
     }
 
     return (
-      <div key={agreementId} className="flex flex-wrap mt-2">
-        <div>
-          <div
-            role="button"
-            tabIndex={index}
-            onClick={() => setActiveModalId(agreementId)}
-            className="mt-3 ml-6 text-sm cursor-pointer"
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                setActiveModalId(agreementId);
-              }
-            }}
-          >
-            {label}
-          </div>
+      <div key={agreementId} className="flex justify-between mt-2">
+        <div
+          role="button"
+          tabIndex={index}
+          onClick={() => setActiveModalId(agreementId)}
+          className="mt-3 ml-6 text-sm cursor-pointer"
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              setActiveModalId(agreementId);
+            }
+          }}
+        >
+          {label}
         </div>
         <div className="mt-4 ml-2 cursor-pointer">
           <InformationCircleIcon

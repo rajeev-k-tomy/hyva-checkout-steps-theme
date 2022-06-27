@@ -21,7 +21,7 @@ function GuestContinueForm() {
     const emailToSave = loginFormValues.email;
 
     if (formSectionErrors || cartEmail === emailToSave) {
-      return false;
+      return true;
     }
 
     try {

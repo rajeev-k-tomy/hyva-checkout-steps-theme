@@ -16,7 +16,9 @@ function GeneralSection({
       className={classNames(addTopPadding ? 'pt-10' : '', 'space-y-10')}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">{title}</h2>
+        <h2 className="w-full text-xl font-bold text-center md:text-2xl">
+          {title}
+        </h2>
         {titleRightContent}
       </div>
       {children}

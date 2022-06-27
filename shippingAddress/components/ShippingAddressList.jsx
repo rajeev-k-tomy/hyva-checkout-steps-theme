@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 
+import AddressTitle from './AddressTitle';
 import OtherAddressList from '../../address/OtherAddressList';
 import AddNewAddressButton from './button/AddNewAddressButton';
 import { AddressChooseButton, AddressEditButton } from './button';
 import { GeneralSection, SubSection } from '../../common/sections';
 import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
+import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 import {
   useShippingAddressAppContext,
   useShippingAddressCartContext,
@@ -13,7 +15,6 @@ import {
 } from '../hooks';
 import { prepareAddressCardListData } from '../utility';
 import { classNames, _isObjEmpty } from '../../../../../utils';
-import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
 
 function ShippingAddressList() {
   const { needNewAddress, addressOnEdit } = useShippingAddressFormikContext();
@@ -40,7 +41,7 @@ function ShippingAddressList() {
   );
 
   if (!hasCustomerAddress || needNewAddress || addressOnEdit) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -51,7 +52,7 @@ function ShippingAddressList() {
       <SubSection title="Most recently used">
         <div className="flex items-start justify-between space-x-8">
           {recentAddresses.map((addressCard, index) => (
-            <div key={addressCard.id} className="flex-1">
+            <div key={addressCard.id} className="w-1/2">
               <div
                 className={classNames(
                   index === 0 ? 'border border-primary-lighter' : '',
@@ -79,35 +80,33 @@ function ShippingAddressList() {
                     </li>
                   </ul>
                 </div>
-                {index === 0 && (
-                  <div
-                    style={{ minHeight: 40 }}
-                    className="flex items-center px-2 bg-gray-300 rounded-t-sm shadow-sm"
-                  >
-                    {index === 0 && (
-                      <BillingSameAsShippingCheckbox
-                        useInCard
-                        label="My billing address is same as above"
-                      />
-                    )}
+                {index !== 0 ? (
+                  <div className="flex items-center w-full text-sm divide-x bg-gray-50">
+                    <AddressTitle address={addressCard} />
+                    <AddressChooseButton
+                      disabled={index === 0}
+                      addressId={addressCard.id}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center w-full text-sm divide-x bg-gray-50">
+                    <AddressTitle address={addressCard} />
+                    <AddressEditButton addressId={addressCard.id} />
                   </div>
                 )}
-                <div className="flex w-full text-sm divide-x bg-gray-50">
-                  <AddressChooseButton
-                    disabled={index === 0}
-                    addressId={addressCard.id}
-                  />
-                  <AddressEditButton addressId={addressCard.id} />
-                </div>
               </div>
             </div>
           ))}
         </div>
       </SubSection>
 
-      <SubSection title="Other address options">
-        <OtherAddressList list={otherAddresses} />
-      </SubSection>
+      {!!otherAddresses.length && (
+        <SubSection title="Other address options">
+          <OtherAddressList list={otherAddresses} />
+        </SubSection>
+      )}
+
+      <BillingSameAsShippingCheckbox />
 
       <HorizontalLineSeparator />
     </GeneralSection>

@@ -14,6 +14,7 @@ function ContinueButton({ size, variant, disable, actions, label }) {
   const { currentStep, goToNextStep } = useStepContext();
 
   const handleContinue = async () => {
+    let canContinue = true;
     const { errors: hasErrors, message: errorMessage } = await validateStep(
       formSections,
       currentStep,
@@ -26,10 +27,11 @@ function ContinueButton({ size, variant, disable, actions, label }) {
     }
 
     if (actions?.submit) {
-      await actions.submit();
+      canContinue = await actions.submit();
     }
-
-    goToNextStep();
+    if (canContinue) {
+      goToNextStep();
+    }
   };
 
   return (
@@ -60,7 +62,7 @@ ContinueButton.defaultProps = {
   label: 'Continue',
   variant: 'primary',
   actions: {
-    submit: Boolean,
+    submit: () => true,
   },
 };
 

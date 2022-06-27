@@ -1,11 +1,15 @@
 import React from 'react';
 
-import { AddressForm } from '../../address';
 import { AddressFormCancelButton } from './button';
 import Button from '../../../../code/common/Button';
 import { GeneralSection } from '../../common/sections';
+import { AddressForm, SaveInBookCheckbox } from '../../address';
 import HorizontalLineSeparator from '../../common/HorizontalLineSeparator';
 import BillingSameAsShippingCheckbox from './BillingSameAsShippingCheckbox';
+import {
+  CART_SHIPPING_ADDRESS,
+  isValidCustomerAddressId,
+} from '../../../../../utils/address';
 import {
   useEnterActionInForm,
   useTextInputBlurAction,
@@ -20,7 +24,6 @@ import { getShippingUniqueId } from '../utility';
 import { useStepContext } from '../../step/hooks';
 import { ROUTE_PATH_ADDRESS } from '../../step/utility';
 import { _isObjEmpty, _emptyFunc } from '../../../../../utils';
-import { isValidCustomerAddressId } from '../../../../../utils/address';
 
 const isEditForm = true;
 const emptyCallback = _emptyFunc();
@@ -38,7 +41,8 @@ function ShippingAddressForm() {
   } = useShippingAddressFormikContext();
   const submitHandler = useSaveAddressAction();
   const { setStepRoutePath } = useStepContext();
-  const { cartShippingAddress } = useShippingAddressCartContext();
+  const { cartShippingAddress, setCartSelectedShippingAddress } =
+    useShippingAddressCartContext();
   const { isLoggedIn, customerAddressList } = useShippingAddressAppContext();
   // We dont want to fire form submit on enter. We are dealing it on the blur.
   // We just need to focus next element upon enter key pressed.
@@ -70,6 +74,7 @@ function ShippingAddressForm() {
     try {
       if (needNewAddress || !isValidCustomerAddressId(addressOnEdit)) {
         await submitHandler();
+        setCartSelectedShippingAddress(CART_SHIPPING_ADDRESS);
       } else {
         await submitHandler(addressOnEdit, isEditForm);
       }
@@ -103,16 +108,20 @@ function ShippingAddressForm() {
         fields={fields}
         formikData={formikData}
         actions={{ handleKeyDown, handleBlur }}
-      />
-      <BillingSameAsShippingCheckbox
-        actions={{ updateAddress: handleAddressUpdate }}
-      />
+      >
+        <SaveInBookCheckbox fields={fields} formikData={formikData} />
+      </AddressForm>
       {(needNewAddress || addressOnEdit) && (
         <div className="flex items-center justify-center space-x-8">
           <AddressFormCancelButton />
-          <Button click={handleAddressUpdate}>Save</Button>
+          <Button variant="success" click={handleAddressUpdate}>
+            Save
+          </Button>
         </div>
       )}
+      <BillingSameAsShippingCheckbox
+        actions={{ updateAddress: handleAddressUpdate }}
+      />
       <HorizontalLineSeparator />
     </GeneralSection>
   );

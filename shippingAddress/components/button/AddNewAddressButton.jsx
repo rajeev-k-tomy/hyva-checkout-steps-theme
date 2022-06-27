@@ -1,9 +1,13 @@
 import React from 'react';
 import { PlusSmIcon } from '@heroicons/react/solid';
 
+import {
+  useShippingAddressCartContext,
+  useShippingAddressFormikContext,
+} from '../../hooks';
 import { useStepContext } from '../../../step/hooks';
 import { classNames } from '../../../../../../utils';
-import { useShippingAddressFormikContext } from '../../hooks';
+import { isValidCustomerAddressId } from '../../../../../../utils/address';
 
 function AddNewAddressButton() {
   const {
@@ -13,6 +17,7 @@ function AddNewAddressButton() {
     setNeedNewAddress,
     resetShippingAddressFormFields,
   } = useShippingAddressFormikContext();
+  const { selectedAddressId } = useShippingAddressCartContext();
   const { setStepRoutePath } = useStepContext();
 
   const handleNewAddressClick = () => {
@@ -21,6 +26,10 @@ function AddNewAddressButton() {
     setNeedNewAddress(true);
     setStepRoutePath('add-new-delivery-address');
   };
+
+  if (!isValidCustomerAddressId(selectedAddressId)) {
+    return null;
+  }
 
   return (
     <button

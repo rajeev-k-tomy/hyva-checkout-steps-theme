@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AddressForm } from '../../address';
+import { AddressForm, SaveInBookCheckbox } from '../../address';
 import { HorizontalLineSeparator } from '../../common';
 import { GeneralSection } from '../../common/sections';
 import {
@@ -16,6 +16,7 @@ import {
 import { _emptyFunc } from '../../../../../utils';
 import AddressBookSelector from './AddressBookSelector';
 import { getAddressUniqueId } from '../../address/utility';
+import { isValidCustomerAddressId } from '../../../../../utils/address';
 
 const emptyCallback = _emptyFunc();
 
@@ -26,8 +27,10 @@ function BillingAddressForm() {
     isBillingSame,
     billingValues,
     addressOnEdit,
+    setFieldValue,
     needNewAddress,
     validationSchema,
+    billingAddressSelected,
   } = useBillingAddressFormikContext();
   const submitHandler = useSaveAddressAction();
   const { isLoggedIn } = useBillingAddressAppContext();
@@ -59,8 +62,14 @@ function BillingAddressForm() {
     handleBlur = emptyCallback;
   }
 
+  const handleSaveBookChange = async (event) => {
+    const isChecked = event?.target?.checked;
+    setFieldValue(fields.saveInBook, isChecked);
+    await submitHandler(billingAddressSelected, { saveInBook: isChecked });
+  };
+
   if (isBillingSame) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -70,16 +79,18 @@ function BillingAddressForm() {
       title="Add a new billing address"
     >
       <AddressBookSelector />
-      <AddressForm
-        fields={fields}
-        formikData={formikData}
-        actions={{ handleKeyDown, handleBlur }}
-      />
-      {(needNewAddress || addressOnEdit) && (
-        <div className="flex items-center justify-center space-x-8">
-          {/* <AddressFormCancelButton />
-          <Button click={handleSaveButtonClick}>Save</Button> */}
-        </div>
+      {!isValidCustomerAddressId(billingAddressSelected) && (
+        <AddressForm
+          fields={fields}
+          formikData={formikData}
+          actions={{ handleKeyDown, handleBlur }}
+        >
+          <SaveInBookCheckbox
+            fields={fields}
+            formikData={formikData}
+            actions={{ handleChange: handleSaveBookChange }}
+          />
+        </AddressForm>
       )}
       <HorizontalLineSeparator />
     </GeneralSection>

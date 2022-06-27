@@ -1,9 +1,12 @@
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 
+import {
+  isCartAddressValid,
+  isValidCustomerAddressId,
+} from '../../../../../utils/address';
 import { getAddressUniqueId } from '../../address/utility';
 import { _isObjEmpty, _objToArray } from '../../../../../utils';
 import { prepareFullName } from '../../../../../utils/customer';
-import { isCartAddressValid } from '../../../../../utils/address';
 
 export function getShippingUniqueId(shippingValues) {
   return getAddressUniqueId(shippingValues);
@@ -58,9 +61,11 @@ export function prepareAddressCardListData({
       recentAddresses.push(prepareAddressCardData(defaultAddress));
       recentAddressIds.push(defaultShippingAddress);
     } else {
-      recentAddresses.push(prepareAddressCardData(firstAddress));
-      recentAddressIds.push(firstAddress.id);
-      if (recentAddresses.length < 2) {
+      if (firstAddress) {
+        recentAddresses.push(prepareAddressCardData(firstAddress));
+        recentAddressIds.push(firstAddress.id);
+      }
+      if (recentAddresses.length < 2 && secondAddress) {
         recentAddresses.push(prepareAddressCardData(secondAddress));
         recentAddressIds.push(secondAddress.id);
       }
@@ -72,4 +77,15 @@ export function prepareAddressCardListData({
   );
 
   return { recentAddresses, otherAddresses };
+}
+
+export function getAddressTitle(address, defaultId) {
+  if (address.id === defaultId) {
+    return 'DEFAULT ADDRESS';
+  }
+  if (isValidCustomerAddressId(address.id)) {
+    return 'FROM ADDRESS BOOK';
+  }
+
+  return 'NEW ADDRESS';
 }

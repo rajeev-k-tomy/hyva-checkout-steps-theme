@@ -1,4 +1,4 @@
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 
 import { initialCountry } from '../../../../../utils/address';
 import { prepareFullName } from '../../../../../utils/customer';

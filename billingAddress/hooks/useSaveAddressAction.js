@@ -28,10 +28,10 @@ export default function useSaveAddressAction() {
   const { setFieldValue, isFormSectionValid, billingValues, setAddressOnEdit } =
     useBillingAddressFormikContext();
 
-  return async (addressId) => {
+  return async (addressId, dataToUpdate = {}) => {
     setMessage(false);
 
-    if (!isFormSectionValid) {
+    if (!isFormSectionValid && !isValidCustomerAddressId(addressId)) {
       return;
     }
 
@@ -39,6 +39,7 @@ export default function useSaveAddressAction() {
       let updateBillingAddress = _makePromise(setCartBillingAddress, {
         ...billingValues,
         isSameAsShipping: isBillingSame,
+        ...dataToUpdate,
       });
 
       if (isValidCustomerAddressId(addressId)) {

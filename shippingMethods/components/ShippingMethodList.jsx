@@ -41,7 +41,7 @@ function ShippingMethodList() {
   }, [selectedMethod]);
 
   return (
-    <GeneralSection title="Select a shipping method" addTopPadding>
+    <GeneralSection title="Select a shipping method">
       <WellSection>
         <VerticalTabSelector
           selected={selected}

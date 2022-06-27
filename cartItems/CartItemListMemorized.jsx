@@ -18,7 +18,7 @@ const CartItemListMemorized = React.memo(({ formikData }) => {
             <div className="flex flex-wrap space-x-8">
               <div>
                 <img
-                  className="w-20 h-auto"
+                  className="w-16 h-auto md:w-20"
                   alt={cartItem.productName}
                   src={cartItem.productSmallImgUrl}
                 />
@@ -33,7 +33,7 @@ const CartItemListMemorized = React.memo(({ formikData }) => {
                       {cartItem.productName}
                     </h3>
                     {cartItem.isConfigurable ? (
-                      <ul className="space-y-1 text-gray-400">
+                      <ul className="space-y-1 text-sm text-gray-400 md:text-base">
                         {cartItem.selectedConfigOptions.map((configOption) => (
                           <li key={configOption.optionId}>
                             {configOption.label}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 import { object } from 'prop-types';
 
 import { VerticalTabSelector } from '../../common/form';

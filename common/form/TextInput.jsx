@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import _get from 'lodash.get';
-import { bool, func, node, shape, string } from 'prop-types';
+import { get as _get } from 'lodash-es';
 import { ErrorMessage, Field } from 'formik';
+import { bool, func, node, shape, string } from 'prop-types';
 
 import { formikDataShape } from '../../../../../utils/propTypes';
-import { classNames, _emptyFunc, _keys, _replace } from '../../../../../utils';
+import { classNames, _emptyFunc, _replace } from '../../../../../utils';
 
 const emptyCallback = _emptyFunc();
 
@@ -37,8 +37,8 @@ function TextInput({
   const hasFieldTouched =
     _get(formSectionTouched, relativeFieldName) !== undefined;
   const hasError = hasFieldError && hasFieldTouched;
-  const handleKeyDown = actions.handleKeyDown || emptyCallback;
   const handleBlur = actions.handleBlur || emptyCallback;
+  const handleKeyDown = actions.handleKeyDown || emptyCallback;
 
   return (
     <div className="w-full">

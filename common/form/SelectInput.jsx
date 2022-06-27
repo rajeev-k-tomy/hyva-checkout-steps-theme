@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 import { ErrorMessage, Field } from 'formik';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 
@@ -50,7 +50,7 @@ function SelectInput({
           hasError
             ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
             : 'border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500',
-          'block w-full py-2 pl-3 pr-10 mt-1 text-base rounded-md sm:text-sm'
+          'block w-full py-2 pl-3 pr-10 mt-1 text-sm rounded-md sm:text-sm'
         )}
         onChange={(event) => {
           const newValue = event.target.value;
@@ -81,11 +81,11 @@ function SelectInput({
 
 SelectInput.propTypes = {
   id: string,
-  actions: shape({ change: func }),
+  label: string,
   required: bool,
   placeholder: string,
   name: string.isRequired,
-  label: string.isRequired,
+  actions: shape({ change: func }),
   formikData: formikDataShape.isRequired,
   options: arrayOf(
     shape({
@@ -97,9 +97,10 @@ SelectInput.propTypes = {
 
 SelectInput.defaultProps = {
   id: '',
+  label: '',
   options: [],
-  required: false,
   actions: {},
+  required: false,
   placeholder: '',
 };
 

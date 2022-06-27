@@ -10,9 +10,11 @@ function OrderSummary() {
   const { currentStep } = useStepContext();
 
   return (
-    <div className="flex-1 ml-12 space-y-10">
+    <div className="flex-1 space-y-10 md:ml-12">
       <div>
-        <h1 className="text-xl font-bold">Order Summary</h1>
+        <h1 className="text-xl font-bold text-center md:text-2xl">
+          Order Summary
+        </h1>
       </div>
 
       <div className="space-y-4 overflow-hidden bg-white shadow sm:rounded-md">

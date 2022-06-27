@@ -12,10 +12,14 @@ const CheckoutAgreementsMemorized = React.memo(({ formikData }) => {
 
   return (
     <CheckoutAgreementFormikProvider formikData={formikData}>
-      {_isObjEmpty(checkoutAgreements) ? <></> : (
+      {_isObjEmpty(checkoutAgreements) ? null : (
         <CheckoutAgreementModalWrapper>
-          <div className="box-content px-6 py-3 mt-6 bg-gray-200 rounded-md shadow-sm">
-            <CheckoutAgreementsForm />
+          <div className="mt-6">
+            <div className="flex items-center justify-center ">
+              <div className="box-content w-5/6 px-6 py-3 bg-gray-200 rounded-md shadow-sm">
+                <CheckoutAgreementsForm />
+              </div>
+            </div>
           </div>
         </CheckoutAgreementModalWrapper>
       )}

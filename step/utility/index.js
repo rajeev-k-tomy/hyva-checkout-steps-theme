@@ -45,9 +45,24 @@ export const defaultStepRoutePath = {
 export function stepTitles(currentStep) {
   return [
     { title: 'Login', active: true, path: ROUTE_PATH_NEW_CUSTOMER },
-    { title: 'Address', active: currentStep >= 2, path: ROUTE_PATH_ADDRESS },
-    { title: 'Shipping', active: currentStep >= 3, path: ROUTE_PATH_SHIPPING },
-    { title: 'Payment', active: currentStep >= 4, path: ROUTE_PATH_PAYMENT },
+    {
+      title: 'Address',
+      mobileTitle: 'Address Details',
+      active: currentStep >= 2,
+      path: ROUTE_PATH_ADDRESS,
+    },
+    {
+      title: 'Shipping',
+      mobileTitle: 'Shipping Information',
+      active: currentStep >= 3,
+      path: ROUTE_PATH_SHIPPING,
+    },
+    {
+      title: 'Payment',
+      mobileTitle: 'Payment Information',
+      active: currentStep >= 4,
+      path: ROUTE_PATH_PAYMENT,
+    },
   ];
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 import { ClipboardCheckIcon } from '@heroicons/react/outline';
 
 import {
@@ -84,13 +84,15 @@ function CheckoutAgreementModal() {
             >
               {__('Close')}
             </button>
-            <button
-              type="button"
-              className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-              onClick={handleAgreeButtonClick}
-            >
-              {__('I agree')}
-            </button>
+            {!modalAgreement?.isAutomatic && (
+              <button
+                type="button"
+                className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                onClick={handleAgreeButtonClick}
+              >
+                {__('I agree')}
+              </button>
+            )}
           </div>
         </div>
       </div>

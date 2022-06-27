@@ -1,5 +1,5 @@
 import React from 'react';
-import _get from 'lodash.get';
+import { get as _get } from 'lodash-es';
 import { string, shape } from 'prop-types';
 
 import {
@@ -57,7 +57,7 @@ function ItemQtySelector({ item }) {
       value={itemQty}
       name={fullItemField}
       onChange={handleItemChange}
-      className="text-sm border-gray-300 rounded-md"
+      className="w-16 text-sm border-gray-300 rounded-md"
     >
       {_range(1, item.quantity + 9).map((qty) => (
         <option key={qty} value={qty}>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { func, shape, string } from 'prop-types';
+import { func, shape, string, node } from 'prop-types';
 
 import { SelectInput, TextInput } from '../common/form';
 import { formikDataShape } from '../../../../utils/propTypes';
 import { useCountryState } from '../../../code/address/hooks';
 
-function AddressForm({ formikData, fields, actions }) {
+function AddressForm({ formikData, fields, actions, children }) {
   const { countryOptions, stateOptions, hasStateOptions } = useCountryState({
     formikData,
     fields,
@@ -22,7 +22,7 @@ function AddressForm({ formikData, fields, actions }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start justify-between space-x-3">
+      <div className="space-y-4 lg:flex lg:space-y-0 lg:space-x-3 md:space-y-4 sm:space-y-0 sm:items-start sm:justify-between sm:space-x-3 sm:flex md:block md:space-x-0">
         <TextInput
           required
           actions={actions}
@@ -44,7 +44,7 @@ function AddressForm({ formikData, fields, actions }) {
         name={fields.company}
         formikData={formikData}
       />
-      <div className="flex items-start justify-between space-x-3">
+      <div className="space-y-4 lg:flex lg:space-y-0 lg:space-x-3 md:space-y-4 sm:space-y-0 sm:items-start sm:justify-between sm:space-x-3 sm:flex md:block md:space-x-0">
         <TextInput
           required
           label="Street 1"
@@ -59,7 +59,7 @@ function AddressForm({ formikData, fields, actions }) {
           name={`${fields.street}[1]`}
         />
       </div>
-      <div className="flex items-start justify-between space-x-3">
+      <div className="space-y-4 lg:flex lg:space-y-0 lg:space-x-3 md:space-y-4 sm:space-y-0 sm:items-start sm:justify-between sm:space-x-3 sm:flex md:block md:space-x-0">
         <TextInput
           required
           actions={actions}
@@ -76,7 +76,7 @@ function AddressForm({ formikData, fields, actions }) {
           onChange={handleCountryChange}
         />
       </div>
-      <div className="flex items-start justify-between space-x-3">
+      <div className="space-y-4 lg:flex lg:space-y-0 lg:space-x-3 md:space-y-4 sm:space-y-0 sm:items-start sm:justify-between sm:space-x-3 sm:flex md:block md:space-x-0">
         {hasStateOptions ? (
           <SelectInput
             required
@@ -97,9 +97,9 @@ function AddressForm({ formikData, fields, actions }) {
         {hasStateOptions ? (
           <TextInput
             required
-            label="Phone"
+            label="PIN code"
             actions={actions}
-            name={fields.phone}
+            name={fields.zipcode}
             formikData={formikData}
           />
         ) : (
@@ -121,14 +121,20 @@ function AddressForm({ formikData, fields, actions }) {
           formikData={formikData}
         />
       )}
+      {children}
     </div>
   );
 }
 
 AddressForm.propTypes = {
+  children: node,
   formikData: formikDataShape.isRequired,
   actions: shape({ handleKeyDown: func }).isRequired,
   fields: shape({ firstname: string, lastname: string }).isRequired,
+};
+
+AddressForm.defaultProps = {
+  children: null,
 };
 
 export default AddressForm;

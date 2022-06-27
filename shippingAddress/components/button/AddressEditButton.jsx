@@ -34,13 +34,14 @@ function AddressEditButton({ addressId }) {
     setAddressOnEdit(addressId);
     setStepRoutePath('edit-delivery-address');
   };
+
   return (
     <button
       type="button"
       onClick={handleEditAddressClick}
       className="flex-1 py-3 shadow-inner hover:text-blue-800"
     >
-      Edit
+      <b>Edit</b>
     </button>
   );
 }

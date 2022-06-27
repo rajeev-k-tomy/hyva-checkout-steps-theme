@@ -15,7 +15,7 @@ function MainContentSection({ children }) {
       <StepNavigation />
       <Message />
       <div className="flex items-center justify-center">
-        <div className="flex items-start justify-between w-full px-20 py-14 bg-container">
+        <div className="w-full px-6 py-8 space-y-8 md:space-y-0 md:items-start md:justify-between md:px-20 md:flex md:py-14 bg-container">
           <div className="flex-1">{children}</div>
           <OrderSummary />
         </div>

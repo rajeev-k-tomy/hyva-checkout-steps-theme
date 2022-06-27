@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import _get from 'lodash.get';
+import React, { useCallback, useEffect, useState } from 'react';
+import { get as _get } from 'lodash-es';
 import { Form } from 'formik';
 import { node } from 'prop-types';
 import { string as YupString, bool as YupBool, array as YupArray } from 'yup';
@@ -38,7 +38,13 @@ const initValidationSchema = {
 
 function BillingAddressFormikProvider({ children, formikData }) {
   const [addressOnEdit, setAddressOnEdit] = useState(null);
-  const { setFieldValue, selectedRegion, selectedCountry } = formikData;
+  const {
+    setFieldValue,
+    isBillingSame,
+    selectedRegion,
+    setFieldTouched,
+    selectedCountry,
+  } = formikData;
   const validationSchema = useRegionValidation(
     selectedCountry,
     initValidationSchema
@@ -70,6 +76,12 @@ function BillingAddressFormikProvider({ children, formikData }) {
     submitHandler: _emptyFunc(),
     initialValues: billingAddressInitialValues,
   });
+
+  useEffect(() => {
+    if (!isBillingSame) {
+      setFieldTouched(BILLING_ADDR_FORM);
+    }
+  }, [isBillingSame, setFieldTouched]);
 
   const context = {
     formikData,

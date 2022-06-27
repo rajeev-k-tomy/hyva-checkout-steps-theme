@@ -39,6 +39,7 @@ export const shippingAddressInitialValues = {
   city: '',
   region: '',
   country: initialCountry,
+  saveInBook: true,
 };
 
 export const billingAddressInitialValues = {
