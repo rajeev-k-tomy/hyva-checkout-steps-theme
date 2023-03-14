@@ -4,7 +4,7 @@
 import React from 'react';
 import { get as _get } from 'lodash-es';
 import { useFormikContext } from 'formik';
-import { ShoppingCartIcon } from '@heroicons/react/solid';
+import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 
 import { classNames, _range } from '../../../utils';
 import useStepContext from './step/hooks/useStepContext';

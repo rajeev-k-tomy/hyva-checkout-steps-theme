@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserRemoveIcon } from '@heroicons/react/solid';
+import { UserRemoveIcon } from '@heroicons/react/24/solid';
 
 import EmailField from './EmailField';
 import { TextInput } from '../../common/form';

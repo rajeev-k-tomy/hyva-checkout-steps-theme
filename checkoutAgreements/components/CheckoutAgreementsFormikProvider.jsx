@@ -87,8 +87,13 @@ function CheckoutAgreementFormikProvider({ children, formikData }) {
 }
 
 CheckoutAgreementFormikProvider.propTypes = {
-  children: node.isRequired,
+  children: node,
   formikData: formikDataShape.isRequired,
+};
+
+CheckoutAgreementFormikProvider.defaultProps = {
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  children: <></>,
 };
 
 export default CheckoutAgreementFormikProvider;

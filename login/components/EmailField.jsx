@@ -1,5 +1,5 @@
 import React from 'react';
-import { MailIcon } from '@heroicons/react/solid';
+import { EnvelopeIcon } from '@heroicons/react/24/solid';
 
 import { TextInput } from '../../common/form';
 import { useLoginFormContext } from '../hooks';
@@ -15,7 +15,7 @@ function EmailField() {
 
   const leftIcon = (
     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-      <MailIcon
+      <EnvelopeIcon
         className={classNames(
           isEmailError ? 'text-red-400' : 'text-gray-400',
           'w-5 h-5 '

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrashIcon } from '@heroicons/react/solid';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 import ItemQtySelector from './components/ItemQtySelector';
 import { CartItemsFormManager } from '../../../code/items/components';
