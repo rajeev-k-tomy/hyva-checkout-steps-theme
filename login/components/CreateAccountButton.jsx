@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusSmIcon } from '@heroicons/react/solid';
+import { PlusSmallIcon } from '@heroicons/react/24/solid';
 
 import { HorizontalLineSeparator } from '../../common';
 import { useLoginFormContext } from '../hooks';
@@ -22,7 +22,7 @@ function CreateAccountButton() {
             setStepRoutePath(ROUTE_PATH_CREATE_ACCOUNT);
           }}
         >
-          <PlusSmIcon className="w-6 h-6" />
+          <PlusSmallIcon className="w-6 h-6" />
           <span className="hover:underline">Create you Site account</span>
         </button>
       </div>

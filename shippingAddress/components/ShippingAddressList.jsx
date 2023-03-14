@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 import AddressTitle from './AddressTitle';
 import OtherAddressList from '../../address/OtherAddressList';

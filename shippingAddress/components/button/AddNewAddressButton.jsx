@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusSmIcon } from '@heroicons/react/solid';
+import { PlusSmIcon } from '@heroicons/react/24/solid';
 
 import {
   useShippingAddressCartContext,
