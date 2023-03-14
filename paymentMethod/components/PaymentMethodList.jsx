@@ -9,13 +9,14 @@ import {
   usePaymentMethodCartContext,
   usePaymentMethodFormContext,
 } from '../../../../code/paymentMethod/hooks';
+import { __ } from '../../../../../i18n';
 import { _objToArray } from '../../../../../utils';
 import { PAYMENT_METHOD_FORM } from '../../../../../config';
 
 function PaymentMethodList({ methodRenderers }) {
   const [selected, setSelected] = useState('');
   const { methodList } = usePaymentMethodCartContext();
-  const { setFieldValue, submitHandler, paymentValues, fields} =
+  const { setFieldValue, submitHandler, paymentValues, fields } =
     usePaymentMethodFormContext();
   const paymentMethodSelected = paymentValues?.code;
 
@@ -42,7 +43,7 @@ function PaymentMethodList({ methodRenderers }) {
   }, [paymentMethodSelected]);
 
   return (
-    <GeneralSection title="Select a payment method">
+    <GeneralSection title={__('Select a payment method')}>
       {_objToArray(methodList).map((method) => {
         const MethodRenderer = methodRenderers[method.code];
         if (MethodRenderer) {

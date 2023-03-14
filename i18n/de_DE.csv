@@ -1,0 +1,46 @@
+"Create Account","Konto erstellen"
+"New customer","Neuer Kunde"
+"Sign-in",Anmeldung
+Email,"E-Mail"
+"you@example.com","you@example.com"
+Continue,Weiter
+OR,ODER
+"Create an account","Ein Konto erstellen"
+Login,Anmeldung
+Address,Adresse
+"Address Details",Adresse
+Shipping,Versand
+"Shipping Information",Versand
+Payment,Zahlung
+"Payment Information",Zahlung
+"Login form is invalid.","Anmeldeformular ist ungültig."
+"Cart items are invalid.","Warenkorbartikel sind ungültig."
+"Shipping address is invalid.","Lieferadresse ist ungültig."
+"Billing address is invalid.","Rechnungsadresse ist ungültig."
+"No shipping method selected.","Keine Versandart ausgewählt."
+"Payment method selected is invalid.","Die ausgewählte Zahlungsmethode ist ungültig."
+"Please agree with all terms and conditions.","Bitte stimmen Sie allen Bedingungen zu."
+"Coupon code is required.","Gutscheincode ist erforderlich."
+"Add a new delivery address","Fügen Sie eine neue Lieferadresse hinzu"
+"Edit your delivery address","Bearbeiten Sie Ihre Lieferadresse"
+"First name",Vorname
+"Last name",Nachname
+Company,Unternehmen
+"Street %1","Straße %1"
+"Town / City","Ort / Stadt"
+Country,Land
+"State / Province","Staat / Provinz"
+"PIN code",Postleitzahl
+Phone,Telefon
+"I like to keep my billing address same as my delivery address above.","Ich möchte, dass meine Rechnungsadresse dieselbe wie meine Lieferadresse oben bleibt."
+"Is billing same as shipping","Ist die Rechnung gleich wie der Versand"
+"Order Summary","Bestellübersicht"
+Subtotal,Zwischensumme
+Tax,Steuer
+"Grand Total",Gesamtsumme
+"Select a shipping method","Wählen Sie eine Versandart"
+"Select a payment method","Wählen Sie eine Zahlungsmethode aus"
+"Billing address updated successfully.","Rechnungsadresse erfolgreich aktualisiert."
+"Billing address update failed. Please try again.","Aktualisierung der Rechnungsadresse fehlgeschlagen. Bitte versuche es erneut."
+"Shipping address updated successfully.","Lieferadresse erfolgreich aktualisiert."
+"Billing address update failed. Please try again.","Aktualisierung der Rechnungsadresse fehlgeschlagen. Bitte versuche es erneut."

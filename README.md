@@ -41,7 +41,8 @@ Hyvä checkout has `2.0-develop` branch. You can use this theme with that versio
 You are now able to see the Hyvä Checkout in this theme.
 ## Translations
 
-Documentation coming soon
+You can find csv files related to this theme inside `i18n` directory here. You need to move those translations to your Magento site and add those translations via layout xml file.
+
 ## Credits
 
 - [Rajeev K Tomy][link-author]

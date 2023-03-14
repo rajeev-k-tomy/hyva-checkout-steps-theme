@@ -4,11 +4,11 @@ import {
   LOGIN_FORM,
   CART_ITEMS_FORM,
   SHIPPING_METHOD,
+  COUPON_CODE_FORM,
   BILLING_ADDR_FORM,
   SHIPPING_ADDR_FORM,
   PAYMENT_METHOD_FORM,
   CHECKOUT_AGREEMENTS_FORM,
-  COUPON_CODE_FORM,
 } from '../../../../../config';
 import { __ } from '../../../../../i18n';
 
@@ -44,22 +44,22 @@ export const defaultStepRoutePath = {
 
 export function stepTitles(currentStep) {
   return [
-    { title: 'Login', active: true, path: ROUTE_PATH_NEW_CUSTOMER },
+    { title: __('Login'), active: true, path: ROUTE_PATH_NEW_CUSTOMER },
     {
-      title: 'Address',
-      mobileTitle: 'Address Details',
+      title: __('Address'),
+      mobileTitle: __('Address Details'),
       active: currentStep >= 2,
       path: ROUTE_PATH_ADDRESS,
     },
     {
-      title: 'Shipping',
-      mobileTitle: 'Shipping Information',
+      title: __('Shipping'),
+      mobileTitle: __('Shipping Information'),
       active: currentStep >= 3,
       path: ROUTE_PATH_SHIPPING,
     },
     {
-      title: 'Payment',
-      mobileTitle: 'Payment Information',
+      title: __('Payment'),
+      mobileTitle: __('Payment Information'),
       active: currentStep >= 4,
       path: ROUTE_PATH_PAYMENT,
     },
@@ -100,10 +100,10 @@ const formSectionErrorLabels = {
   [LOGIN_FORM]: __('Login form is invalid.'),
   [CART_ITEMS_FORM]: __('Cart items are invalid.'),
   [SHIPPING_ADDR_FORM]: __('Shipping address is invalid.'),
-  [BILLING_ADDR_FORM]: __('Billing address is invalid'),
+  [BILLING_ADDR_FORM]: __('Billing address is invalid.'),
   [SHIPPING_METHOD]: __('No shipping method selected.'),
   [PAYMENT_METHOD_FORM]: __('Payment method selected is invalid.'),
-  [CHECKOUT_AGREEMENTS_FORM]: __('Please agree with all terms and conditions'),
+  [CHECKOUT_AGREEMENTS_FORM]: __('Please agree with all terms and conditions.'),
   [COUPON_CODE_FORM]: __('Coupon code is required.'),
 };
 

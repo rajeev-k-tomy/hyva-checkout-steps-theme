@@ -6,6 +6,7 @@ import {
   useShippingMethodCartContext,
   useShippingMethodFormContext,
 } from '../../../../code/shippingMethod/hooks';
+import { __ } from '../../../../../i18n';
 import { _objToArray } from '../../../../../utils';
 import { SHIPPING_METHOD } from '../../../../../config';
 
@@ -41,7 +42,7 @@ function ShippingMethodList() {
   }, [selectedMethod]);
 
   return (
-    <GeneralSection title="Select a shipping method">
+    <GeneralSection title={__('Select a shipping method')}>
       <WellSection>
         <VerticalTabSelector
           selected={selected}

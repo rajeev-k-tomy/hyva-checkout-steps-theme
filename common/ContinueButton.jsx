@@ -3,6 +3,7 @@ import { useFormikContext } from 'formik';
 import { bool, func, oneOf, shape, string } from 'prop-types';
 
 import Button from '../../../code/common/Button';
+import { __ } from '../../../../i18n';
 import { useStepContext } from '../step/hooks';
 import { validateStep } from '../step/utility';
 import { useAppContext, useCheckoutFormContext } from '../../../../hooks';
@@ -59,7 +60,7 @@ ContinueButton.propTypes = {
 ContinueButton.defaultProps = {
   size: 'md',
   disable: false,
-  label: 'Continue',
+  label: __('Continue'),
   variant: 'primary',
   actions: {
     submit: () => true,

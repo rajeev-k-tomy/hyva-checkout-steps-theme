@@ -4,6 +4,7 @@ import Totals from './Totals';
 import { CartItemList } from './cartItems';
 import ContinueButton from './common/ContinueButton';
 import { PlaceOrder } from '../../code/placeOrder/components';
+import { __ } from '../../../i18n';
 import useStepContext from './step/hooks/useStepContext';
 
 function OrderSummary() {
@@ -13,7 +14,7 @@ function OrderSummary() {
     <div className="flex-1 space-y-10 md:ml-12">
       <div>
         <h1 className="text-xl font-bold text-center md:text-2xl">
-          Order Summary
+          {__('Order Summary')}
         </h1>
       </div>
 

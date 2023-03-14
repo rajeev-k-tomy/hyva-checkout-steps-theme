@@ -5,6 +5,7 @@ import { TextInput } from '../../common/form';
 import { useLoginFormContext } from '../hooks';
 import { classNames } from '../../../../../utils';
 import { emailFieldName } from '../utility/field';
+import { __ } from '../../../../../i18n';
 
 function EmailField() {
   const { formikData, formSectionErrors, formSectionTouched } =
@@ -28,11 +29,11 @@ function EmailField() {
   return (
     <TextInput
       type="email"
-      label="Email"
+      label={__('Email')}
       leftIcon={leftIcon}
       name={emailFieldName}
       formikData={formikData}
-      placeholder="you@example.com"
+      placeholder={__('you@example.com')}
     />
   );
 }

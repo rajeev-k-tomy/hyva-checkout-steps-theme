@@ -20,7 +20,7 @@ import { BillingAddressFormikContext } from '../../../../code/billingAddress/con
 const requiredMessage = __('%1 is required');
 
 const initValidationSchema = {
-  company: YupString().required(requiredMessage),
+  company: YupString().nullable(),
   firstname: YupString().required(requiredMessage),
   lastname: YupString().required(requiredMessage),
   street: YupArray().test(
