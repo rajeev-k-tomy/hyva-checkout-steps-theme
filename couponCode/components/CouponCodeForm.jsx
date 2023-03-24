@@ -27,13 +27,13 @@ function CouponCodeForm() {
       setSuccessMessage(
         __('Coupon code: %1 is applied successfully.', couponCode)
       );
-      setPageLoader(false);
     } catch (error) {
       console.error(error);
       setCodeChecked(code);
       setErrorMessage(
         error?.message || __('Coupon code: %1 is invalid.', couponCode)
       );
+    } finally {
       setPageLoader(false);
     }
   };

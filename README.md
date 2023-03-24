@@ -41,7 +41,15 @@ Hyvä checkout has `2.0-develop` branch. You can use this theme with that versio
 You are now able to see the Hyvä Checkout in this theme.
 ## Translations
 
-Documentation coming soon
+You can find csv files related to this theme inside `i18n` directory here. You need to move those translations to your Magento site and add those translations via layout xml file.
+
+Here is the translation entries you would need to add via layout xml file
+```
+<item name="medical_highlights_theme" xsi:type="string">
+    <![CDATA[Create Account,New customer,Sign-in,Email,you@example.com,Continue,OR,Create an account,Login,Address,Address Details,Shipping,Shipping Information,Payment,Payment Information,Login form is invalid.,Cart items are invalid.,Shipping address is invalid.,Billing address is invalid.,No shipping method selected.,Payment method selected is invalid.,Please agree with all terms and conditions.,Coupon code is required.,Add a new delivery address,Edit your delivery address,First name,Last name,Company,Street %1,Town / City,Country,State / Province,PIN code,Phone,I like to keep my billing address same as my delivery address above.,Is billing same as shipping,Order Summary,Subtotal,Tax,Grand Total,Select a shipping method,Select a payment method,Billing address updated successfully.,Billing address update failed. Please try again.,Shipping address updated successfully.,Billing address update failed. Please try again.,More payment options,Apply,Enter your promotional code,Apply promotional codes,Coupon code: %1 is applied successfully.,Coupon code: %1 is invalid.,Coupon code: %1 is removed successfully.,Required,Enter your discount code,Remove Coupon Code,Apply Discount,Place Order,Please provide your login details.,Please provide your email address.,Please provide your shipping address information.,Please provide your billing address information.,Please select your shipping method.,Please select your payment method.,Please agree with the terms & conditions.]]>
+</item>
+```
+
 ## Credits
 
 - [Rajeev K Tomy][link-author]
