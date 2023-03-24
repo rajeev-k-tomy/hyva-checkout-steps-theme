@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { node } from 'prop-types';
+import { useFormikContext } from 'formik';
 
 import {
   initialStepId,
@@ -7,13 +8,12 @@ import {
   defaultStepRoutePath,
 } from './utility';
 import StepContext from './context/StepContext';
-import { useCartContext, useCheckoutFormContext } from '../../../../hooks';
+import { useCheckoutFormContext } from '../../../../hooks';
 
 function StepProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(initialStepId);
-  const { setEnableReInitialize } = useCheckoutFormContext();
-  const { cart } = useCartContext();
-  const cartId = cart?.id;
+  const { dirty } = useFormikContext();
+  const { aggregatedData, setEnableReinitialize } = useCheckoutFormContext();
 
   const setStepRoutePath = useCallback((path) => {
     window.location.hash = path.replace('#', '');
@@ -34,10 +34,10 @@ function StepProvider({ children }) {
    */
   useEffect(() => {
     // disable form initialize only after data fetched from magento backend.
-    if (cartId) {
-      setEnableReInitialize(false);
+    if (dirty && aggregatedData) {
+      setEnableReinitialize(false);
     }
-  }, [setEnableReInitialize, cartId]);
+  }, [setEnableReinitialize, dirty, aggregatedData]);
 
   /**
    * When we click on the back/forward button of the browser or basically whenever

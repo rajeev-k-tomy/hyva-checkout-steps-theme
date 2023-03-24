@@ -2,6 +2,7 @@ import React from 'react';
 import { func, shape, string, node } from 'prop-types';
 
 import { SelectInput, TextInput } from '../common/form';
+import { __ } from '../../../../i18n';
 import { formikDataShape } from '../../../../utils/propTypes';
 import { useCountryState } from '../../../code/address/hooks';
 
@@ -26,36 +27,36 @@ function AddressForm({ formikData, fields, actions, children }) {
         <TextInput
           required
           actions={actions}
-          label="First name"
           formikData={formikData}
           name={fields.firstname}
+          label={__('First name')}
         />
         <TextInput
           required
-          label="Last name"
           actions={actions}
           name={fields.lastname}
+          label={__('Last name')}
           formikData={formikData}
         />
       </div>
       <TextInput
-        label="Company"
         actions={actions}
+        label={__('Company')}
         name={fields.company}
         formikData={formikData}
       />
       <div className="space-y-4 lg:flex lg:space-y-0 lg:space-x-3 md:space-y-4 sm:space-y-0 sm:items-start sm:justify-between sm:space-x-3 sm:flex md:block md:space-x-0">
         <TextInput
           required
-          label="Street 1"
           actions={actions}
           formikData={formikData}
+          label={__('Street %1', '1')}
           name={`${fields.street}[0]`}
         />
         <TextInput
-          label="Street 2"
           actions={actions}
           formikData={formikData}
+          label={__('Street %1', '2')}
           name={`${fields.street}[1]`}
         />
       </div>
@@ -64,12 +65,12 @@ function AddressForm({ formikData, fields, actions, children }) {
           required
           actions={actions}
           name={fields.city}
-          label="Town / City"
           formikData={formikData}
+          label={__('Town / City')}
         />
         <SelectInput
           required
-          label="Country"
+          label={__('Country')}
           name={fields.country}
           formikData={formikData}
           options={countryOptions}
@@ -83,29 +84,29 @@ function AddressForm({ formikData, fields, actions, children }) {
             name={fields.region}
             options={stateOptions}
             formikData={formikData}
-            label="State / Province"
+            label={__('State / Province')}
           />
         ) : (
           <TextInput
             required
-            label="PIN code"
             actions={actions}
             name={fields.zipcode}
+            label={__('PIN code')}
             formikData={formikData}
           />
         )}
         {hasStateOptions ? (
           <TextInput
             required
-            label="PIN code"
             actions={actions}
             name={fields.zipcode}
+            label={__('PIN code')}
             formikData={formikData}
           />
         ) : (
           <TextInput
             required
-            label="Phone"
+            label={__('Phone')}
             actions={actions}
             name={fields.phone}
             formikData={formikData}
@@ -115,8 +116,8 @@ function AddressForm({ formikData, fields, actions, children }) {
       {hasStateOptions && (
         <TextInput
           required
-          label="Phone"
           actions={actions}
+          label={__('Phone')}
           name={fields.phone}
           formikData={formikData}
         />

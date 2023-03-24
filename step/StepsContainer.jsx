@@ -11,7 +11,9 @@ function StepsContainer({ children }) {
   const { currentStep } = useStepContext();
   const { setFieldValue } = useFormikContext();
   const { formSections, registerFormSection } = useCheckoutFormContext();
-  const stepFormSectionIds = formSections.map(({ id: sectionId }) => sectionId);
+  const stepFormSectionIds = (formSections || []).map(
+    ({ id: sectionId }) => sectionId
+  );
 
   /**
    * Not all form get registered due to step wise navigation. We will make sure

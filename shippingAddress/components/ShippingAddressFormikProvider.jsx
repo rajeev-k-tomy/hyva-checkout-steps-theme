@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   array as YupArray,
   string as YupString,
@@ -13,7 +13,7 @@ import {
   useRegionValidation,
 } from '../../../../code/address/hooks';
 import { __ } from '../../../../../i18n';
-import { useFormSection } from '../../../../../hooks';
+import { useCheckoutFormContext, useFormSection } from '../../../../../hooks';
 import { SHIPPING_ADDR_FORM } from '../../../../../config';
 import { formikDataShape } from '../../../../../utils/propTypes';
 import { shippingAddressInitialValues } from '../../step/utility/initialValues';
@@ -44,12 +44,15 @@ function ShippingAddressFormikProvider({ children, formikData }) {
   const [needNewAddress, setNeedNewAddress] = useState(false);
   const [backupAddress, setBackupAddress] = useState(null);
   const [addressOnEdit, setAddressOnEdit] = useState(null);
+  const [initialValues, setInitialValues] = useState(
+    shippingAddressInitialValues
+  );
+  const { aggregatedData } = useCheckoutFormContext();
+  const regionData = useRegionData(selectedCountry, selectedRegion);
   const validationSchema = useRegionValidation(
     selectedCountry,
     initValidationSchema
   );
-
-  const regionData = useRegionData(selectedCountry, selectedRegion);
 
   const resetShippingAddressFormFields = useCallback(() => {
     setFieldValue(SHIPPING_ADDR_FORM, { ...shippingAddressInitialValues });
@@ -67,10 +70,23 @@ function ShippingAddressFormikProvider({ children, formikData }) {
 
   const formSectionContext = useFormSection({
     formikData,
-    initialValues: shippingAddressInitialValues,
+    initialValues,
     validationSchema,
     id: SHIPPING_ADDR_FORM,
   });
+
+  // Update initialvalues based on the initial cart data fetch.
+  useEffect(() => {
+    if (aggregatedData) {
+      const shippingAddress = aggregatedData?.cart?.shipping_address || {};
+      const saveInBook = !!aggregatedData?.customer?.customer?.email;
+      setInitialValues({
+        ...shippingAddressInitialValues,
+        ...shippingAddress,
+        saveInBook,
+      });
+    }
+  }, [aggregatedData]);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const context = {

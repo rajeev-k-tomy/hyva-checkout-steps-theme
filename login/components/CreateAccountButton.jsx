@@ -2,6 +2,7 @@ import React from 'react';
 import { PlusSmallIcon } from '@heroicons/react/24/solid';
 
 import { HorizontalLineSeparator } from '../../common';
+import { __ } from '../../../../../i18n';
 import { useLoginFormContext } from '../hooks';
 import useStepContext from '../../step/hooks/useStepContext';
 import { ROUTE_PATH_CREATE_ACCOUNT } from '../../step/utility';
@@ -12,7 +13,7 @@ function CreateAccountButton() {
 
   return (
     <div className="space-y-4">
-      <HorizontalLineSeparator word="OR" />
+      <HorizontalLineSeparator word={__('OR')} />
       <div className="flex items-center justify-center">
         <button
           type="button"
@@ -23,7 +24,7 @@ function CreateAccountButton() {
           }}
         >
           <PlusSmallIcon className="w-6 h-6" />
-          <span className="hover:underline">Create you Site account</span>
+          <span className="hover:underline">{__('Create an account')}</span>
         </button>
       </div>
     </div>

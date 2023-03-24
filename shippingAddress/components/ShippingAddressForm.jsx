@@ -20,6 +20,7 @@ import {
   useShippingAddressCartContext,
   useShippingAddressFormikContext,
 } from '../hooks';
+import { __ } from '../../../../../i18n';
 import { getShippingUniqueId } from '../utility';
 import { useStepContext } from '../../step/hooks';
 import { ROUTE_PATH_ADDRESS } from '../../step/utility';
@@ -100,8 +101,8 @@ function ShippingAddressForm() {
       }
       title={
         !(isLoggedIn && needNewAddress)
-          ? 'Add a new delivery address'
-          : 'Edit your delivery address'
+          ? __('Add a new delivery address')
+          : __('Edit your delivery address')
       }
     >
       <AddressForm

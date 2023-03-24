@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { get as _get } from 'lodash-es';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Form } from 'formik';
 import { node } from 'prop-types';
+import { get as _get } from 'lodash-es';
 import { string as YupString, bool as YupBool, array as YupArray } from 'yup';
 
 import {
@@ -10,17 +10,18 @@ import {
 } from '../../../../code/address/hooks';
 import { __ } from '../../../../../i18n';
 import { _emptyFunc } from '../../../../../utils';
-import { useFormSection } from '../../../../../hooks';
 import { BILLING_ADDR_FORM } from '../../../../../config';
 import LocalStorage from '../../../../../utils/localStorage';
 import { formikDataShape } from '../../../../../utils/propTypes';
+import { useCheckoutFormContext, useFormSection } from '../../../../../hooks';
 import { billingAddressInitialValues } from '../../step/utility/initialValues';
 import { BillingAddressFormikContext } from '../../../../code/billingAddress/context';
 
+const emptyCallback = _emptyFunc();
 const requiredMessage = __('%1 is required');
 
 const initValidationSchema = {
-  company: YupString().required(requiredMessage),
+  company: YupString().nullable(),
   firstname: YupString().required(requiredMessage),
   lastname: YupString().required(requiredMessage),
   street: YupArray().test(
@@ -37,14 +38,12 @@ const initValidationSchema = {
 };
 
 function BillingAddressFormikProvider({ children, formikData }) {
+  const { setFieldValue, selectedRegion, selectedCountry } = formikData;
   const [addressOnEdit, setAddressOnEdit] = useState(null);
-  const {
-    setFieldValue,
-    isBillingSame,
-    selectedRegion,
-    setFieldTouched,
-    selectedCountry,
-  } = formikData;
+  const [initialValues, setInitialValues] = useState(
+    billingAddressInitialValues
+  );
+  const { aggregatedData } = useCheckoutFormContext();
   const validationSchema = useRegionValidation(
     selectedCountry,
     initValidationSchema
@@ -71,29 +70,47 @@ function BillingAddressFormikProvider({ children, formikData }) {
 
   const formContext = useFormSection({
     formikData,
+    initialValues,
     validationSchema,
     id: BILLING_ADDR_FORM,
-    submitHandler: _emptyFunc(),
-    initialValues: billingAddressInitialValues,
+    submitHandler: emptyCallback,
   });
 
+  // Update initialvalues based on the initial cart data fetch.
   useEffect(() => {
-    if (!isBillingSame) {
-      setFieldTouched(BILLING_ADDR_FORM);
+    if (aggregatedData) {
+      const billingAddress = aggregatedData?.cart?.billing_address || {};
+      const saveInBook = !!aggregatedData?.customer?.customer?.email;
+      setInitialValues({
+        ...billingAddressInitialValues,
+        ...billingAddress,
+        saveInBook,
+      });
     }
-  }, [isBillingSame, setFieldTouched]);
+  }, [aggregatedData]);
 
-  const context = {
-    formikData,
-    addressOnEdit,
-    setAddressOnEdit,
-    validationSchema,
-    setBillingAddressFormFields,
-    resetBillingAddressFormFields,
-    ...regionData,
-    ...formikData,
-    ...formContext,
-  };
+  const context = useMemo(
+    () => ({
+      formikData,
+      addressOnEdit,
+      setAddressOnEdit,
+      validationSchema,
+      setBillingAddressFormFields,
+      resetBillingAddressFormFields,
+      ...regionData,
+      ...formikData,
+      ...formContext,
+    }),
+    [
+      formikData,
+      regionData,
+      formContext,
+      addressOnEdit,
+      validationSchema,
+      setBillingAddressFormFields,
+      resetBillingAddressFormFields,
+    ]
+  );
 
   return (
     <BillingAddressFormikContext.Provider value={context}>

@@ -17,6 +17,7 @@ import {
   useShippingAddressCartContext,
   useShippingAddressFormikContext,
 } from '../hooks';
+import { __ } from '../../../../../i18n';
 import { useStepContext } from '../../step/hooks';
 import { BILLING_ADDR_FORM } from '../../../../../config';
 import LocalStorage from '../../../../../utils/localStorage';
@@ -54,9 +55,9 @@ function BillingSameAsShippingCheckbox({ label, useInCard }) {
           ...shippingValues,
           isSameAsShipping: true,
         });
-        setPageLoader(false);
       } catch (error) {
         console.error(error);
+      } finally {
         setPageLoader(false);
       }
     }
@@ -68,8 +69,8 @@ function BillingSameAsShippingCheckbox({ label, useInCard }) {
   };
 
   return (
-    <fieldset className="">
-      <legend className="sr-only">Is billing same as shipping</legend>
+    <fieldset>
+      <legend className="sr-only">{__('Is billing same as shipping')}</legend>
       <div className="relative flex items-center">
         <div className="flex items-center h-5">
           <Field
@@ -90,7 +91,9 @@ function BillingSameAsShippingCheckbox({ label, useInCard }) {
             className="font-semibold text-gray-700"
           >
             {label ||
-              'I like to keep my billing address same as my delivery address above.'}
+              __(
+                'I like to keep my billing address same as my delivery address above.'
+              )}
           </label>
         </div>
       </div>

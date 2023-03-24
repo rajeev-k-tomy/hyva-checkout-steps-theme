@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { __ } from '../../../i18n';
 import { useTotalsCartContext } from '../../code/totals/hooks';
 
 function Totals() {
@@ -16,12 +17,14 @@ function Totals() {
   } = useTotalsCartContext();
 
   const totalItems = [
-    ...(hasSubTotal ? [{ title: 'Subtotal', price: subTotalIncl }] : []),
-    ...(hasShippingRate ? [{ title: 'Shipping', price: shippingRate }] : []),
+    ...(hasSubTotal ? [{ title: __('Subtotal'), price: subTotalIncl }] : []),
+    ...(hasShippingRate
+      ? [{ title: __('Shipping'), price: shippingRate }]
+      : []),
     ...(hasAppliedTaxes
       ? [
           {
-            title: 'Tax',
+            title: __('Tax'),
             items: appliedTaxes.map((tax) => ({ ...tax, title: tax?.label })),
           },
         ]
@@ -60,7 +63,7 @@ function Totals() {
         </li>
       ))}
       <li className="flex items-start justify-between pt-4 text-lg border-t">
-        <strong>Grand Total</strong>
+        <strong>{__('Grand Total')}</strong>
         <strong>{grandTotal}</strong>
       </li>
     </ul>

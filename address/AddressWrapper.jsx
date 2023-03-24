@@ -9,6 +9,7 @@ const billingCountryField = `${BILLING_ADDR_FORM}.country`;
 const shippingCountryField = `${SHIPPING_ADDR_FORM}.country`;
 
 function AddressWrapper({ children }) {
+  console.log('address_Wrapper');
   const [countryStatesFetched, setCountryStatesFetched] = useState([]);
   const { values } = useFormikContext();
   const { fetchCountryStates } = useAppContext();
@@ -42,7 +43,12 @@ function AddressWrapper({ children }) {
     if (country) {
       countryStatePromise(country);
     }
-  }, [billingCountry, shippingCountry, countryStatePromise]);
+  }, [
+    billingCountry,
+    shippingCountry,
+    countryStatePromise,
+    countryStatesFetched,
+  ]);
 
   return children;
 }
